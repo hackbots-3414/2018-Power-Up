@@ -23,7 +23,7 @@ public class SensorConfig {
 		
 		timer = ClockTimer.getInstance();
 		
-		pdb = new PowerDistributionPanel(23);
+		pdb = new PowerDistributionPanel(8);
 	}
 	
 	public static SensorConfig getInstance()

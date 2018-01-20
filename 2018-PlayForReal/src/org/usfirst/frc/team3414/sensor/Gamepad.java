@@ -2,7 +2,7 @@ package org.usfirst.frc.team3414.sensor;
 
 import edu.wpi.first.wpilibj.DriverStation;
 
-public class Gamepad {
+public class Gamepad implements IGamepad {
 	private int port;
 	private DriverStation driverStation;
 	

@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team3414.robot.Robot.LogRunnable;
 import org.usfirst.frc.team3414.actuators.ActuatorConfig;
+import org.usfirst.frc.team3414.autonomous.AutonStatus;
 import org.usfirst.frc.team3414.sensor.SensorConfig;
 import org.usfirst.frc.team3414.util.Status;
 import edu.wpi.first.wpilibj.CameraServer;
@@ -46,7 +47,7 @@ private PacbotTeleop teleop;
 		CameraServer.getInstance().addAxisCamera("10.34.14.3");
 		CameraServer.getInstance().startAutomaticCapture();
 		
-//		ActuatorConfig.getInstance().init();
+		ActuatorConfig.getInstance().init();
 		SensorConfig.getInstance().init();
 		
 		pdb = SensorConfig.getInstance().getPDB();
@@ -60,14 +61,14 @@ private PacbotTeleop teleop;
 		
 	}
 
-//	public void disabled()
-//	{
-//		System.out.println("Disabled");
-//		// Mentor Francis added the next two lines to reset the encoders each time. This allows repeated testing of Auton without redeploying code
-//		ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().setQuadraturePosition(0, 10);
-//		ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().setQuadraturePosition(0, 10);
-//		teleop.stop();
-//	}
+	public void disabled()
+	{
+		System.out.println("Disabled");
+		// Mentor Francis added the next two lines to reset the encoders each time. This allows repeated testing of Auton without redeploying code
+		ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().setQuadraturePosition(0, 10);
+		ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().setQuadraturePosition(0, 10);
+		teleop.stop();
+	}
 
 	public void operatorControl()
 	{
@@ -76,7 +77,7 @@ private PacbotTeleop teleop;
 		RobotStatus.setIsTeleop(true);
 		
 		System.out.println("Telop Running!");
-//		teleop.init();		
+		teleop.init();		
 	}
 	
 	/**
@@ -106,7 +107,7 @@ private PacbotTeleop teleop;
 //		allianceChooser.addObject("Blue", Alliance.BLUE);
 //		SmartDashboard.putData("Alliance", allianceChooser);
 		
-	//	SmartDashboard.putBoolean("Kill Switch", RobotStatus.isAuto());
+		SmartDashboard.putBoolean("Kill Switch", RobotStatus.isAuto());
 	}
 	
 	public void autonomous()
@@ -115,7 +116,7 @@ private PacbotTeleop teleop;
 		RobotStatus.setIsRunning(true);
 		RobotStatus.setIsAuto(true);
 		RobotStatus.setIsTeleop(false);
-//		AutonStatus.getInstance().setStatus(Status.RUNNING);
+		AutonStatus.getInstance().setStatus(Status.RUNNING);
 //		System.out.println(autonChooser.getSelected());
 //		
 //		autonChooser.getSelected().doAuto((boolean)shootChooser.getSelected(), allianceChooser.getSelected());
