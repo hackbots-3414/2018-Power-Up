@@ -44,8 +44,8 @@ private PacbotTeleop teleop;
 	{
 		RobotStatus.setIsRunning(true);
 		
-		CameraServer.getInstance().addAxisCamera("10.34.14.3");
-		CameraServer.getInstance().startAutomaticCapture();
+//		CameraServer.getInstance().addAxisCamera("10.34.14.3");
+//		CameraServer.getInstance().startAutomaticCapture();
 		
 		ActuatorConfig.getInstance().init();
 		SensorConfig.getInstance().init();
@@ -86,7 +86,7 @@ private PacbotTeleop teleop;
 	public void chooseAuto()
 	{
 	//	autonChooser = new SendableChooser<AutoBase>();
-		shootChooser = new SendableChooser<Object>();
+	//	shootChooser = new SendableChooser<Object>();
 	//	allianceChooser = new SendableChooser<Alliance>();
 		
 		
@@ -97,11 +97,7 @@ private PacbotTeleop teleop;
 		autonChooser.addObject("Red Center Start Gear and Shoot", new AutonRedAllianceCenterGearShoot());*/
 					
 //		SmartDashboard.putData("Autons", autonChooser);
-		
-		shootChooser.addObject("Yes", true);
-		shootChooser.addObject("No", false);
-		
-		SmartDashboard.putData("Shoot Option", shootChooser);
+
 		
 //		allianceChooser.addObject("Red", Alliance.RED);
 //		allianceChooser.addObject("Blue", Alliance.BLUE);

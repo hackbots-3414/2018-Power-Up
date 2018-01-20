@@ -55,9 +55,9 @@ public class ActuatorConfig {
 	public void init()
 	{   
 		talonLeftOne = new TalonSRX(5);//Get the talon ports
-		talonLeftTwo = new TalonSRX(3);
+		talonLeftTwo = new TalonSRX(4);
 		talonRightOne = new TalonSRX(0);
-		talonRightTwo = new TalonSRX(2);
+		talonRightTwo = new TalonSRX(1);
 		
 //		talonClimber = new TalonSRX();
 //		talonIntakeOne = new TalonSRX();

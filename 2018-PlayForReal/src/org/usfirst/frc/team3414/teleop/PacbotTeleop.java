@@ -68,11 +68,6 @@ public class PacbotTeleop implements ITeleop{
 
 			SmartDashboard.putNumber("Left Encoder - Teleop", ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition() * (0.000122));//
 			SmartDashboard.putNumber("Right Encoder - Teleop", ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition() * (-0.000122));
-
-//			SmartDashboard.putBoolean("Joys Reveresed: ", leftJoystick.isReversed());
-//			drivetrain.setSpeed((leftJoystick.getYAxis()), (rightJoystick.getYAxis()));
-			
-			//ActuatorConfig.getInstance().getDrivetrain().makeHeadingGreatAgain();
 			
 			if (leftJoystick.getY() > 0.15 || rightJoystick.getY() > 0.15 || leftJoystick.getY() < -0.20 || rightJoystick.getY() < -0.1)
 			{
