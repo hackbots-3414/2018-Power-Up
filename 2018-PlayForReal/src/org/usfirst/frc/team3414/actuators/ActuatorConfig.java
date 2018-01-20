@@ -40,16 +40,16 @@ public class ActuatorConfig {
 	
 	public void init()
 	{
-		TalonSRX talonLeftOne = new TalonSRX(5);
-		TalonSRX talonLeftTwo = new TalonSRX(4);
-		TalonSRX talonRightOne = new TalonSRX(0);
-		TalonSRX talonRightTwo = new TalonSRX(1);
+		talonLeftOne = new TalonSRX(5);//Get the talon ports
+		talonLeftTwo = new TalonSRX(4);
+		talonRightOne = new TalonSRX(0);
+		talonRightTwo = new TalonSRX(1);
 		
 		
-		Motor motorLeftOne = new Motor(talonLeftOne);
-		Motor motorLeftTwo = new Motor(talonLeftTwo);
-		Motor motorRightOne = new Motor(talonRightOne);
-		Motor motorRightTwo = new Motor(talonRightTwo);
+		motorLeftOne = new Motor(talonLeftOne);
+	    motorLeftTwo = new Motor(talonLeftTwo);
+		motorRightOne = new Motor(talonRightOne);
+		motorRightTwo = new Motor(talonRightTwo);
 		
 		doubleMotorLeft = new DoubleMotor(motorLeftOne, motorLeftTwo);
 		doubleMotorRight = new DoubleMotor(motorRightOne, motorRightTwo);
