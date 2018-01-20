@@ -65,7 +65,8 @@ public class PacbotTeleop implements ITeleop{
 
 		public void run()
 		{
-
+			while(isRunning) {
+				
 			SmartDashboard.putNumber("Left Encoder - Teleop", ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition() * (0.000122));//
 			SmartDashboard.putNumber("Right Encoder - Teleop", ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition() * (-0.000122));
 			
@@ -144,7 +145,7 @@ public class PacbotTeleop implements ITeleop{
 				e.printStackTrace();
 			}
 		}
-		
+	}
 	}
 	
 	
