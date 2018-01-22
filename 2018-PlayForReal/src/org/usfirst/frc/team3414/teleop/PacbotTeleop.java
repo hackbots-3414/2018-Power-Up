@@ -12,7 +12,7 @@ import org.usfirst.frc.team3414.sensor.SensorConfig;
 import org.usfirst.frc.team3414.actuators.ActuatorConfig;
 import org.usfirst.frc.team3414.actuators.Drivetrain;
 import org.usfirst.frc.team3414.sensor.Gamepad;
-
+import org.usfirst.frc.team3414.sensor.IGamepad;
 import org.usfirst.frc.team3414.sensor.HBJoystick;
 
 public class PacbotTeleop implements ITeleop{
@@ -146,7 +146,7 @@ public class PacbotTeleop implements ITeleop{
 			}
 		}
 	}
-	}
+}
 	
 	
 }

@@ -19,6 +19,8 @@ import org.usfirst.frc.team3414.sensor.SensorConfig;
 import org.usfirst.frc.team3414.util.Status;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.SampleRobot;
+
 import org.usfirst.frc.team3414.teleop.PacbotTeleop;
 
 
@@ -29,12 +31,12 @@ import org.usfirst.frc.team3414.teleop.PacbotTeleop;
  * creating this project, you must also update the build.properties file in the
  * project.
  */
-public class Robot extends TimedRobot {
+public class Robot extends SampleRobot {
 
 private PacbotTeleop teleop;
 	
 //	private SendableChooser<AutoBase> autonChooser;
-	private SendableChooser<Object> shootChooser;
+//	private SendableChooser<Object> shootChooser;
 //	private SendableChooser<Alliance> allianceChooser;
 	
 	private Thread logThread = new Thread(new LogRunnable());
@@ -69,8 +71,9 @@ private PacbotTeleop teleop;
 		ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().setQuadraturePosition(0, 10);
 		teleop.stop();
 	}
-
+//
 	public void operatorControl()
+//	public void teleopPeriodic()
 	{
 		RobotStatus.setIsRunning(true);
 		RobotStatus.setIsAuto(false);
