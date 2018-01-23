@@ -19,6 +19,11 @@ public class Motor extends MotorBase {
 		//this.talon.setVoltageRampRate(6.0);
 		direction = RotationalDirection.NONE;
 	}
+	
+	public void setFollowerMotor(Motor follower) 
+	{
+		follower.talon.set(com.ctre.phoenix.motorcontrol.ControlMode.Follower, this.talon.getDeviceID());
+	}
 		
 	public void setSpeed(double speed)
 	{
@@ -68,7 +73,8 @@ public class Motor extends MotorBase {
 	
 	public void setMotorReveresed(boolean reverse)
 	{
-		this.isReversed = reverse;
+		//this.isReversed = reverse;
+		talon.setInverted(reverse);
 	}
 	
 	public void setCurrentLimit(int amps)

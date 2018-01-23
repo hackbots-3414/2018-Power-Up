@@ -63,12 +63,10 @@ public class ActuatorConfig {
 //		talonIntakeOne = new TalonSRX();
 //		talonIntakeTwo = new TalonSRX();
 	  
-		
 		motorLeftOne = new Motor(talonLeftOne);
 	    motorLeftTwo = new Motor(talonLeftTwo);
 		motorRightOne = new Motor(talonRightOne);
 		motorRightTwo = new Motor(talonRightTwo);
-		
 	//	motorClimber = new Motor(talonClimber);
 	//	motorIntakeOne = new Motor(talonIntakeOne);
 	//	motorIntakeTwo = new Motor(talonIntakeTwo);
@@ -88,7 +86,7 @@ public class ActuatorConfig {
 		talonRightTwo.getSensorCollection().getQuadraturePosition();
 		
 		//rightTripleMotor.setMotorReveresed(true);
-		doubleMotorLeft.setMotorReveresed(true);
+		doubleMotorRight.setMotorReveresed(true);
 		
 		drivetrain = new Drivetrain(doubleMotorLeft, doubleMotorRight);
 		

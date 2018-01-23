@@ -20,6 +20,8 @@ public class DoubleMotor extends MotorBase {
 		this.motorOne = motorOne;
 		this.motorTwo = motorTwo;
 		
+		motorOne.setFollowerMotor(motorTwo);
+		
 		isSafeConfig();
 	}
 	
@@ -28,7 +30,7 @@ public class DoubleMotor extends MotorBase {
 		if(isSafeConfig())
 		{
 			motorOne.setSpeed(speed);
-			motorTwo.setSpeed(speed);
+//			motorTwo.setSpeed(speed);
 		}	
 	}
 	public double getCurrentMotorOne()
@@ -43,7 +45,7 @@ public class DoubleMotor extends MotorBase {
 	public void stop() 
 	{
 		motorOne.stop();
-		motorTwo.stop();
+//		motorTwo.stop();
 	}
 
 	public void setDirection(RotationalDirection direction) 
