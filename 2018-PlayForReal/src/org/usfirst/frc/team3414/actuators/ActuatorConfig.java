@@ -16,22 +16,20 @@ public class ActuatorConfig {
 	private TalonSRX talonRightOne;
 	private TalonSRX talonRightTwo;
 	
-//	private TalonSRX talonIntakeOne;
-//	private TalonSRX talonIntakeTwo;
+//	private TalonSRX talonIntake;
 	
-//	private TalonSRX talonLift;
-	
-//	private TalonSRX talonClimber;
+//	private TalonSRX talonLiftOne;
+//	private TalonSRX talonLiftTwo;
 	
 	private Motor motorLeftOne;
 	private Motor motorLeftTwo;
 	private Motor motorRightOne;
 	private Motor motorRightTwo;
 	
-//	private Motor motorIntakeOne;
-//	private Motor motorIntakeTwo;
+//	private Motor motorIntake;
 	
-//	private Motor motorLift;
+//	private Motor motorLiftOne;
+//	private Motor motorLiftTwo;
 	
 //	private Motor motorClimber;
 	
@@ -39,6 +37,7 @@ public class ActuatorConfig {
 	private DoubleMotor doubleMotorLeft;
 	
 //	private DoubleMotor doubleMotorIntake;
+// 	private DoubleMotor doubleMotorLift;
 	
 	private Drivetrain drivetrain;
 	
@@ -54,27 +53,29 @@ public class ActuatorConfig {
 	
 	public void init()
 	{   
-		talonLeftOne = new TalonSRX(5);//Get the talon ports
-		talonLeftTwo = new TalonSRX(4);
-		talonRightOne = new TalonSRX(0);
+		talonLeftOne = new TalonSRX(3);//Get the talon ports
+		talonLeftTwo = new TalonSRX(2);
+		talonRightOne = new TalonSRX(4);
 		talonRightTwo = new TalonSRX(1);
 		
-//		talonClimber = new TalonSRX();
-//		talonIntakeOne = new TalonSRX();
-//		talonIntakeTwo = new TalonSRX();
+//		talonLiftOne = new TalonSRX();
+//		talonLiftTwo = new TalonSRX();
+//		talonIntake = new TalonSRX();
 	  
 		motorLeftOne = new Motor(talonLeftOne);
 	    motorLeftTwo = new Motor(talonLeftTwo);
 		motorRightOne = new Motor(talonRightOne);
 		motorRightTwo = new Motor(talonRightTwo);
-	//	motorClimber = new Motor(talonClimber);
-	//	motorIntakeOne = new Motor(talonIntakeOne);
-	//	motorIntakeTwo = new Motor(talonIntakeTwo);
+	//	motorLiftOne = new Motor(talonLiftOne);
+	//	motorLiftTwo = new Motor(talonLiftTwo);
+	//	motorIntake = new Motor(talonIntake);
+		
+	//	motorLiftTwo.setMotorReversed(true);	
 	
 		doubleMotorLeft = new DoubleMotor(motorLeftOne, motorLeftTwo);
 		doubleMotorRight = new DoubleMotor(motorRightOne, motorRightTwo);
 		
-//		doubleMotorIntake = new DoubleMotor(motorIntakeOne, motorIntakeTwo);
+//		doubleMotorLift = new DoubleMotor(motorLiftOne, motorLiftTwo);
 		
 		talonLeftTwo.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
 		//leftTalonThree.configEncoderCodesPerRev(2048);
@@ -100,7 +101,7 @@ public class ActuatorConfig {
 	
 	public TalonSRX getLeftEncoder()
 	{
-		return talonLeftTwo; //Figure out which talons to use for encoders
+		return talonLeftOne; //Figure out which talons to use for encoders
 	}
 	
 	public Drivetrain getDrivetrain()
@@ -108,12 +109,12 @@ public class ActuatorConfig {
 		return drivetrain;
 	}
 	
-//	public DoubleMotor getClimberMotor()
+//	public DoubleMotor getLift()
 //	{
-//		return climberMotors;
+//		return talonLiftOne;
 //	}
 //	
-//	public Motor getIntakeMotor()//double motor
+//	public Motor getIntakeMotor()
 //	{
 //		return intakeMotor;
 //	}

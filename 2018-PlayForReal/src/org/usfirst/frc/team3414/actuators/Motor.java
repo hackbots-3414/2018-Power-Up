@@ -49,6 +49,7 @@ public class Motor extends MotorBase {
 		}
 		
 		talon.set(ControlMode.PercentOutput, speed);
+//		talon.set(ControlMode.Position, speed * 4096);
 	}
 
 	public void stop() 
