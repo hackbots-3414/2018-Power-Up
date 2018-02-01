@@ -87,6 +87,8 @@ public class ActuatorConfig {
 		talonLiftOne.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
 		talonLiftOne.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
 		talonLiftOne.overrideLimitSwitchesEnable(true);
+		talonLiftOne.getSensorCollection().isRevLimitSwitchClosed();
+		talonLiftOne.getSensorCollection().isFwdLimitSwitchClosed();
 		
 		//rightTripleMotor.setMotorReveresed(true);
 		doubleMotorRight.setMotorReveresed(true);
