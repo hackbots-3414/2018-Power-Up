@@ -144,6 +144,11 @@ public class PacbotTeleop implements ITeleop{
 			{
 				e.printStackTrace();
 			}
+			
+//			if (gamepad.getButtonState(6) && (ActuatorConfig.getInstance().getLiftLimitSwitch().is)) 
+//			{
+//				
+//			}
 		}
 	}
 }
