@@ -84,7 +84,7 @@ private PacbotTeleop teleop;
 	}
 	
 	/**
-	 * Chose's the autonomous mode
+	 * Choose's the autonomous mode
 	 */
 	public void chooseAuto()
 	{
