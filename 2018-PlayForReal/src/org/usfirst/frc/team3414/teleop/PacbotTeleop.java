@@ -8,6 +8,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team3414.autonomous.AutonStatus;
 import org.usfirst.frc.team3414.sensor.ClockTimer;
 import org.usfirst.frc.team3414.util.Status;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import org.usfirst.frc.team3414.sensor.SensorConfig;
 import org.usfirst.frc.team3414.actuators.ActuatorConfig;
 import org.usfirst.frc.team3414.actuators.Drivetrain;
@@ -70,6 +73,20 @@ public class PacbotTeleop implements ITeleop{
 			SmartDashboard.putNumber("Left Encoder - Teleop", ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition() * (0.000122));//
 			SmartDashboard.putNumber("Right Encoder - Teleop", ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition() * (-0.000122));
 			
+			if(leftJoystick.getRawButton(1)) 
+			{
+				double rightYJoystick = rightJoystick.getY();
+				double leftYJoystick = leftJoystick.getY();
+				double RtargetVelocity_UnitsPer100ms = rightYJoystick * 4096 * 500.0 / 600;
+				double LtargetVelocity_UnitsPer100ms = rightYJoystick * 4096 * 500.0 / 600;
+				
+				ActuatorConfig.getInstance().getRightTalonOne().set(ControlMode.Velocity, RtargetVelocity_UnitsPer100ms);
+				ActuatorConfig.getInstance().getLeftTalonOne().set(ControlMode.Velocity, LtargetVelocity_UnitsPer100ms);
+				ActuatorConfig.getInstance().getRightTalonOne().getSelectedSensorVelocity(ActuatorConfig.kPIDLoopIdx);
+				ActuatorConfig.getInstance().getLeftTalonOne().getSelectedSensorVelocity(ActuatorConfig.kPIDLoopIdx);
+				
+			}
+			
 			if (leftJoystick.getY() > 0.15 || rightJoystick.getY() > 0.15 || leftJoystick.getY() < -0.20 || rightJoystick.getY() < -0.1)
 			{
 				startYaw = SensorConfig.getInstance().getNavX().getRawYaw();
@@ -121,19 +138,6 @@ public class PacbotTeleop implements ITeleop{
 			else
 			{
 				drivetrain.setSpeed(0);
-			}
-
-			if(rightJoystick.getRawButton(2) || leftJoystick.getRawButton(2))
-			{
-				leftJoystick.setReversed(true);
-				rightJoystick.setReversed(true);
-				System.out.println("Reversing...");
-
-			}		
-			else if(rightJoystick.getRawButton(1) || leftJoystick.getRawButton(1))
-			{
-				leftJoystick.setReversed(false);
-				rightJoystick.setReversed(false);
 			}
 			
 			try 

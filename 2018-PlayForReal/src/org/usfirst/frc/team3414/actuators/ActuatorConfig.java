@@ -42,6 +42,9 @@ public class ActuatorConfig {
 	
 	private Drivetrain drivetrain;
 	
+	public static final int kTimeoutMs = 10;
+	public static final int kPIDLoopIdx = 0;
+	
 	public static ActuatorConfig getInstance()
 	{
 		if(instance == null)
@@ -50,6 +53,7 @@ public class ActuatorConfig {
 		}
 		
 		return instance;
+		
 	}
 	
 	public void init()
@@ -95,9 +99,49 @@ public class ActuatorConfig {
 		
 		drivetrain = new Drivetrain(doubleMotorLeft, doubleMotorRight);
 		
+		//pid stuff
 
+		double motorRightOneOutput = talonRightOne.getMotorOutputPercent();
+		double motorLeftOneOutput = talonLeftOne.getMotorOutputPercent();
+		talonRightOne.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, kTimeoutMs);
+		talonLeftOne.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, kTimeoutMs);
+		
+		talonRightOne.setSensorPhase(true);
+		talonLeftOne.setSensorPhase(true);
+		
+		talonRightOne.configNominalOutputForward(0, kTimeoutMs);
+		talonRightOne.configNominalOutputReverse(0, kTimeoutMs);
+		talonRightOne.configPeakOutputForward(1, kTimeoutMs);
+		talonRightOne.configPeakOutputReverse(-1, kTimeoutMs);
+		talonLeftOne.configNominalOutputForward(0, kTimeoutMs);
+		talonLeftOne.configNominalOutputReverse(0, kTimeoutMs);
+		talonLeftOne.configPeakOutputForward(1, kTimeoutMs);
+		talonLeftOne.configPeakOutputReverse(-1, kTimeoutMs);
+		
+		talonRightOne.config_kF(kPIDLoopIdx, 0.110918, kTimeoutMs);
+		talonRightOne.config_kP(kPIDLoopIdx, 0.27, kTimeoutMs);
+		talonRightOne.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
+		talonRightOne.config_kD(kPIDLoopIdx, 2.5575, kTimeoutMs);
+		talonLeftOne.config_kF(kPIDLoopIdx, 0.110918, kTimeoutMs);
+		talonLeftOne.config_kP(kPIDLoopIdx, 0.16, kTimeoutMs);
+		talonLeftOne.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
+		talonLeftOne.config_kD(kPIDLoopIdx, 2.2, kTimeoutMs);
+		
+		
+		
 
 	}
+	
+	public TalonSRX getRightTalonOne()
+	{
+		return talonRightOne;
+	}
+	
+	public TalonSRX getLeftTalonOne()
+	{
+		return talonLeftOne;
+	}
+	
 	public TalonSRX getRightEncoder()
 	{
 		return talonRightTwo;//Figure out which talons to use for encoders
