@@ -49,11 +49,11 @@ public abstract class AutonBase implements Runnable {
 				break;
 				
 				case CENTER:
-				left();
+				center();
 				break;
 				
 				case RIGHT:
-				left();
+				right();
 				break;
 				
 			}		
