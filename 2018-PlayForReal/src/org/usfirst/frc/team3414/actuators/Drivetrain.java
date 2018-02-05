@@ -8,6 +8,8 @@ import org.usfirst.frc.team3414.sensor.NavX;
 import org.usfirst.frc.team3414.sensor.SensorConfig;
 import org.usfirst.frc.team3414.util.Status;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import org.usfirst.frc.team3414.robot.RobotStatus;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -411,6 +413,32 @@ public class Drivetrain implements IDriveTrain {
 		}	
 		ActuatorConfig.getInstance().getDrivetrain().stop();
 	}
+	public void movePid (double distance) 
+	{
+		ActuatorConfig.getInstance().getRightTalonOne().set(ControlMode.PercentOutput, 0);
+		ActuatorConfig.getInstance().getLeftTalonOne().set(ControlMode.PercentOutput, 0);
+
+ 		 while (ActuatorConfig.getInstance().getLeftTalonOne().getSelectedSensorPosition(0) > distance) {
+
+// 	 		System.out.println(_Ltalon.getSelectedSensorPosition(0));
+ 			 /* Speed mode */
+ 			 /*
+ 			  * 4096 Units/Rev * 500 RPM / 600 100ms/min in either direction:
+ 			  * velocity setpoint is in units/100ms
+ 			  */
+ 			 double RtargetVelocity_UnitsPer100ms = -0.35 * 4096 * 500.0 / 600;
+ 			 double LtargetVelocity_UnitsPer100ms = -0.35 * 4096 * 500.0 / 600;
+ 			 /* 1500 RPM in either direction */
+ 			 
+ 			 ActuatorConfig.getInstance().getRightTalonOne().set(ControlMode.Velocity, RtargetVelocity_UnitsPer100ms);
+ 			 ActuatorConfig.getInstance().getLeftTalonOne().set(ControlMode.Velocity, LtargetVelocity_UnitsPer100ms);
+ 			 
+ 			 ActuatorConfig.getInstance().getRightTalonOne().getSelectedSensorVelocity(ActuatorConfig.kPIDLoopIdx);
+ 			 ActuatorConfig.getInstance().getLeftTalonOne().getSelectedSensorVelocity(ActuatorConfig.kPIDLoopIdx);
+ 		 }
+	}
+	
+	
 	public void goForwardGyro(double distance, double speed)
 	{
 		moveGyro(distance, speed, false);
