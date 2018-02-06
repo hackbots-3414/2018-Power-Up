@@ -26,8 +26,6 @@ public abstract class AutonBase implements Runnable {
 		autonThread = new Thread(this);
 		autonThread.start();
 	}
-	
-	protected abstract void vanillaAuto();
 		
 	protected abstract void left();
 	
