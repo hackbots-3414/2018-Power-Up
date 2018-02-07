@@ -2,15 +2,19 @@ package org.usfirst.frc.team3414.autonomous;
 
 public class AutonFancyCenter extends AutonBase{
 
-	protected void left() {
+
+	protected void left(String gameData)
+	{
 		
 	}
 
-	protected void center() {
-	
+	protected void center(String gameData) 
+	{
+		
 	}
 
-	protected void right() {
+	protected void right(String gameData) 
+	{
 		
 	}
 
