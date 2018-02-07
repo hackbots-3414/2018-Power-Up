@@ -7,12 +7,19 @@ import org.usfirst.frc.team3414.sensor.SensorConfig;
 import org.usfirst.frc.team3414.sensor.NavX;
 import org.usfirst.frc.team3414.robot.RobotStatus;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 
-public abstract class AutonBase implements Runnable {
+public abstract class AutonBase implements Runnable 
+{
 	protected Drivetrain driveTrain = ActuatorConfig.getInstance().getDrivetrain();
 	protected Timer timer = new Timer();
+	
+	protected String gameData;
+	
+	public AutonBase(String gameData)
+	{
+		this.gameData = gameData;	
+	}
 	
 	protected NavX navX = SensorConfig.getInstance().getNavX();
 	
@@ -28,36 +35,34 @@ public abstract class AutonBase implements Runnable {
 		autonThread.start();
 	}
 		
-	protected abstract void left(String gameData);
+	protected abstract void left();
 	
-	protected abstract void center(String gameData);
+	protected abstract void center();
 	
-	protected abstract void right(String gameData);
+	protected abstract void right();
 	
 	public void run()
 	{
-		String gameData;
+
 		
 		System.out.println("Running Auton Thread----------------------------------------");
 		//ActuatorConfig.getInstance().getCompressor().stop();
 		
 		if(RobotStatus.isAuto())
 		{
-			  gameData = DriverStation.getInstance().getGameSpecificMessage();
+
 			switch(position)
 			{
 				case LEFT:
-				 
-//				 left("LRL");
-				left(gameData);
+				left();
 				break;
 				
 				case CENTER:
-				center(gameData);
+				center();
 				break;
 				
 				case RIGHT:
-				right(gameData);
+				right();
 				break;
 				
 			}		

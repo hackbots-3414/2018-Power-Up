@@ -2,17 +2,21 @@ package org.usfirst.frc.team3414.autonomous;
 
 public class AutonCenterSwitch extends AutonBase{
 
-	protected void left(String gameData) 
+	public AutonCenterSwitch(String gameData) {
+		super(gameData);
+	}
+
+	protected void left() 
 	{
 		
 	}
 
-	protected void center(String gameData) 
+	protected void center() 
 	{
 		
 	}
 
-	protected void right(String gameData) 
+	protected void right() 
 	{
 		
 	}

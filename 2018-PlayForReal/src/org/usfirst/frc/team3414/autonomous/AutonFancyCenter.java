@@ -1,19 +1,24 @@
 package org.usfirst.frc.team3414.autonomous;
+//This is going to have to use vision or really precise directions.
+public class AutonFancyCenter extends AutonBase
+{
 
-public class AutonFancyCenter extends AutonBase{
 
+	public AutonFancyCenter(String gameData) {
+		super(gameData);
+	}
 
-	protected void left(String gameData)
+	protected void left()
 	{
 		
 	}
 
-	protected void center(String gameData) 
+	protected void center() 
 	{
 		
 	}
 
-	protected void right(String gameData) 
+	protected void right() 
 	{
 		
 	}

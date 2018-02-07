@@ -1,16 +1,22 @@
 package org.usfirst.frc.team3414.autonomous;
 
 import org.usfirst.frc.team3414.actuators.ActuatorConfig;
+import org.usfirst.frc.team3414.robot.Robot;
 
-public class AutonGoForward extends AutonBase{
+public class AutonGoForward extends AutonBase
+{
 
-	protected void left(String gameData) //Goes forward
+	public AutonGoForward(String gameData) {
+		super(gameData);
+	}
+
+	protected void left() //Goes forward
 	{
 		ActuatorConfig.getInstance().getDrivetrain().movePid(4);
 		System.out.println("Position left: Goes forward");
 	}
 
-	protected void center(String gameData) //Has a fail safe so if chosen in game, it'll run center auton.
+	protected void center() //Has a fail safe so if chosen in game, it'll run center auton.
 	{
 		if (gameData == "LRL" || gameData == "LLL")//Runs basic center auton for left switch
 		{
@@ -35,10 +41,12 @@ public class AutonGoForward extends AutonBase{
 		}
 	}
 
-protected void right(String gameData) //Goes forward
+protected void right() //Goes forward
 	{
 		ActuatorConfig.getInstance().getDrivetrain().movePid(4);	
 		System.out.println("Position right: Goes forward");
 	}
+
+
 
 }

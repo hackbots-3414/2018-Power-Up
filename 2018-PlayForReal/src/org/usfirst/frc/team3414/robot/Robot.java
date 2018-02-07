@@ -18,9 +18,10 @@ import org.usfirst.frc.team3414.autonomous.AutonStatus;
 import org.usfirst.frc.team3414.sensor.SensorConfig;
 import org.usfirst.frc.team3414.util.Status;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SampleRobot;
-
+import edu.wpi.first.wpilibj.DriverStation;
 import org.usfirst.frc.team3414.teleop.PacbotTeleop;
 
 
@@ -110,13 +111,18 @@ private PacbotTeleop teleop;
 	}
 	
 	public void autonomous()
-	{			
-
+	{	
 		RobotStatus.setIsRunning(true);
 		RobotStatus.setIsAuto(true);
 		RobotStatus.setIsTeleop(false);
+		
 		AutonStatus.getInstance().setStatus(Status.RUNNING);
-//		System.out.println(autonChooser.getSelected());
+		String gameData = DriverStation.getInstance().getGameSpecificMessage();
+		
+
+		  
+//		  gameData = LLL or LRL or RRR or RLR For testing just comment the other gameData.
+		//		System.out.println(autonChooser.getSelected());
 //		
 //		autonChooser.getSelected().doAuto((boolean)shootChooser.getSelected(), allianceChooser.getSelected());
 

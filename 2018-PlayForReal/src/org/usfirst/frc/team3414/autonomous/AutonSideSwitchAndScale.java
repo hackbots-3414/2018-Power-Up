@@ -5,7 +5,11 @@ import org.usfirst.frc.team3414.actuators.ActuatorConfig;
 public class AutonSideSwitchAndScale extends AutonBase
 {
 
-	protected void left(String gameData) 
+	public AutonSideSwitchAndScale(String gameData) {
+		super(gameData);
+	}
+
+	protected void left() 
 	{
 		if(gameData == "LRL") //Switch only
 		{
@@ -60,12 +64,12 @@ public class AutonSideSwitchAndScale extends AutonBase
 		}
 	}
 
-	protected void center(String gameData)
+	protected void center()
 	{
 	System.out.println("Nothing here to see here o_o -Hannah");	
 	}
 
-	protected void right(String gameData) {
+	protected void right() {
 		if(gameData == "RLR") //Switch only
 		{
 		
