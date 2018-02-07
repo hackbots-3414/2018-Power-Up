@@ -11,7 +11,7 @@ public class AutonSideSwitchAndScale extends AutonBase
 
 	protected void left() 
 	{
-		if(gameData == "LRL") //Switch only
+		if("LRL".equals(gameData)) //Switch only
 		{
 		
 		ActuatorConfig.getInstance().getDrivetrain().movePid(4);//find actual measurements
@@ -21,7 +21,7 @@ public class AutonSideSwitchAndScale extends AutonBase
 		ActuatorConfig.getInstance().getDrivetrain().movePid(-1);
 		System.out.println("Position left: Going for the switch");
 	}
-		else if (gameData == "LLL") //Both Switch and Scale
+		else if ("LLL".equals(gameData)) //Both Switch and Scale
 		{
 		ActuatorConfig.getInstance().getDrivetrain().movePid(4);//find actual measurements
 		ActuatorConfig.getInstance().getDrivetrain().turnRight(.8, 90);
@@ -44,7 +44,7 @@ public class AutonSideSwitchAndScale extends AutonBase
 		ActuatorConfig.getInstance().getDrivetrain().turnRight(.8, 90);
 		System.out.println("Postion left: Going for both the switch and scale (wish me luck ^-^)");
 		}
-		else if (gameData == "RLR")//Scale only
+		else if ("RLR".equals(gameData))//Scale only
 		{
 		ActuatorConfig.getInstance().getDrivetrain().movePid(7);
 		ActuatorConfig.getInstance().getDrivetrain().turnRight(.8, 90);
@@ -70,7 +70,7 @@ public class AutonSideSwitchAndScale extends AutonBase
 	}
 
 	protected void right() {
-		if(gameData == "RLR") //Switch only
+		if("RLR".equals(gameData)) //Switch only
 		{
 		
 		ActuatorConfig.getInstance().getDrivetrain().movePid(4);//find actual measurements
@@ -80,7 +80,7 @@ public class AutonSideSwitchAndScale extends AutonBase
 		ActuatorConfig.getInstance().getDrivetrain().movePid(-1);
 		System.out.println("Position right: Going for the switch");
 	}
-		else if (gameData == "RRR") //Both Switch and Scale
+		else if ("RRR".equals(gameData)) //Both Switch and Scale
 		{
 		ActuatorConfig.getInstance().getDrivetrain().movePid(4);//find actual measurements
 		ActuatorConfig.getInstance().getDrivetrain().turnLeft(.8, 90);
@@ -103,7 +103,7 @@ public class AutonSideSwitchAndScale extends AutonBase
 		ActuatorConfig.getInstance().getDrivetrain().turnLeft(.8, 90);
 		System.out.println("Position right: Going for both the switch and scale (wish me luck ^-^)");
 		}
-		else if (gameData == "LRL")//Scale only
+		else if ("LRL".equals(gameData))//Scale only
 		{
 		ActuatorConfig.getInstance().getDrivetrain().movePid(7);
 		ActuatorConfig.getInstance().getDrivetrain().turnLeft(.8, 90);

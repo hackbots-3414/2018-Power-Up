@@ -13,7 +13,7 @@ public class AutonSideSwitch extends AutonBase
 	}
 
 	protected void left() {
-		if(gameData == "LRL" || gameData == "LLL" ){
+		if("LRL".equals(gameData)|| "LLL".equals(gameData)){
 		
 			ActuatorConfig.getInstance().getDrivetrain().movePid(4);//14 find actual measurements
 			ActuatorConfig.getInstance().getDrivetrain().turnRight(.8, 90);
@@ -31,14 +31,14 @@ public class AutonSideSwitch extends AutonBase
 	}
 
 	protected void center() {
-		if (gameData == "LRL")
+		if ("LRL".equals(gameData) || "LLL".equals(gameData) || "RRR".equals(gameData) || "LRL".equals(gameData))
 			{
 			System.out.println("Nothing here to see here o_o -Hannah");			
 			}
 	}
 
 	protected void right() {
-		if(gameData == "RLR" || gameData == "RRR" ){
+		if("RLR".equals(gameData)|| "RRR".equals(gameData)){
 		
 		ActuatorConfig.getInstance().getDrivetrain().movePid(4d);//find actual measurements
 		ActuatorConfig.getInstance().getDrivetrain().turnLeft(.8, 90);
