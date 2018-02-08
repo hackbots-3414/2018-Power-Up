@@ -96,7 +96,7 @@ private PacbotTeleop teleop;
 	 */
 	public void chooseAuto()
 	{
-
+		
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();
 		autonChooser = new SendableChooser<AutonBase>();
 		positionChooser = new SendableChooser<Position>();

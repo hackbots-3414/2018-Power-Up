@@ -86,5 +86,3 @@ public class AutonSideSwitch extends AutonBase
 	}
 
 }
-
-
