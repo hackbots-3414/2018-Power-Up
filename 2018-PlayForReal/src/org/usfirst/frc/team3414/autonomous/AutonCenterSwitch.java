@@ -19,10 +19,21 @@ public class AutonCenterSwitch extends AutonBase{
 			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
 			ActuatorConfig.getInstance().getDrivetrain().turnLeft(0.8, 90);
 			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
+			ActuatorConfig.getInstance().getDrivetrain().turnRight(0.8, 90);
+		}
+		
+		else if("RLR".equals(gameData) || "RRR".equals(gameData)) {
+			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
+			ActuatorConfig.getInstance().getDrivetrain().turnRight(0.8, 90);
+			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
+			ActuatorConfig.getInstance().getDrivetrain().turnLeft(0.8, 90);
 		}
 		
 		else {
-			
+			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
+			ActuatorConfig.getInstance().getDrivetrain().turnRight(0.8, 90);
+			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
+			ActuatorConfig.getInstance().getDrivetrain().turnLeft(0.8, 90);
 		}
 	}
 
