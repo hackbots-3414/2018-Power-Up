@@ -15,21 +15,24 @@ public class AutonCenterSwitch extends AutonBase{
 
 	protected void center() 
 	{
-		if("LLL".equals(gameData) || "LRL".equals(gameData)) {
+		if("LLL".equals(gameData) || "LRL".equals(gameData)) 
+		{
 			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
 			ActuatorConfig.getInstance().getDrivetrain().turnLeft(0.8, 90);
 			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
 			ActuatorConfig.getInstance().getDrivetrain().turnRight(0.8, 90);
 		}
 		
-		else if("RLR".equals(gameData) || "RRR".equals(gameData)) {
+		else if("RLR".equals(gameData) || "RRR".equals(gameData)) 
+		{
 			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
 			ActuatorConfig.getInstance().getDrivetrain().turnRight(0.8, 90);
 			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
 			ActuatorConfig.getInstance().getDrivetrain().turnLeft(0.8, 90);
 		}
 		
-		else {
+		else //This does the right auton so be careful to not run into another robot. 
+		{ 
 			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
 			ActuatorConfig.getInstance().getDrivetrain().turnRight(0.8, 90);
 			ActuatorConfig.getInstance().getDrivetrain().movePid(2);

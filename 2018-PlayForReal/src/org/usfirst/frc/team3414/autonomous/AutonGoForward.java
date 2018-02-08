@@ -12,7 +12,7 @@ public class AutonGoForward extends AutonBase
 
 	protected void left() //Goes forward
 	{
-		ActuatorConfig.getInstance().getDrivetrain().movePid(4);
+		ActuatorConfig.getInstance().getDrivetrain().movePid(4);//16
 		System.out.println("Position left: Goes forward");
 	}
 
@@ -21,7 +21,7 @@ public class AutonGoForward extends AutonBase
 		if ("LRL".equals(gameData) || "LLL".equals(gameData))//Runs basic center auton for left switch
 		{
 			ActuatorConfig.getInstance().getDrivetrain().turnLeft(0.8, 45);
-			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
+			ActuatorConfig.getInstance().getDrivetrain().movePid(2);//Go forward 
 			ActuatorConfig.getInstance().getDrivetrain().turnRight(0.8,45);
 			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
 			System.out.println("Ya can't go forward unless you give gameData some dumb value. I won't allow it!");		
@@ -34,10 +34,13 @@ public class AutonGoForward extends AutonBase
 			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
 			System.out.println("Ya can't go forward unless you give gameData some dumb value. I won't allow it!");		
 		}
-		else //Goes forward
+		else //This does the right auton so be careful not to run into another robot.
 		{
-			ActuatorConfig.getInstance().getDrivetrain().movePid(4);//NEVER USE THIS ONE IN GAME!!
-			System.out.println("Position center: Goes forward (this better not be in game...)");
+			ActuatorConfig.getInstance().getDrivetrain().turnRight(0.8, 45);
+			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
+			ActuatorConfig.getInstance().getDrivetrain().turnLeft(0.8,45);
+			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
+			System.out.println("Fail Safe: (Hannah fix your code) Ya can't go forward unless you give gameData some dumb value. I won't allow it!");
 		}
 	}
 

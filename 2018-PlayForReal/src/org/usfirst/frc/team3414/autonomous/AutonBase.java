@@ -27,7 +27,7 @@ public abstract class AutonBase implements Runnable
 	
 	private Position position;
 	
-	public void doAuto(boolean shoot, Position position)
+	public void doAuto(Position position)
 	{
 		this.position = position;
 		

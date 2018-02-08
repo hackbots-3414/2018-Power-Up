@@ -23,7 +23,14 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.DriverStation;
 import org.usfirst.frc.team3414.teleop.PacbotTeleop;
-
+import org.usfirst.frc.team3414.autonomous.AutonBase;
+import org.usfirst.frc.team3414.autonomous.AutonCenterSwitch;
+import org.usfirst.frc.team3414.autonomous.AutonDoNothing;
+import org.usfirst.frc.team3414.autonomous.AutonFancyCenter;
+import org.usfirst.frc.team3414.autonomous.AutonGoForward;
+import org.usfirst.frc.team3414.autonomous.Position;
+import org.usfirst.frc.team3414.autonomous.AutonSideSwitch;
+import org.usfirst.frc.team3414.autonomous.AutonSideSwitchAndScale;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -36,9 +43,9 @@ public class Robot extends SampleRobot {
 
 private PacbotTeleop teleop;
 	
-//	private SendableChooser<AutoBase> autonChooser;
-//	private SendableChooser<Object> shootChooser;
-//	private SendableChooser<Alliance> allianceChooser;
+
+	private SendableChooser<AutonBase> autonChooser;
+	private SendableChooser<Position> positionChooser;
 	
 	private Thread logThread = new Thread(new LogRunnable());
 	private PowerDistributionPanel pdb;
@@ -89,9 +96,22 @@ private PacbotTeleop teleop;
 	 */
 	public void chooseAuto()
 	{
-	//	autonChooser = new SendableChooser<AutoBase>();
-	//	shootChooser = new SendableChooser<Object>();
-	//	allianceChooser = new SendableChooser<Alliance>();
+
+		String gameData = DriverStation.getInstance().getGameSpecificMessage();
+		autonChooser = new SendableChooser<AutonBase>();
+		positionChooser = new SendableChooser<Position>();
+		
+		
+		autonChooser.addObject("Side Switch", new AutonDoNothing(gameData));
+		autonChooser.addObject("Side Switch", new AutonGoForward(gameData));
+		autonChooser.addObject("Side Switch", new AutonSideSwitch(gameData));
+		autonChooser.addObject("Side Switch", new AutonSideSwitchAndScale(gameData));
+		autonChooser.addObject("Side Switch", new AutonCenterSwitch(gameData));
+		autonChooser.addObject("Side Switch", new AutonFancyCenter(gameData));
+		
+		positionChooser.addObject("Left", Position.LEFT);
+		positionChooser.addObject("Center", Position.CENTER);	
+		positionChooser.addObject("Right", Position.RIGHT);
 		
 		
 		/*autonChooser.addObject("Left Start Center Gear Delivery", new AutonLeftStartCenterGear());
@@ -117,14 +137,13 @@ private PacbotTeleop teleop;
 		RobotStatus.setIsTeleop(false);
 		
 		AutonStatus.getInstance().setStatus(Status.RUNNING);
-		String gameData = DriverStation.getInstance().getGameSpecificMessage();
 		
-
-		  
+	  
 //		  gameData = LLL or LRL or RRR or RLR For testing just comment the other gameData.
 		//		System.out.println(autonChooser.getSelected());
 //		
-//		autonChooser.getSelected().doAuto((boolean)shootChooser.getSelected(), allianceChooser.getSelected());
+		autonChooser.getSelected().doAuto(positionChooser.getSelected());
+
 
 	}
 	
