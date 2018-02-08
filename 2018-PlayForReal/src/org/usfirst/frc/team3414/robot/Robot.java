@@ -101,7 +101,7 @@ private PacbotTeleop teleop;
 		autonChooser = new SendableChooser<AutonBase>();
 		positionChooser = new SendableChooser<Position>();
 		
-		
+	
 		autonChooser.addObject("Side Switch", new AutonDoNothing(gameData));
 		autonChooser.addObject("Side Switch", new AutonGoForward(gameData));
 		autonChooser.addObject("Side Switch", new AutonSideSwitch(gameData));
@@ -109,10 +109,14 @@ private PacbotTeleop teleop;
 		autonChooser.addObject("Side Switch", new AutonCenterSwitch(gameData));
 		autonChooser.addObject("Side Switch", new AutonFancyCenter(gameData));
 		
+		SmartDashboard.putData("Autons", autonChooser);
+		
 		positionChooser.addObject("Left", Position.LEFT);
 		positionChooser.addObject("Center", Position.CENTER);	
 		positionChooser.addObject("Right", Position.RIGHT);
 		
+		SmartDashboard.putData("Position", positionChooser);
+				
 		
 		/*autonChooser.addObject("Left Start Center Gear Delivery", new AutonLeftStartCenterGear());
 		autonChooser.addObject("Right Start Center Gear Delivery", new AutonRightStartCenterGear());

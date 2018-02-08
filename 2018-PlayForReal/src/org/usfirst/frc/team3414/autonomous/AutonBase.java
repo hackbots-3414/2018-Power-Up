@@ -15,7 +15,7 @@ public abstract class AutonBase implements Runnable
 	protected Timer timer = new Timer();
 	
 	protected String gameData;
-	
+
 	public AutonBase(String gameData)
 	{
 		this.gameData = gameData;	

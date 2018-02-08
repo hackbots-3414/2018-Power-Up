@@ -16,7 +16,6 @@ public class AutonSideSwitch extends AutonBase
 	{
 		if("LRL".equals(gameData)|| "LLL".equals(gameData)) //Left switch from left side
 		{
-		
 			ActuatorConfig.getInstance().getDrivetrain().movePid(4);//14 find actual measurements
 			ActuatorConfig.getInstance().getDrivetrain().turnRight(.8, 90);
 			ActuatorConfig.getInstance().getDrivetrain().movePid(1);
