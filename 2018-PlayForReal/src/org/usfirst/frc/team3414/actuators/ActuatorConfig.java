@@ -162,10 +162,10 @@ public class ActuatorConfig {
 		return doubleMotorLift;
 	}
 	
-	public TalonSRX getLiftLimitSwitch()
-	{
-		return talonLiftOne;
-	}
+//	public TalonSRX getLiftLimitSwitch()
+//	{
+//		return talonLiftOne;
+//	}
 	
 //	public Motor getIntakeMotor()
 //	{

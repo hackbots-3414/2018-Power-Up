@@ -102,14 +102,14 @@ private PacbotTeleop teleop;
 		positionChooser = new SendableChooser<Position>();
 		
 	
-		autonChooser.addObject("Side Switch", new AutonDoNothing(gameData));
-		autonChooser.addObject("Side Switch", new AutonGoForward(gameData));
-		autonChooser.addObject("Side Switch", new AutonSideSwitch(gameData));
-		autonChooser.addObject("Side Switch", new AutonSideSwitchAndScale(gameData));
-		autonChooser.addObject("Side Switch", new AutonCenterSwitch(gameData));
-		autonChooser.addObject("Side Switch", new AutonFancyCenter(gameData));
-		
-		SmartDashboard.putData("Autons", autonChooser);
+//		autonChooser.addObject("Do Nothing", new AutonDoNothing(gameData));
+//		autonChooser.addObject("Go Forward", new AutonGoForward(gameData));
+//		autonChooser.addObject("Side Switch", new AutonSideSwitch(gameData));
+//		autonChooser.addObject("Side Switch and Scale", new AutonSideSwitchAndScale(gameData));
+//		autonChooser.addObject("Center Switch", new AutonCenterSwitch(gameData));
+//		autonChooser.addObject("Fancy Center", new AutonFancyCenter(gameData));
+//		
+//		SmartDashboard.putData("Autons", autonChooser);
 		
 		positionChooser.addObject("Left", Position.LEFT);
 		positionChooser.addObject("Center", Position.CENTER);	
@@ -131,7 +131,7 @@ private PacbotTeleop teleop;
 //		allianceChooser.addObject("Blue", Alliance.BLUE);
 //		SmartDashboard.putData("Alliance", allianceChooser);
 		
-		SmartDashboard.putBoolean("Kill Switch", RobotStatus.isAuto());
+//		SmartDashboard.putBoolean("Kill Switch", RobotStatus.isAuto());
 	}
 	
 	public void autonomous()
