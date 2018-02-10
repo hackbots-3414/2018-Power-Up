@@ -418,7 +418,7 @@ public class Drivetrain implements IDriveTrain {
 		ActuatorConfig.getInstance().getRightTalonOne().set(ControlMode.PercentOutput, 0);
 		ActuatorConfig.getInstance().getLeftTalonOne().set(ControlMode.PercentOutput, 0);
 
- 		 while (ActuatorConfig.getInstance().getLeftTalonOne().getSelectedSensorPosition(0) > distance) {
+ 		 while (ActuatorConfig.getInstance().getLeftTalonOne().getSelectedSensorPosition(0) < -distance) {
 
 // 	 		System.out.println(_Ltalon.getSelectedSensorPosition(0));
  			 /* Speed mode */
