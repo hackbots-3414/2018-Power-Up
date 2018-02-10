@@ -426,8 +426,8 @@ public class Drivetrain implements IDriveTrain {
  			  * 4096 Units/Rev * 500 RPM / 600 100ms/min in either direction:
  			  * velocity setpoint is in units/100ms
  			  */
- 			 double RtargetVelocity_UnitsPer100ms = -0.35 * 4096 * 500.0 / 600;
- 			 double LtargetVelocity_UnitsPer100ms = -0.35 * 4096 * 500.0 / 600;
+ 			 double RtargetVelocity_UnitsPer100ms = 0.35 * 4096 * 500.0 / 600;
+ 			 double LtargetVelocity_UnitsPer100ms = 0.35 * 4096 * 500.0 / 600;
  			 /* 1500 RPM in either direction */
  			 
  			 ActuatorConfig.getInstance().getRightTalonOne().set(ControlMode.Velocity, RtargetVelocity_UnitsPer100ms);
