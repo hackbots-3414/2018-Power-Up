@@ -4,8 +4,8 @@ import org.usfirst.frc.team3414.actuators.ActuatorConfig;
 
 public class AutonCenterSwitch extends AutonBase{
 
-	public AutonCenterSwitch(String gameData) {
-		super(gameData);
+	public AutonCenterSwitch() {
+		super();
 	}
 
 	protected void left() 
@@ -15,7 +15,7 @@ public class AutonCenterSwitch extends AutonBase{
 
 	protected void center() 
 	{
-		if("LLL".equals(gameData) || "LRL".equals(gameData)) 
+		if("LLL".equals(this.gameData) || "LRL".equals(this.gameData)) 
 		{
 			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
 			ActuatorConfig.getInstance().getDrivetrain().turnLeft(0.8, 90);
@@ -23,7 +23,7 @@ public class AutonCenterSwitch extends AutonBase{
 			ActuatorConfig.getInstance().getDrivetrain().turnRight(0.8, 90);
 		}
 		
-		else if("RLR".equals(gameData) || "RRR".equals(gameData)) 
+		else if("RLR".equals(this.gameData) || "RRR".equals(this.gameData)) 
 		{
 			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
 			ActuatorConfig.getInstance().getDrivetrain().turnRight(0.8, 90);

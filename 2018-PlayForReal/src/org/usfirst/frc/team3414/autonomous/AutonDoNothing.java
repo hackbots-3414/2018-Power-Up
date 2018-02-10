@@ -3,8 +3,8 @@ package org.usfirst.frc.team3414.autonomous;
 public class AutonDoNothing extends AutonBase
 {
 
-	public AutonDoNothing(String gameData) {
-		super(gameData);
+	public AutonDoNothing() {
+		super();
 		}
 
 	protected void left() 

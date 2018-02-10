@@ -17,9 +17,9 @@ public abstract class AutonBase implements Runnable
 	
 	protected String gameData;
 
-	public AutonBase(String gameData)
+	public AutonBase()
 	{
-		this.gameData = gameData;	
+		//this.gameData = gameData;	
 	}
 	
 	protected NavX navX = SensorConfig.getInstance().getNavX();
@@ -41,6 +41,17 @@ public abstract class AutonBase implements Runnable
 	protected abstract void center();
 	
 	protected abstract void right();
+	
+	public void setGameData(String gameDataInput) 
+	{
+		this.gameData = gameDataInput;
+		System.out.println(gameDataInput);
+	}
+	
+	public String getGameData() 
+	{
+		return this.gameData;
+	}
 	
 	public void run()
 	{

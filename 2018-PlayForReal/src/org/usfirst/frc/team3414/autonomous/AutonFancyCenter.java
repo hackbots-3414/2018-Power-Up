@@ -4,8 +4,8 @@ public class AutonFancyCenter extends AutonBase
 {
 
 
-	public AutonFancyCenter(String gameData) {
-		super(gameData);
+	public AutonFancyCenter() {
+		super();
 	}
 
 	protected void left()

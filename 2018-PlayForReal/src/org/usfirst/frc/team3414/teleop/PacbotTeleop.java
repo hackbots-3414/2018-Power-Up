@@ -87,7 +87,7 @@ public class PacbotTeleop implements ITeleop{
 				
 			}
 			
-			if (leftJoystick.getY() > 0.15 || rightJoystick.getY() > 0.15 || leftJoystick.getY() < -0.20 || rightJoystick.getY() < -0.1)
+			else if (leftJoystick.getY() > 0.15 || rightJoystick.getY() > 0.15 || leftJoystick.getY() < -0.20 || rightJoystick.getY() < -0.1)
 			{
 				startYaw = SensorConfig.getInstance().getNavX().getRawYaw();
 				double leftCorrect = 0;

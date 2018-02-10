@@ -7,14 +7,14 @@ public class AutonSideSwitch extends AutonBase
 {
 
 
-	public AutonSideSwitch(String gameData) 
+	public AutonSideSwitch() 
 	{
-		super(gameData);
+		super();
 	}
 
 	protected void left() 
 	{
-		if("LRL".equals(gameData)|| "LLL".equals(gameData)) //Left switch from left side
+		if("LRL".equals(this.gameData)|| "LLL".equals(this.gameData)) //Left switch from left side
 		{
 			ActuatorConfig.getInstance().getDrivetrain().movePid(4);//14 find actual measurements
 			ActuatorConfig.getInstance().getDrivetrain().turnRight(.8, 90);
@@ -23,7 +23,7 @@ public class AutonSideSwitch extends AutonBase
 			ActuatorConfig.getInstance().getDrivetrain().movePid(-1);
 			System.out.println("Position Left: Left switch");
 		}
-		else if("RRR".equals(gameData) || "RLR".equals(gameData)) //Park past switch from left side
+		else if("RRR".equals(this.gameData) || "RLR".equals(this.gameData)) //Park past switch from left side
 		{
 			ActuatorConfig.getInstance().getDrivetrain().movePid(5);
 			ActuatorConfig.getInstance().getDrivetrain().turnRight(.8,90);
@@ -60,7 +60,7 @@ public class AutonSideSwitch extends AutonBase
 
 	protected void right() 
 	{
-		if("RLR".equals(gameData)|| "RRR".equals(gameData)) //Right switch from right position
+		if("RLR".equals(this.gameData)|| "RRR".equals(this.gameData)) //Right switch from right position
 		{
 		
 		ActuatorConfig.getInstance().getDrivetrain().movePid(4d);//find actual measurements
@@ -70,7 +70,7 @@ public class AutonSideSwitch extends AutonBase
 		ActuatorConfig.getInstance().getDrivetrain().movePid(-1);
 		System.out.println("Position Right: Right switch");
 		}
-		else if ("LRL".equals(gameData) || "LLL".equals(gameData))
+		else if ("LRL".equals(this.gameData) || "LLL".equals(this.gameData))
 		{
 			ActuatorConfig.getInstance().getDrivetrain().movePid(5);
 			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.8,90);

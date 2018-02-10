@@ -63,16 +63,16 @@ public class ActuatorConfig {
 		talonRightOne = new TalonSRX(4);
 		talonRightTwo = new TalonSRX(1);
 		
-		talonLiftOne = new TalonSRX(5);
-		talonLiftTwo = new TalonSRX(6);
+//		talonLiftOne = new TalonSRX(5);
+//		talonLiftTwo = new TalonSRX(6);
 //		talonIntake = new TalonSRX();
 	  
 		motorLeftOne = new Motor(talonLeftOne);
 	    motorLeftTwo = new Motor(talonLeftTwo);
 		motorRightOne = new Motor(talonRightOne);
 		motorRightTwo = new Motor(talonRightTwo);
-		motorLiftOne = new Motor(talonLiftOne);
-		motorLiftTwo = new Motor(talonLiftTwo);
+//		motorLiftOne = new Motor(talonLiftOne);
+//		motorLiftTwo = new Motor(talonLiftTwo);
 	//	motorIntake = new Motor(talonIntake);
 		
 	//	motorLiftTwo.setMotorReversed(true);	
@@ -80,7 +80,7 @@ public class ActuatorConfig {
 		doubleMotorLeft = new DoubleMotor(motorLeftOne, motorLeftTwo);
 		doubleMotorRight = new DoubleMotor(motorRightOne, motorRightTwo);
 		
-		doubleMotorLift = new DoubleMotor(motorLiftOne, motorLiftTwo);
+//		doubleMotorLift = new DoubleMotor(motorLiftOne, motorLiftTwo);
 		
 		talonLeftTwo.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
 		talonLeftTwo.getSensorCollection().getQuadraturePosition();
@@ -88,11 +88,11 @@ public class ActuatorConfig {
 		talonRightTwo.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
 		talonRightTwo.getSensorCollection().getQuadraturePosition();
 		
-		talonLiftOne.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
-		talonLiftOne.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
-		talonLiftOne.overrideLimitSwitchesEnable(true);
-		talonLiftOne.getSensorCollection().isRevLimitSwitchClosed();
-		talonLiftOne.getSensorCollection().isFwdLimitSwitchClosed();
+//		talonLiftOne.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
+//		talonLiftOne.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
+//		talonLiftOne.overrideLimitSwitchesEnable(true);
+//		talonLiftOne.getSensorCollection().isRevLimitSwitchClosed();
+//		talonLiftOne.getSensorCollection().isFwdLimitSwitchClosed();
 		
 		//rightTripleMotor.setMotorReveresed(true);
 		doubleMotorRight.setMotorReveresed(true);
@@ -157,10 +157,10 @@ public class ActuatorConfig {
 		return drivetrain;
 	}
 	
-	public DoubleMotor getLift()
-	{
-		return doubleMotorLift;
-	}
+//	public DoubleMotor getLift()
+//	{
+//		return doubleMotorLift;
+//	}
 	
 //	public TalonSRX getLiftLimitSwitch()
 //	{

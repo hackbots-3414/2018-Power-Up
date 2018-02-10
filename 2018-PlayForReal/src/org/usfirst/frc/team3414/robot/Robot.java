@@ -12,15 +12,16 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team3414.robot.Robot.LogRunnable;
+//import org.usfirst.frc.team3414.robot.Robot.LogRunnable;
 import org.usfirst.frc.team3414.actuators.ActuatorConfig;
 import org.usfirst.frc.team3414.autonomous.AutonStatus;
 import org.usfirst.frc.team3414.sensor.SensorConfig;
 import org.usfirst.frc.team3414.util.Status;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import edu.wpi.first.wpilibj.SampleRobot;
+//import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.DriverStation;
 import org.usfirst.frc.team3414.teleop.PacbotTeleop;
 import org.usfirst.frc.team3414.autonomous.AutonBase;
@@ -39,7 +40,8 @@ import org.usfirst.frc.team3414.autonomous.AutonSideSwitchAndScale;
  * creating this project, you must also update the build.properties file in the
  * project.
  */
-public class Robot extends SampleRobot {
+public class Robot extends TimedRobot{
+	//SampleRobot
 
 private PacbotTeleop teleop;
 	
@@ -47,7 +49,7 @@ private PacbotTeleop teleop;
 	private SendableChooser<AutonBase> autonChooser;
 	private SendableChooser<Position> positionChooser;
 	
-	private Thread logThread = new Thread(new LogRunnable());
+//	private Thread logThread = new Thread(new LogRunnable());
 	private PowerDistributionPanel pdb;
 
 	public void robotInit() 
@@ -60,18 +62,18 @@ private PacbotTeleop teleop;
 		ActuatorConfig.getInstance().init();
 		SensorConfig.getInstance().init();
 		
-		pdb = SensorConfig.getInstance().getPDB();
+//		pdb = SensorConfig.getInstance().getPDB();
 		
 		teleop = new PacbotTeleop();
 		
-		//logThread.start();
+//		logThread.start();
 		
 		chooseAuto();	
 		
 		
 	}
 
-	public void disabled()
+	public void disabledInit()
 	{
 		System.out.println("Disabled");
 		// Mentor Francis added the next two lines to reset the encoders each time. This allows repeated testing of Auton without redeploying code
@@ -80,7 +82,7 @@ private PacbotTeleop teleop;
 		teleop.stop();
 	}
 //
-	public void operatorControl()
+	public void teleopInit()
 //	public void teleopPeriodic()
 	{
 		RobotStatus.setIsRunning(true);
@@ -96,20 +98,18 @@ private PacbotTeleop teleop;
 	 */
 	public void chooseAuto()
 	{
-		
-		String gameData = DriverStation.getInstance().getGameSpecificMessage();
 		autonChooser = new SendableChooser<AutonBase>();
 		positionChooser = new SendableChooser<Position>();
 		
 	
-//		autonChooser.addObject("Do Nothing", new AutonDoNothing(gameData));
-//		autonChooser.addObject("Go Forward", new AutonGoForward(gameData));
-//		autonChooser.addObject("Side Switch", new AutonSideSwitch(gameData));
-//		autonChooser.addObject("Side Switch and Scale", new AutonSideSwitchAndScale(gameData));
-//		autonChooser.addObject("Center Switch", new AutonCenterSwitch(gameData));
-//		autonChooser.addObject("Fancy Center", new AutonFancyCenter(gameData));
-//		
-//		SmartDashboard.putData("Autons", autonChooser);
+//		autonChooser.addObject("Do Nothing", new AutonDoNothing());
+		autonChooser.addObject("Go Forward", new AutonGoForward());
+//		autonChooser.addObject("Side Switch", new AutonSideSwitch());
+//		autonChooser.addObject("Side Switch and Scale", new AutonSideSwitchAndScale());
+//		autonChooser.addObject("Center Switch", new AutonCenterSwitch());
+//		autonChooser.addObject("Fancy Center", new AutonFancyCenter());
+		
+		SmartDashboard.putData("Autons", autonChooser);
 		
 		positionChooser.addObject("Left", Position.LEFT);
 		positionChooser.addObject("Center", Position.CENTER);	
@@ -118,24 +118,15 @@ private PacbotTeleop teleop;
 		SmartDashboard.putData("Position", positionChooser);
 				
 		
-		/*autonChooser.addObject("Left Start Center Gear Delivery", new AutonLeftStartCenterGear());
-		autonChooser.addObject("Right Start Center Gear Delivery", new AutonRightStartCenterGear());
-		autonChooser.addObject("Center Start Left Gear Delivery", new AutonCenterStartLeftGear());
-		autonChooser.addObject("Blue Center Start Gear and Shoot", new AutonBlueAllianceCenterGearShoot());
-		autonChooser.addObject("Red Center Start Gear and Shoot", new AutonRedAllianceCenterGearShoot());*/
-					
-//		SmartDashboard.putData("Autons", autonChooser);
-
-		
-//		allianceChooser.addObject("Red", Alliance.RED);
-//		allianceChooser.addObject("Blue", Alliance.BLUE);
-//		SmartDashboard.putData("Alliance", allianceChooser);
-		
-//		SmartDashboard.putBoolean("Kill Switch", RobotStatus.isAuto());
+		SmartDashboard.putBoolean("Kill Switch", RobotStatus.isAuto());
 	}
 	
-	public void autonomous()
+	public void autonomousInit()
 	{	
+		String gameData = DriverStation.getInstance().getGameSpecificMessage();
+		
+		autonChooser.getSelected().setGameData(gameData);
+		
 		RobotStatus.setIsRunning(true);
 		RobotStatus.setIsAuto(true);
 		RobotStatus.setIsTeleop(false);
@@ -144,21 +135,20 @@ private PacbotTeleop teleop;
 		
 	  
 //		  gameData = LLL or LRL or RRR or RLR For testing just comment the other gameData.
-		//		System.out.println(autonChooser.getSelected());
+		System.out.println(autonChooser.getSelected());
 //		
 		autonChooser.getSelected().doAuto(positionChooser.getSelected());
 
-
 	}
 	
-	public class LogRunnable implements Runnable
-	{
-		public void run()
-		{
-			while(RobotStatus.isRunning())
-			{
-				System.out.println("Battery Voltage: " + pdb.getVoltage());
-			}
-		}
-	}
+//	public class LogRunnable implements Runnable
+//	{
+//		public void run()
+//		{
+//			while(RobotStatus.isRunning())
+//			{
+//				System.out.println("Battery Voltage: " + pdb.getVoltage());
+//			}
+//		}
+//	}
 }
