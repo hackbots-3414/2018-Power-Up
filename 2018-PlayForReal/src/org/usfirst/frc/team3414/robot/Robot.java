@@ -8,6 +8,7 @@
 package org.usfirst.frc.team3414.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -41,11 +42,11 @@ import org.usfirst.frc.team3414.autonomous.AutonSideSwitchAndScale;
  * project.
  */
 public class Robot extends TimedRobot{
-	//SampleRobot
+	
 
 private PacbotTeleop teleop;
 	
-
+	Command autonomousCommand;
 	private SendableChooser<AutonBase> autonChooser;
 	private SendableChooser<Position> positionChooser;
 	
@@ -102,16 +103,16 @@ private PacbotTeleop teleop;
 		positionChooser = new SendableChooser<Position>();
 		
 	
-//		autonChooser.addObject("Do Nothing", new AutonDoNothing());
+		autonChooser.addDefault("Do Nothing", new AutonDoNothing());
 		autonChooser.addObject("Go Forward", new AutonGoForward());
-//		autonChooser.addObject("Side Switch", new AutonSideSwitch());
-//		autonChooser.addObject("Side Switch and Scale", new AutonSideSwitchAndScale());
-//		autonChooser.addObject("Center Switch", new AutonCenterSwitch());
-//		autonChooser.addObject("Fancy Center", new AutonFancyCenter());
+		autonChooser.addObject("Side Switch", new AutonSideSwitch());
+		autonChooser.addObject("Side Switch and Scale", new AutonSideSwitchAndScale());
+		autonChooser.addObject("Center Switch", new AutonCenterSwitch());
+		autonChooser.addObject("Fancy Center", new AutonFancyCenter());
 		
 		SmartDashboard.putData("Autons", autonChooser);
 		
-		positionChooser.addObject("Left", Position.LEFT);
+		positionChooser.addDefault("Left", Position.LEFT);
 		positionChooser.addObject("Center", Position.CENTER);	
 		positionChooser.addObject("Right", Position.RIGHT);
 		
@@ -126,6 +127,7 @@ private PacbotTeleop teleop;
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();
 		
 		autonChooser.getSelected().setGameData(gameData);
+//		autonChooser.getSelected().run();
 		
 		RobotStatus.setIsRunning(true);
 		RobotStatus.setIsAuto(true);
@@ -138,7 +140,9 @@ private PacbotTeleop teleop;
 		System.out.println(autonChooser.getSelected());
 //		
 		autonChooser.getSelected().doAuto(positionChooser.getSelected());
-
+//		autonomousCommand = (Command) autonChooser.getSelected();
+//		autonomousCommand = (Command) positionChooser.getSelected();
+//		autonomousCommand.start();
 	}
 	
 //	public class LogRunnable implements Runnable
