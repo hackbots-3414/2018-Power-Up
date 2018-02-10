@@ -415,10 +415,12 @@ public class Drivetrain implements IDriveTrain {
 	}
 	public void movePid (double distance) 
 	{
-		ActuatorConfig.getInstance().getRightTalonOne().set(ControlMode.PercentOutput, 0);
-		ActuatorConfig.getInstance().getLeftTalonOne().set(ControlMode.PercentOutput, 0);
 
- 		 while (ActuatorConfig.getInstance().getLeftTalonOne().getSelectedSensorPosition(0) > distance) {
+		 double RtargetVelocity_UnitsPer100ms = -0.35 * 4096 * 500.0 / 600;
+		 double LtargetVelocity_UnitsPer100ms = -0.35 * 4096 * 500.0 / 600;
+		 
+ 		 while (ActuatorConfig.getInstance().getLeftTalonOne().getSelectedSensorPosition(0) > -distance) 
+ 		 {
 
 // 	 		System.out.println(_Ltalon.getSelectedSensorPosition(0));
  			 /* Speed mode */
@@ -426,8 +428,6 @@ public class Drivetrain implements IDriveTrain {
  			  * 4096 Units/Rev * 500 RPM / 600 100ms/min in either direction:
  			  * velocity setpoint is in units/100ms
  			  */
- 			 double RtargetVelocity_UnitsPer100ms = 0.35 * 4096 * 500.0 / 600;
- 			 double LtargetVelocity_UnitsPer100ms = 0.35 * 4096 * 500.0 / 600;
  			 /* 1500 RPM in either direction */
  			 
  			 ActuatorConfig.getInstance().getRightTalonOne().set(ControlMode.Velocity, RtargetVelocity_UnitsPer100ms);
@@ -436,6 +436,9 @@ public class Drivetrain implements IDriveTrain {
  			 ActuatorConfig.getInstance().getRightTalonOne().getSelectedSensorVelocity(ActuatorConfig.kPIDLoopIdx);
  			 ActuatorConfig.getInstance().getLeftTalonOne().getSelectedSensorVelocity(ActuatorConfig.kPIDLoopIdx);
  		 }
+ 		ActuatorConfig.getInstance().getRightTalonOne().set(ControlMode.PercentOutput, 0);
+ 		ActuatorConfig.getInstance().getLeftTalonOne().set(ControlMode.PercentOutput, 0);
+
 	}
 	
 	

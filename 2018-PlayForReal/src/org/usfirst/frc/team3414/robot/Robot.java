@@ -58,7 +58,7 @@ private PacbotTeleop teleop;
 		RobotStatus.setIsRunning(true);
 		
 //		CameraServer.getInstance().addAxisCamera("10.34.14.3");
-		CameraServer.getInstance().startAutomaticCapture();
+//		CameraServer.getInstance().startAutomaticCapture();
 		
 		ActuatorConfig.getInstance().init();
 		SensorConfig.getInstance().init();
@@ -103,8 +103,8 @@ private PacbotTeleop teleop;
 		positionChooser = new SendableChooser<Position>();
 		
 	
-		autonChooser.addDefault("Do Nothing", new AutonDoNothing());
-		autonChooser.addObject("Go Forward", new AutonGoForward());
+		autonChooser.addObject("Do Nothing", new AutonDoNothing());
+		autonChooser.addDefault("Go Forward", new AutonGoForward());
 		autonChooser.addObject("Side Switch", new AutonSideSwitch());
 		autonChooser.addObject("Side Switch and Scale", new AutonSideSwitchAndScale());
 		autonChooser.addObject("Center Switch", new AutonCenterSwitch());
