@@ -22,8 +22,13 @@ public class ActuatorConfig {
 	private TalonSRX talonIntakeOne;
 	private TalonSRX talonIntakeTwo;
 	
+	private TalonSRX talonIntakeAngler;
+	
 	private TalonSRX talonLiftOne;
 	private TalonSRX talonLiftTwo;
+	
+	private TalonSRX talonWingOne;
+	private TalonSRX talonWingTwo;
 	
 	private Motor motorLeftOne;
 	private Motor motorLeftTwo;
@@ -33,8 +38,13 @@ public class ActuatorConfig {
 	private Motor motorIntakeOne;
 	private Motor motorIntakeTwo;
 	
+	private Motor motorIntakeAngler;
+	
 	private Motor motorLiftOne;
 	private Motor motorLiftTwo;
+	
+	private Motor motorWingOne;
+	private Motor motorWingTwo;
 	
 	
 	private DoubleMotor doubleMotorRight;
@@ -42,6 +52,8 @@ public class ActuatorConfig {
 	
 	private DoubleMotor doubleMotorIntake;
  	private DoubleMotor doubleMotorLift;
+ 	
+ 	private DoubleMotor doubleMotorWings;
 	
 	private Drivetrain drivetrain;
 	
@@ -65,6 +77,7 @@ public class ActuatorConfig {
 	public void init()
 	{   
 			
+		//talons
 		talonLeftOne = new TalonSRX(3);//3
 		talonLeftTwo = new TalonSRX(2);//2
 		talonRightOne = new TalonSRX(4);//4
@@ -72,9 +85,17 @@ public class ActuatorConfig {
 
 //		talonIntakeOne = new TalonSRX(7);
 //		talonIntakeTwo = new TalonSRX(8);
+		
+//		talonIntakeAngler = new TalonSRX(9);
+		
 //		talonLiftOne = new TalonSRX(5);
 //		talonLiftTwo = new TalonSRX(6);
-	  
+		
+//		talonWingOne = new TalonSRX(10);
+//		talonWingTwo = new TalonSRX(11);
+		
+		
+		//motors
 		motorLeftOne = new Motor(talonLeftOne);
 	    motorLeftTwo = new Motor(talonLeftTwo);
 		motorRightOne = new Motor(talonRightOne);
@@ -82,18 +103,30 @@ public class ActuatorConfig {
 		
 //		motorIntakeOne = new Motor(talonIntakeOne);
 //		motorIntakeTwo = new Motor(talonIntakeTwo);
+		
+//		motorIntakeAngler = new Motor(talonIntakeAngler);
+		
 //		motorLiftOne = new Motor(talonLiftOne);
 //		motorLiftTwo = new Motor(talonLiftTwo);
+		
+//		motorWingOne = new Motor(talonWingOne);
+//		motorWingTwo = new Motor(talonWingTwo);
 
 //		motorIntakeTwo.setMotorReversed(true);
 //		motorLiftTwo.setMotorReversed(true);	
-	
+		
+		
+		
+		//double motors
 		doubleMotorLeft = new DoubleMotor(motorLeftOne, motorLeftTwo);
 		doubleMotorRight = new DoubleMotor(motorRightOne, motorRightTwo);
 		
 //		doubleMotorIntake = new DoubleMotor(motorIntakeOne, motorIntakeTwo);		
 //		doubleMotorLift = new DoubleMotor(motorLiftOne, motorLiftTwo);
+//		doubleMotorWings = new DoubleMotor(motorWingOne, motorWingTwo);
 		
+		
+		//motor configurations
 		talonLeftOne.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, kTimeoutMs);
 		talonLeftOne.getSensorCollection().getQuadraturePosition();
 
@@ -107,8 +140,9 @@ public class ActuatorConfig {
 			
 		drivetrain = new Drivetrain(doubleMotorLeft, doubleMotorRight);
 
-		//limit switch stuff
 		
+		
+		//limit switch stuff
 //		talonLiftOne.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
 //		talonLiftOne.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
 //		talonLiftOne.overrideLimitSwitchesEnable(true);
