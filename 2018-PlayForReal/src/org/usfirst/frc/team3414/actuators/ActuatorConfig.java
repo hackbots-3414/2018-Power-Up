@@ -127,16 +127,18 @@ public class ActuatorConfig {
 		
 		
 		//motor configurations
-		talonLeftOne.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, kTimeoutMs);
+//		talonLeftOne.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, kTimeoutMs);
+		talonLeftOne.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, kTimeoutMs);
 		talonLeftOne.getSensorCollection().getQuadraturePosition();
 
-		talonRightTwo.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, kTimeoutMs);
+//		talonRightTwo.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, kTimeoutMs);
+		talonRightTwo.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, kTimeoutMs);
 		talonRightTwo.getSensorCollection().getQuadraturePosition();
 
 		doubleMotorRight.setMotorReveresed(true);
 		
 //		talonRightTwo.setSensorPhase(false);
-//		talonLeftOne.setSensorPhase(false);
+		talonLeftOne.setSensorPhase(false);
 			
 		drivetrain = new Drivetrain(doubleMotorLeft, doubleMotorRight);
 

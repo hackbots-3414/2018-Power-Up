@@ -98,14 +98,11 @@ public class PacbotTeleop implements ITeleop{
 				
 				if (endYaw > (startYaw)) 
 				{
-				
-					//drivetrain.setSpeed((leftJoystick.getYAxis() / 2), (rightJoystick.getYAxis() / 2) + 0.2);//Add Gyro 
 					System.out.println("Veering Right Telop");
 					rightCorrect = 0.2;
 				}
 				else if (endYaw < (startYaw)) 
 				{	
-					//drivetrain.setSpeed((leftJoystick.getYAxis() / 2) + 0.2, (rightJoystick.getYAxis() / 2));//Add Gyro 
 					System.out.println("Veering Left Telop");
 					leftCorrect = 0.2;
 				}
@@ -114,8 +111,6 @@ public class PacbotTeleop implements ITeleop{
 					leftCorrect = 0;
 					rightCorrect = 0;
 				}
-				
-			//	drivetrain.setSpeed((leftJoystick.getYAxis() / 2) + leftCorrect, (rightJoystick.getYAxis() / 2) + rightCorrect);//Add Gyro 
 				drivetrain.setSpeed((leftJoystick.getYAxis()) + leftCorrect, (rightJoystick.getYAxis()) + rightCorrect);
 				endYaw = SensorConfig.getInstance().getNavX().getRawYaw();
 				
@@ -127,13 +122,11 @@ public class PacbotTeleop implements ITeleop{
 				if(rightJoystick.isReversed() && leftJoystick.isReversed())
 				{
 					drivetrain.setSpeed((leftJoystick.getYAxis() / 2), (rightJoystick.getYAxis() / 2));
-					//drivetrain.setSpeed((leftJoystick.getYAxis()), (rightJoystick.getYAxis()));
 				}
 				
 				else
 				{
 					drivetrain.setSpeed((leftJoystick.getYAxis() / 2), (rightJoystick.getYAxis() / 2));
-					//drivetrain.setSpeed((leftJoystick.getYAxis()), (rightJoystick.getYAxis()));
 				}
 			}
 			
