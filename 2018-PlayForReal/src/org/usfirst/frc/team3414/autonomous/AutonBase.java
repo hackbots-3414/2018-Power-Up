@@ -58,7 +58,6 @@ public abstract class AutonBase implements Runnable
 
 		
 		System.out.println("Running Auton Thread----------------------------------------");
-		//ActuatorConfig.getInstance().getCompressor().stop();
 		System.out.println(position);
 		if(RobotStatus.isAuto())
 		{

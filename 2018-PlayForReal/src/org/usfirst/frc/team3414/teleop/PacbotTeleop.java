@@ -4,6 +4,7 @@ import org.usfirst.frc.team3414.sensor.IGamepad;
 
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Encoder;
 
 import org.usfirst.frc.team3414.autonomous.AutonStatus;
 import org.usfirst.frc.team3414.sensor.ClockTimer;
@@ -17,6 +18,7 @@ import org.usfirst.frc.team3414.actuators.Drivetrain;
 import org.usfirst.frc.team3414.sensor.Gamepad;
 import org.usfirst.frc.team3414.sensor.IGamepad;
 import org.usfirst.frc.team3414.sensor.HBJoystick;
+
 
 public class PacbotTeleop implements ITeleop{
 	
@@ -70,9 +72,10 @@ public class PacbotTeleop implements ITeleop{
 		{
 			while(isRunning) {
 				
-			SmartDashboard.putNumber("Left Encoder - Teleop", ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition() * (0.000122));//
-			SmartDashboard.putNumber("Right Encoder - Teleop", ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition() * (-0.000122));
-			
+			SmartDashboard.putNumber("Left Encoder - Teleop", ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition() * (-0.000122));//
+			SmartDashboard.putNumber("Right Encoder - Teleop", ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition() * (0.000122));
+//			System.out.println("Left Encoder Value" + ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition());
+//			System.out.println("Right Encoder Value"  + ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition());
 			if(leftJoystick.getRawButton(1)) 
 			{
 				double rightYJoystick = rightJoystick.getY();
@@ -118,7 +121,6 @@ public class PacbotTeleop implements ITeleop{
 				
 				SmartDashboard.putNumber("Statrt Yaw Tle", startYaw);
 				SmartDashboard.putNumber("End Yaw Tle", endYaw);
-			
 			}
 			else if((leftJoystick.getY() > 0.15 && rightJoystick.getY() < -0.15) || (leftJoystick.getY() < -0.20 && rightJoystick.getY() > 0.1))
 			{

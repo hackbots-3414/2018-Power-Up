@@ -80,6 +80,7 @@ private PacbotTeleop teleop;
 		// Mentor Francis added the next two lines to reset the encoders each time. This allows repeated testing of Auton without redeploying code
 		ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().setQuadraturePosition(0, 10);
 		ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().setQuadraturePosition(0, 10);
+		
 		teleop.stop();
 	}
 //

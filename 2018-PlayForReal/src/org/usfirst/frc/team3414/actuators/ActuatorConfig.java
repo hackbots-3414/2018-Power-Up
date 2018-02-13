@@ -19,7 +19,8 @@ public class ActuatorConfig {
 	private TalonSRX talonRightOne;
 	private TalonSRX talonRightTwo;
 	
-//	private TalonSRX talonIntake;
+	private TalonSRX talonIntakeOne;
+	private TalonSRX talonIntakeTwo;
 	
 	private TalonSRX talonLiftOne;
 	private TalonSRX talonLiftTwo;
@@ -29,17 +30,17 @@ public class ActuatorConfig {
 	private Motor motorRightOne;
 	private Motor motorRightTwo;
 	
-//	private Motor motorIntake;
+	private Motor motorIntakeOne;
+	private Motor motorIntakeTwo;
 	
 	private Motor motorLiftOne;
 	private Motor motorLiftTwo;
 	
-//	private Motor motorClimber;
 	
 	private DoubleMotor doubleMotorRight;
 	private DoubleMotor doubleMotorLeft;
 	
-//	private DoubleMotor doubleMotorIntake;
+	private DoubleMotor doubleMotorIntake;
  	private DoubleMotor doubleMotorLift;
 	
 	private Drivetrain drivetrain;
@@ -64,67 +65,68 @@ public class ActuatorConfig {
 	public void init()
 	{   
 			
-		talonLeftOne = new TalonSRX(2);//3
-		talonLeftTwo = new TalonSRX(1);//2
+		talonLeftOne = new TalonSRX(3);//3
+		talonLeftTwo = new TalonSRX(2);//2
 		talonRightOne = new TalonSRX(4);//4
-		talonRightTwo = new TalonSRX(3);//1
-		
+		talonRightTwo = new TalonSRX(1);//1
+
+//		talonIntakeOne = new TalonSRX(7);
+//		talonIntakeTwo = new TalonSRX(8);
 //		talonLiftOne = new TalonSRX(5);
 //		talonLiftTwo = new TalonSRX(6);
-//		talonIntake = new TalonSRX();
 	  
 		motorLeftOne = new Motor(talonLeftOne);
 	    motorLeftTwo = new Motor(talonLeftTwo);
 		motorRightOne = new Motor(talonRightOne);
 		motorRightTwo = new Motor(talonRightTwo);
+		
+//		motorIntakeOne = new Motor(talonIntakeOne);
+//		motorIntakeTwo = new Motor(talonIntakeTwo);
 //		motorLiftOne = new Motor(talonLiftOne);
 //		motorLiftTwo = new Motor(talonLiftTwo);
-	//	motorIntake = new Motor(talonIntake);
-		
-	//	motorLiftTwo.setMotorReversed(true);	
+
+//		motorIntakeTwo.setMotorReversed(true);
+//		motorLiftTwo.setMotorReversed(true);	
 	
 		doubleMotorLeft = new DoubleMotor(motorLeftOne, motorLeftTwo);
 		doubleMotorRight = new DoubleMotor(motorRightOne, motorRightTwo);
 		
+//		doubleMotorIntake = new DoubleMotor(motorIntakeOne, motorIntakeTwo);		
 //		doubleMotorLift = new DoubleMotor(motorLiftOne, motorLiftTwo);
 		
-		talonLeftTwo.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
-		talonLeftTwo.getSensorCollection().getQuadraturePosition();
+		talonLeftOne.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, kTimeoutMs);
+		talonLeftOne.getSensorCollection().getQuadraturePosition();
 
-		talonRightTwo.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
+		talonRightTwo.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, kTimeoutMs);
 		talonRightTwo.getSensorCollection().getQuadraturePosition();
+
+		doubleMotorRight.setMotorReveresed(true);
 		
+//		talonRightTwo.setSensorPhase(false);
+//		talonLeftOne.setSensorPhase(false);
+			
+		drivetrain = new Drivetrain(doubleMotorLeft, doubleMotorRight);
+
+		//limit switch stuff
 		
-		//		talonLiftOne.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
+//		talonLiftOne.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
 //		talonLiftOne.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
 //		talonLiftOne.overrideLimitSwitchesEnable(true);
 //		talonLiftOne.getSensorCollection().isRevLimitSwitchClosed();
 //		talonLiftOne.getSensorCollection().isFwdLimitSwitchClosed();
 		
-		//rightTripleMotor.setMotorReveresed(true);
-		doubleMotorRight.setMotorReveresed(true);
-		
-		drivetrain = new Drivetrain(doubleMotorLeft, doubleMotorRight);
-		
-		//pid stuff
-		
-		
-		
+		//pid stuff	
 		
 		double motorRightOneOutput = talonRightOne.getMotorOutputPercent();
 		double motorLeftOneOutput = talonLeftOne.getMotorOutputPercent();
-		talonRightOne.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, kTimeoutMs);
-		talonLeftOne.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, kTimeoutMs);
-		
-		talonRightOne.setSensorPhase(true);
-		talonLeftOne.setSensorPhase(true);
+//		talonRightTwo.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, kTimeoutMs);
+//		talonLeftOne.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, kTimeoutMs);
 	
 		talonLeftOne.configOpenloopRamp(RampTime,RampTimeoutMs);
 		talonLeftTwo.configOpenloopRamp(RampTime, RampTimeoutMs);
 		talonRightOne.configOpenloopRamp(RampTime, RampTimeoutMs);
 		talonLeftTwo.configOpenloopRamp(RampTime, RampTimeoutMs);
-
-		
+	
 		talonRightOne.configNominalOutputForward(0, kTimeoutMs);
 		talonRightOne.configNominalOutputReverse(0, kTimeoutMs);
 		talonRightOne.configPeakOutputForward(1, kTimeoutMs);
@@ -142,8 +144,6 @@ public class ActuatorConfig {
 		talonLeftOne.config_kP(kPIDLoopIdx, 0.22, kTimeoutMs);
 		talonLeftOne.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
 		talonLeftOne.config_kD(kPIDLoopIdx, 2.2, kTimeoutMs);
-		
-		
 		
 
 	}
@@ -185,7 +185,7 @@ public class ActuatorConfig {
 	
 //	public Motor getIntakeMotor()
 //	{
-//		return intakeMotor;
+//		return doubleMotorIntake;
 //	}
 	
 }

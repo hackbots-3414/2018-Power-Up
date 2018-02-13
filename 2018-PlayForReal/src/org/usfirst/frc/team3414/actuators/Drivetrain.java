@@ -63,34 +63,6 @@ public class Drivetrain implements IDriveTrain {
 		return leftMotor;
 	}
 
-	/*private void turn(double speed, double angle, RotationalDirection direction) 
-	{
-		NavX navX = SensorConfig.getInstance().getNavX();
-		double currentYaw = navX.getYaw();
-		double endAngle = 0;
-		
-
-		if(endAngle > 360)
-		{
-			endAngle = 360 - endAngle;
-		}
-		
-		if(direction == RotationalDirection.CLOCKWISE)
-		{
-			endAngle = currentYaw + angle;
-			
-			ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed, -speed);
-		}
-		else if(direction == RotationalDirection.COUNTERCLOCKWISE)
-		{
-			endAngle = currentYaw - angle;
-			
-			ActuatorConfig.getInstance().getDrivetrain().setSpeed(-speed, speed);
-		}
-		
-		
-	}*/
-
 	public void turnRight(double speed, double angle)
 	{	
 		rightJoystick = new HBJoystick(0);
@@ -125,14 +97,6 @@ public class Drivetrain implements IDriveTrain {
 					 break;
 				 }
 			}
-			/*while(currentYaw < endAngle || (currentYaw + angle) > 360 )
-			{
-				currentYaw = navX.getYaw();
-				 if(RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
-				 {
-					 break;
-				 }
-			}*/
 		} else {
 			while(currentYaw < endAngle)
 			{
@@ -181,26 +145,6 @@ public class Drivetrain implements IDriveTrain {
 					 break;
 				 }
 			}
-			/*while((currentYaw + angle) <= 360 || (currentYaw - endAngle) > 0 )
-			{
-				if(currentYaw + 1.5 < 360 && !isSwitched)
-				{
-					continue;
-				}
-				else
-				{
-					isSwitched = true;
-				}
-				
-				currentYaw = navX.getYaw();
-				System.out.println("Current Angle: " + currentYaw);
-				
-				
-				if(RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
-				 {
-					 break;
-				 }
-			} */
 		} else {
 			while(currentYaw > endAngle)
 			{
