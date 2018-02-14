@@ -74,8 +74,8 @@ public class PacbotTeleop implements ITeleop{
 				
 			SmartDashboard.putNumber("Left Encoder - Teleop", ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition()) ;//* (-0.000122));//
 			SmartDashboard.putNumber("Right Encoder - Teleop", ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition());// * (0.000122));
-//			System.out.println("Left Encoder Value" + ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition());
-//			System.out.println("Right Encoder Value"  + ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition());
+			System.out.println("Left Encoder Value" + ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition());
+			System.out.println("Right Encoder Value"  + ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition());
 			if(leftJoystick.getRawButton(1)) 
 			{
 				double rightYJoystick = rightJoystick.getY();
@@ -144,7 +144,7 @@ public class PacbotTeleop implements ITeleop{
 				e.printStackTrace();
 			}
 			
-			if (gamepad.getButtonState(8) && 
+			if (gamepad.getButtonState(5) && 
 			(ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().isRevLimitSwitchClosed()
 			 || ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().getQuadraturePosition() < 5000)) 
 			{
@@ -160,6 +160,52 @@ public class PacbotTeleop implements ITeleop{
 			{
 				ActuatorConfig.getInstance().getLift().setSpeed(0);
 			}
+			
+			if (gamepad.getButtonState(1)) 
+			{
+				//intakeangler up
+			}
+			
+			else if (gamepad.getButtonState(2)) 
+			{
+				//intake angler down
+			}
+			
+			else
+			{
+				// intake angler no speed
+			}
+			
+//			if (gamepad.getButtonState(3)) 
+//			{
+//				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(.90);
+//			}
+//			
+//			else if (gamepad.getButtonState(4)) 
+//			{
+//				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(-0.90);
+//			}
+//			
+//			else
+//			{
+//				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(0);
+//			}
+			
+			if (gamepad.getButtonState(11)) 
+			{
+				//wings down
+			}
+			
+			else if (gamepad.getButtonState(10)) 
+			{
+				//wings up
+			}
+			
+			else
+			{
+				//wings no speed
+			}
+			
 		}
 	}
 }

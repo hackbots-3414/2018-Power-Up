@@ -112,9 +112,9 @@ public class ActuatorConfig {
 //		motorWingOne = new Motor(talonWingOne);
 //		motorWingTwo = new Motor(talonWingTwo);
 
-//		motorIntakeTwo.setMotorReversed(true);
-		motorLiftTwo.setMotorReveresed(true);	
-		
+//		motorIntakeTwo.setMotorReveresed(true);
+		motorLiftOne.setMotorReveresed(true);	
+		//Two
 		
 		
 		//double motors
@@ -134,7 +134,7 @@ public class ActuatorConfig {
 		talonRightOne.getSensorCollection().getQuadraturePosition();
 
 		doubleMotorRight.setMotorReveresed(true);
-		doubleMotorLift.setMotorReveresed(true);
+	//	doubleMotorLift.setMotorReveresed(true);
 		
 		talonRightOne.setSensorPhase(true);
 		talonLeftOne.setSensorPhase(true);
@@ -144,6 +144,7 @@ public class ActuatorConfig {
 		
 		
 		//limit switch stuff
+		talonLiftOne.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, kTimeoutMs);
 		talonLiftOne.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
 		talonLiftOne.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
 		talonLiftOne.overrideLimitSwitchesEnable(true);
@@ -218,7 +219,7 @@ public class ActuatorConfig {
 		return talonLiftOne;
 	}
 	
-//	public Motor getIntakeMotor()
+//	public DoubleMotor getIntakeMotor()
 //	{
 //		return doubleMotorIntake;
 //	}
