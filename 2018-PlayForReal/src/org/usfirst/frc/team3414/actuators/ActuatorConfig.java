@@ -114,7 +114,6 @@ public class ActuatorConfig {
 
 //		motorIntakeTwo.setMotorReveresed(true);
 		motorLiftOne.setMotorReveresed(true);	
-		//Two
 		
 		
 		//double motors
@@ -134,7 +133,7 @@ public class ActuatorConfig {
 		talonRightOne.getSensorCollection().getQuadraturePosition();
 
 		doubleMotorRight.setMotorReveresed(true);
-	//	doubleMotorLift.setMotorReveresed(true);
+		doubleMotorLift.setMotorReveresed(true);
 		
 		talonRightOne.setSensorPhase(true);
 		talonLeftOne.setSensorPhase(true);

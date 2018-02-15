@@ -144,15 +144,17 @@ public class PacbotTeleop implements ITeleop{
 				e.printStackTrace();
 			}
 			
-			if (gamepad.getButtonState(5) && 
-			(ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().isRevLimitSwitchClosed()
-			 || ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().getQuadraturePosition() < 5000)) 
+			if (gamepad.getButtonState(5)) 
+//					&& 
+//			(ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().isRevLimitSwitchClosed()
+//			 || ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().getQuadraturePosition() < 5000)) 
 			{
 				ActuatorConfig.getInstance().getLift().setSpeed(.25);
 			}
-			else if(gamepad.getButtonState(7)  && 
-			(ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().isFwdLimitSwitchClosed()
-					 || ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().getQuadraturePosition() > 0)) 
+			else if(gamepad.getButtonState(7))
+//					&& 
+//			(ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().isFwdLimitSwitchClosed()
+//					 || ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().getQuadraturePosition() > 0)) 
 			{
 				ActuatorConfig.getInstance().getLift().setSpeed(-.25);
 			}
