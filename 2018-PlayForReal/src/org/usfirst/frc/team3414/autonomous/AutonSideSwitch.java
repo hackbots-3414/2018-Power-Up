@@ -16,11 +16,11 @@ public class AutonSideSwitch extends AutonBase
 	{
 		if("LRL".equals(this.gameData)|| "LLL".equals(this.gameData)) //Left switch from left side
 		{
-			ActuatorConfig.getInstance().getDrivetrain().movePid(4);//14 find actual measurements
-			ActuatorConfig.getInstance().getDrivetrain().turnRight(.8, 90);
-			ActuatorConfig.getInstance().getDrivetrain().movePid(1);
+			ActuatorConfig.getInstance().getDrivetrain().movePid(4000);//14 find actual measurements
+//			ActuatorConfig.getInstance().getDrivetrain().turnRight(.8, 90);
+//			ActuatorConfig.getInstance().getDrivetrain().movePid(1);
 			//Drop the power cube
-			ActuatorConfig.getInstance().getDrivetrain().movePid(-1);
+//			ActuatorConfig.getInstance().getDrivetrain().movePid(-1);
 			System.out.println("Position Left: Left switch");
 		}
 		else if("RRR".equals(this.gameData) || "RLR".equals(this.gameData)) //Park past switch from left side

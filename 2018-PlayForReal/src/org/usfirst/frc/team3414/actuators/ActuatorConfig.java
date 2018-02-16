@@ -133,52 +133,53 @@ public class ActuatorConfig {
 		talonRightOne.getSensorCollection().getQuadraturePosition();
 
 		doubleMotorRight.setMotorReveresed(true);
-		doubleMotorLift.setMotorReveresed(true);
-		
-		talonRightOne.setSensorPhase(true);
-		talonLeftOne.setSensorPhase(true);
+//		doubleMotorLift.setMotorReveresed(true);
+
 			
 		drivetrain = new Drivetrain(doubleMotorLeft, doubleMotorRight);
-
 		
 		
 		//limit switch stuff
-		talonLiftOne.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, kTimeoutMs);
-		talonLiftOne.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
-		talonLiftOne.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
-		talonLiftOne.overrideLimitSwitchesEnable(true);
-		talonLiftOne.getSensorCollection().isRevLimitSwitchClosed();
-		talonLiftOne.getSensorCollection().isFwdLimitSwitchClosed();
+//		talonLiftOne.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, kTimeoutMs);
+//		talonLiftOne.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
+//		talonLiftOne.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
+//		talonLiftOne.overrideLimitSwitchesEnable(true);
+//		talonLiftOne.getSensorCollection().isRevLimitSwitchClosed();
+//		talonLiftOne.getSensorCollection().isFwdLimitSwitchClosed();
 		
 		//pid stuff	
 		
 		double motorRightOneOutput = talonRightOne.getMotorOutputPercent();
 		double motorLeftOneOutput = talonLeftOne.getMotorOutputPercent();
-//		talonRightOne.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, kTimeoutMs);
+
+		
+		//		talonRightOne.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, kTimeoutMs);
 //		talonLeftOne.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, kTimeoutMs);
-	
+		talonRightOne.setSensorPhase(true);
+		talonLeftOne.setSensorPhase(true);
+		
 		talonLeftOne.configOpenloopRamp(RampTime,RampTimeoutMs);
 		talonLeftTwo.configOpenloopRamp(RampTime, RampTimeoutMs);
 		talonRightOne.configOpenloopRamp(RampTime, RampTimeoutMs);
 		talonLeftTwo.configOpenloopRamp(RampTime, RampTimeoutMs);
 	
-		talonRightOne.configNominalOutputForward(0, kTimeoutMs);
-		talonRightOne.configNominalOutputReverse(0, kTimeoutMs);
-		talonRightOne.configPeakOutputForward(1, kTimeoutMs);
-		talonRightOne.configPeakOutputReverse(-1, kTimeoutMs);
-		talonLeftOne.configNominalOutputForward(0, kTimeoutMs);
-		talonLeftOne.configNominalOutputReverse(0, kTimeoutMs);
-		talonLeftOne.configPeakOutputForward(1, kTimeoutMs);
-		talonLeftOne.configPeakOutputReverse(-1, kTimeoutMs);
-		
-		talonRightOne.config_kF(kPIDLoopIdx, 0.110918, kTimeoutMs);
-		talonRightOne.config_kP(kPIDLoopIdx, 0.22, kTimeoutMs);
-		talonRightOne.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
-		talonRightOne.config_kD(kPIDLoopIdx, 2.5575, kTimeoutMs);
-		talonLeftOne.config_kF(kPIDLoopIdx, 0.110918, kTimeoutMs);
-		talonLeftOne.config_kP(kPIDLoopIdx, 0.22, kTimeoutMs);
-		talonLeftOne.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
-		talonLeftOne.config_kD(kPIDLoopIdx, 2.2, kTimeoutMs);
+//		talonRightOne.configNominalOutputForward(0, kTimeoutMs);
+//		talonRightOne.configNominalOutputReverse(0, kTimeoutMs);
+//		talonRightOne.configPeakOutputForward(1, kTimeoutMs);
+//		talonRightOne.configPeakOutputReverse(-1, kTimeoutMs);
+//		talonLeftOne.configNominalOutputForward(0, kTimeoutMs);
+//		talonLeftOne.configNominalOutputReverse(0, kTimeoutMs);
+//		talonLeftOne.configPeakOutputForward(1, kTimeoutMs);
+//		talonLeftOne.configPeakOutputReverse(-1, kTimeoutMs);
+//		
+//		talonRightOne.config_kF(kPIDLoopIdx, 0.09053, kTimeoutMs);
+//		talonRightOne.config_kP(kPIDLoopIdx, 3.9346, kTimeoutMs);
+//		talonRightOne.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
+//		talonRightOne.config_kD(kPIDLoopIdx, 0, kTimeoutMs);
+//		talonLeftOne.config_kF(kPIDLoopIdx, 3.9346, kTimeoutMs);
+//		talonLeftOne.config_kP(kPIDLoopIdx, 0, kTimeoutMs);
+//		talonLeftOne.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
+//		talonLeftOne.config_kD(kPIDLoopIdx, 0, kTimeoutMs);
 		
 
 	}
