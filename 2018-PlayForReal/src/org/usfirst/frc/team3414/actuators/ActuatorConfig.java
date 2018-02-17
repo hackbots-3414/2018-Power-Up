@@ -1,6 +1,9 @@
 package org.usfirst.frc.team3414.actuators;
 
 import org.usfirst.frc.team3414.actuators.Motor;
+import org.usfirst.frc.team3414.autonomous.AutonStatus;
+import org.usfirst.frc.team3414.robot.RobotStatus;
+import org.usfirst.frc.team3414.util.Status;
 import org.usfirst.frc.team3414.actuators.Drivetrain;
 import org.usfirst.frc.team3414.actuators.DoubleMotor;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -156,7 +159,10 @@ public class ActuatorConfig {
 //		talonLeftOne.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, kTimeoutMs);
 		talonRightOne.setSensorPhase(true);
 		talonLeftOne.setSensorPhase(true);
-		
+		if(RobotStatus.isAuto()() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
+		{
+			
+		}
 		talonLeftOne.configOpenloopRamp(RampTime,RampTimeoutMs);
 		talonLeftTwo.configOpenloopRamp(RampTime, RampTimeoutMs);
 		talonRightOne.configOpenloopRamp(RampTime, RampTimeoutMs);

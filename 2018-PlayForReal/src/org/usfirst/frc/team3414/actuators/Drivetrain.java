@@ -97,7 +97,9 @@ public class Drivetrain implements IDriveTrain {
 					 break;
 				 }
 			}
-		} else {
+		} 
+		else
+		{
 			while(currentYaw < endAngle)
 			{
 				currentYaw = navX.getYaw();
@@ -145,7 +147,9 @@ public class Drivetrain implements IDriveTrain {
 					 break;
 				 }
 			}
-		} else {
+		} 
+		else 
+		{
 			while(currentYaw > endAngle)
 			{
 				currentYaw = navX.getYaw();
