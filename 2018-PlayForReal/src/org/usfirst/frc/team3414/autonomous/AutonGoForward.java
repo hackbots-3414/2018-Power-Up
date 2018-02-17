@@ -12,7 +12,9 @@ public class AutonGoForward extends AutonBase
 
 	protected void left() //Goes forward
 	{
-		ActuatorConfig.getInstance().getDrivetrain().moveGyro(2, -.4, false);
+
+//		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(.1, 0.3);
+		ActuatorConfig.getInstance().getDrivetrain().moveGyro(1, 0.1, false);
 //		ActuatorConfig.getInstance().getDrivetrain().movePid(-20000);//16
 		System.out.println("Position left: Goes forward");
 	}
@@ -21,11 +23,11 @@ public class AutonGoForward extends AutonBase
 	{
 		if ("LRL".equals(this.gameData) || "LLL".equals(this.gameData))//Runs basic center auton for left switch
 		{
-			ActuatorConfig.getInstance().getDrivetrain().turnLeft(0.8, 45);
-			ActuatorConfig.getInstance().getDrivetrain().movePid(2);//Go forward 
-			ActuatorConfig.getInstance().getDrivetrain().turnRight(0.8,45);
-			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
-			System.out.println("Ya can't go forward unless you give gameData some dumb value. I won't allow it!");		
+//			ActuatorConfig.getInstance().getDrivetrain().turnLeft(0.8, 45);
+//			ActuatorConfig.getInstance().getDrivetrain().movePid(2);//Go forward 
+//			ActuatorConfig.getInstance().getDrivetrain().turnRight(0.8,45);
+//			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
+//			System.out.println("Ya can't go forward unless you give gameData some dumb value. I won't allow it!");		
 		}
 		else if ("RLR".equals(this.gameData)|| "RRR".equals(this.gameData))//Runs basic center auton for right switch
 		{

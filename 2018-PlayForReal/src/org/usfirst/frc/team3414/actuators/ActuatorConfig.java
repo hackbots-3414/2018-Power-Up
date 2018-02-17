@@ -60,8 +60,8 @@ public class ActuatorConfig {
 	public static final int kTimeoutMs = 10;
 	public static final int kPIDLoopIdx = 0;
 	
-	public static final double RampTime = 0.5;
-	public static final int RampTimeoutMs = 4000;
+	public static final double RampTime =  0.5;//0.5
+	public static final int RampTimeoutMs = 20000;
 	
 	public static ActuatorConfig getInstance()
 	{
@@ -78,10 +78,10 @@ public class ActuatorConfig {
 	{   
 			
 		//talons
-		talonLeftOne = new TalonSRX(1);//3
-		talonLeftTwo = new TalonSRX(2);//2
-		talonRightOne = new TalonSRX(3);//4
-		talonRightTwo = new TalonSRX(4);//1
+		talonLeftOne = new TalonSRX(3);//1   3
+		talonLeftTwo = new TalonSRX(4);//2   2
+		talonRightOne = new TalonSRX(1);//3   4
+		talonRightTwo = new TalonSRX(2);//4   1
 
 //		talonIntakeOne = new TalonSRX(5);
 //		talonIntakeTwo = new TalonSRX(6);
@@ -130,8 +130,7 @@ public class ActuatorConfig {
 		talonLeftOne.getSensorCollection().getQuadraturePosition();
 
 		talonRightOne.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, kTimeoutMs);
-		talonRightOne.getSensorCollection().getQuadraturePosition();
-
+		
 		doubleMotorRight.setMotorReveresed(true);
 //		doubleMotorLift.setMotorReveresed(true);
 

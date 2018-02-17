@@ -256,46 +256,47 @@ public class Drivetrain implements IDriveTrain {
 	
 	public void moveGyro(double distance, double speed, boolean isReversed)
 	{	
-		rightJoystick = new HBJoystick(0);
-		leftJoystick = new HBJoystick(1);
-		
 		NavX navx = SensorConfig.getInstance().getNavX();
 		
 		boolean isRightComplete = false;
 		boolean isLeftComplete = false;
 		double distanceRight;
 		double distanceLeft;	
-		double rightEncoderValue = ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition() * (-0.000122);
-		double leftEncoderValue =  ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition() * (0.000122);
-		if(isReversed) {
+		double rightEncoderValue = ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition() / (8192.0);//8192 is the ppr of the encoder x4
+		double leftEncoderValue =  ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition() / (-8192.0);
+
+		if(isReversed)
+		{
 			speed = speed * -1;
 			distanceRight  = rightEncoderValue - distance;
 			distanceLeft = leftEncoderValue - distance;
-		} else {
+		} 
+		else 
+		{
 			distanceRight  = rightEncoderValue + distance;
 			distanceLeft = leftEncoderValue + distance;
 		}
 		
 		double currentYaw;
 		double startYaw = navx.getRawYaw();
-		SmartDashboard.putNumber("Start Yaw: ", startYaw);
-		ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed, speed);
-		SmartDashboard.putNumber("Right Distance To ", distanceRight);
-		SmartDashboard.putNumber("Left Distance To ", distanceLeft);
-		SmartDashboard.putNumber("Start Left Enoder Value ", leftEncoderValue);
-		SmartDashboard.putNumber("Start Right Encoder Value", rightEncoderValue);
+//		SmartDashboard.putNumber("Start Yaw: ", startYaw);
+		ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed);
+//		SmartDashboard.putNumber("Right Distance To ", distanceRight);
+//		SmartDashboard.putNumber("Left Distance To ", distanceLeft);
+//		SmartDashboard.putNumber("Start Left Enoder Value ", leftEncoderValue);
+//		SmartDashboard.putNumber("Start Right Encoder Value", rightEncoderValue);
 		
 		while(!isRightComplete && !isLeftComplete)
 		{
-			 rightEncoderValue = ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition() * (-0.000122);
-			 leftEncoderValue = ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition() * (0.000122);
+			 rightEncoderValue = ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition()  / (8192.0);
+			 leftEncoderValue = ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition() / (-8192.0);
 			 
 			 SmartDashboard.putNumber("Left Enoder Value ", leftEncoderValue);
 			 SmartDashboard.putNumber("Right Encoder Value", rightEncoderValue);
-			 
+		}	 
 			 // This Kill Switch will only work once Teleop begins and Joysticks start working
 			 // This is a safety in case loop cannot complete for some reason while running Auton.
-			 // To test: Run Auton and hit disable before loop completes. Then start teleop and press kill switch buttons 
+			 // To test: Run Auton and hit disable before lop completes. Then start teleop and press kill switch buttons 
 			/*if(rightJoystick.getRawButton(1) || leftJoystick.getRawButton(1))
 			{
 				System.out.println("Kill Switch");
@@ -304,7 +305,7 @@ public class Drivetrain implements IDriveTrain {
 			 
 			 if(RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
 			 {
-				 break;
+				// break;
 			 }
 			 
 			 
@@ -316,8 +317,8 @@ public class Drivetrain implements IDriveTrain {
 				//	ActuatorConfig.getInstance().getDrivetrain().getLeftMotor().stop();
 					System.out.println("Left Finished First");
 				}
-				currentYaw = navx.getRawYaw();
-				SmartDashboard.putNumber("Current Yaw ", currentYaw);
+					currentYaw = navx.getRawYaw();
+					SmartDashboard.putNumber("Current Yaw ", currentYaw);
 				if (currentYaw > (startYaw + 0.5)) 
 				{
 					// Veering left, so slow down right
@@ -355,8 +356,8 @@ public class Drivetrain implements IDriveTrain {
 				}
 			}
 		}	
-		ActuatorConfig.getInstance().getDrivetrain().stop();
-	}
+	//	ActuatorConfig.getInstance().getDrivetrain().stop();
+	//}
 	public void movePid (double distance) 
 	{
 
