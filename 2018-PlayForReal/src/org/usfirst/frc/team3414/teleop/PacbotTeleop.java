@@ -1,24 +1,19 @@
 package org.usfirst.frc.team3414.teleop;
 
-import org.usfirst.frc.team3414.sensor.IGamepad;
-
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.Encoder;
-
+import org.usfirst.frc.team3414.actuators.ActuatorConfig;
+import org.usfirst.frc.team3414.actuators.Drivetrain;
 import org.usfirst.frc.team3414.autonomous.AutonStatus;
 import org.usfirst.frc.team3414.sensor.ClockTimer;
+import org.usfirst.frc.team3414.sensor.Gamepad;
+import org.usfirst.frc.team3414.sensor.HBJoystick;
+import org.usfirst.frc.team3414.sensor.IGamepad;
+import org.usfirst.frc.team3414.sensor.SensorConfig;
 import org.usfirst.frc.team3414.util.Status;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import org.usfirst.frc.team3414.sensor.SensorConfig;
-import org.usfirst.frc.team3414.actuators.ActuatorConfig;
-import org.usfirst.frc.team3414.actuators.Drivetrain;
-import org.usfirst.frc.team3414.sensor.Gamepad;
-import org.usfirst.frc.team3414.sensor.IGamepad;
-import org.usfirst.frc.team3414.sensor.HBJoystick;
-import org.usfirst.frc.team3414.actuators.Drivetrain;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class PacbotTeleop implements ITeleop{
 	
@@ -70,10 +65,11 @@ public class PacbotTeleop implements ITeleop{
 
 		public void run()
 		{
-			while(isRunning) {
+			while(isRunning)
+			{
 				
-//			SmartDashboard.putNumber("Left Encoder - Teleop", ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition()) ;//* (-0.000122));//
-//			SmartDashboard.putNumber("Right Encoder - Teleop", ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition());// * (0.000122));
+			SmartDashboard.putNumber("Left Encoder - Teleop", ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition()) ;//* (-0.000122));//
+			SmartDashboard.putNumber("Right Encoder - Teleop", ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition());// * (0.000122));
 //			System.out.println("Left Encoder Value" + ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition());
 //			System.out.println("Right Encoder Value"  + ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition());
 

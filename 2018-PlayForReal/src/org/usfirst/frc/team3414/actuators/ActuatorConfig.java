@@ -1,20 +1,12 @@
 package org.usfirst.frc.team3414.actuators;
 
-import org.usfirst.frc.team3414.actuators.Motor;
-import org.usfirst.frc.team3414.autonomous.AutonStatus;
 import org.usfirst.frc.team3414.robot.RobotStatus;
-import org.usfirst.frc.team3414.util.Status;
-import org.usfirst.frc.team3414.actuators.Drivetrain;
-import org.usfirst.frc.team3414.actuators.DoubleMotor;
+
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
-import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.Talon;
-
-public class ActuatorConfig {
-	
+public class ActuatorConfig 
+{
 	private static ActuatorConfig instance;
 	
 	private TalonSRX talonLeftOne;
@@ -81,10 +73,10 @@ public class ActuatorConfig {
 	{   
 			
 		//talons
-		talonLeftOne = new TalonSRX(3);//1   3
-		talonLeftTwo = new TalonSRX(4);//2   2
-		talonRightOne = new TalonSRX(1);//3   4
-		talonRightTwo = new TalonSRX(2);//4   1
+		talonLeftOne = new TalonSRX(1);//1   3
+		talonLeftTwo = new TalonSRX(2);//2   2
+		talonRightOne = new TalonSRX(3);//3   4
+		talonRightTwo = new TalonSRX(4);//4   1
 
 //		talonIntakeOne = new TalonSRX(5);
 //		talonIntakeTwo = new TalonSRX(6);
@@ -116,7 +108,7 @@ public class ActuatorConfig {
 //		motorWingTwo = new Motor(talonWingTwo);
 
 //		motorIntakeTwo.setMotorReveresed(true);
-		motorLiftOne.setMotorReveresed(true);	
+	//	motorLiftOne.setMotorReveresed(true);	
 		
 		
 		//double motors
@@ -130,20 +122,18 @@ public class ActuatorConfig {
 		
 		//motor configurations
 		talonLeftOne.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, kTimeoutMs);
-		talonLeftOne.getSensorCollection().getQuadraturePosition();
 
 		talonRightOne.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, kTimeoutMs);
 		
 		doubleMotorRight.setMotorReveresed(true);
 //		doubleMotorLift.setMotorReveresed(true);
-
-			
+	
 		drivetrain = new Drivetrain(doubleMotorLeft, doubleMotorRight);
 		
 		
 		//limit switch stuff
 //		talonLiftOne.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, kTimeoutMs);
-//		talonLiftOne.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
+//		talonLiftOne.configForwardLimi2tSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
 //		talonLiftOne.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
 //		talonLiftOne.overrideLimitSwitchesEnable(true);
 //		talonLiftOne.getSensorCollection().isRevLimitSwitchClosed();
@@ -159,34 +149,32 @@ public class ActuatorConfig {
 //		talonLeftOne.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, kTimeoutMs);
 		talonRightOne.setSensorPhase(true);
 		talonLeftOne.setSensorPhase(true);
-		if(RobotStatus.isAuto()() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
-		{
-			
-		}
-		talonLeftOne.configOpenloopRamp(RampTime,RampTimeoutMs);
-		talonLeftTwo.configOpenloopRamp(RampTime, RampTimeoutMs);
-		talonRightOne.configOpenloopRamp(RampTime, RampTimeoutMs);
-		talonLeftTwo.configOpenloopRamp(RampTime, RampTimeoutMs);
-	
-//		talonRightOne.configNominalOutputForward(0, kTimeoutMs);
-//		talonRightOne.configNominalOutputReverse(0, kTimeoutMs);
-//		talonRightOne.configPeakOutputForward(1, kTimeoutMs);
-//		talonRightOne.configPeakOutputReverse(-1, kTimeoutMs);
-//		talonLeftOne.configNominalOutputForward(0, kTimeoutMs);
-//		talonLeftOne.configNominalOutputReverse(0, kTimeoutMs);
-//		talonLeftOne.configPeakOutputForward(1, kTimeoutMs);
-//		talonLeftOne.configPeakOutputReverse(-1, kTimeoutMs);
-//		
-//		talonRightOne.config_kF(kPIDLoopIdx, 0.09053, kTimeoutMs);
-//		talonRightOne.config_kP(kPIDLoopIdx, 3.9346, kTimeoutMs);
-//		talonRightOne.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
-//		talonRightOne.config_kD(kPIDLoopIdx, 0, kTimeoutMs);
-//		talonLeftOne.config_kF(kPIDLoopIdx, 3.9346, kTimeoutMs);
-//		talonLeftOne.config_kP(kPIDLoopIdx, 0, kTimeoutMs);
-//		talonLeftOne.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
-//		talonLeftOne.config_kD(kPIDLoopIdx, 0, kTimeoutMs);
 		
-
+		if(RobotStatus.isTeleop())
+		{
+			talonLeftOne.configOpenloopRamp(RampTime,RampTimeoutMs);
+			talonLeftTwo.configOpenloopRamp(RampTime, RampTimeoutMs);
+			talonRightOne.configOpenloopRamp(RampTime, RampTimeoutMs);
+			talonLeftTwo.configOpenloopRamp(RampTime, RampTimeoutMs);
+		}
+		
+		talonRightOne.configNominalOutputForward(0, kTimeoutMs);
+		talonRightOne.configNominalOutputReverse(0, kTimeoutMs);
+		talonRightOne.configPeakOutputForward(1, kTimeoutMs);
+		talonRightOne.configPeakOutputReverse(-1, kTimeoutMs);
+		talonLeftOne.configNominalOutputForward(0, kTimeoutMs);
+		talonLeftOne.configNominalOutputReverse(0, kTimeoutMs);
+		talonLeftOne.configPeakOutputForward(1, kTimeoutMs);
+		talonLeftOne.configPeakOutputReverse(-1, kTimeoutMs);
+		
+		talonRightOne.config_kF(kPIDLoopIdx, 0.09053, kTimeoutMs);
+		talonRightOne.config_kP(kPIDLoopIdx, 3.9346, kTimeoutMs);
+		talonRightOne.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
+		talonRightOne.config_kD(kPIDLoopIdx, 0, kTimeoutMs);
+		talonLeftOne.config_kF(kPIDLoopIdx, 3.9346, kTimeoutMs);
+		talonLeftOne.config_kP(kPIDLoopIdx, 0, kTimeoutMs);
+		talonLeftOne.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
+		talonLeftOne.config_kD(kPIDLoopIdx, 0, kTimeoutMs);
 	}
 	
 	public TalonSRX getRightTalonOne()

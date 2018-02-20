@@ -5,9 +5,12 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import org.usfirst.frc.team3414.util.RotationalDirection;
 
-public class Motor extends MotorBase {
+public class Motor extends MotorBase
+{
 	private TalonSRX talon;//The talon that controls the motor
-
+	
+	private double speed = 0;
+	
 	/**
 	 * Creates a motor
 	 * @param talon
@@ -25,6 +28,8 @@ public class Motor extends MotorBase {
 		
 	public void setSpeed(double speed)
 	{
+		this.speed = speed;
+		
 		if(isReversed)
 		{
 			speed = 0 - speed;
@@ -52,6 +57,11 @@ public class Motor extends MotorBase {
 	public void stop() 
 	{
 		setSpeed(0);		
+	}
+	
+	public double getSpeed()
+	{
+		return this.speed;
 	}
 
 	public RotationalDirection getDirection() 

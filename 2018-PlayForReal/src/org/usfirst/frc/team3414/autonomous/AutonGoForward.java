@@ -1,12 +1,11 @@
 package org.usfirst.frc.team3414.autonomous;
 
 import org.usfirst.frc.team3414.actuators.ActuatorConfig;
-import org.usfirst.frc.team3414.robot.Robot;
 
 public class AutonGoForward extends AutonBase
 {
-
-	public AutonGoForward() {
+	public AutonGoForward()
+	{
 		super();
 	}
 
@@ -14,7 +13,7 @@ public class AutonGoForward extends AutonBase
 	{
 
 //		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(.1, 0.3);
-		ActuatorConfig.getInstance().getDrivetrain().moveGyro(1, 0.1, false);
+		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2, 0.25);
 //		ActuatorConfig.getInstance().getDrivetrain().movePid(-20000);//16
 		System.out.println("Position left: Goes forward");
 	}
@@ -56,4 +55,3 @@ protected void right() //Goes forward
 
 
 }
-

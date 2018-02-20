@@ -47,6 +47,11 @@ public class DoubleMotor extends MotorBase {
 		motorOne.stop();
 //		motorTwo.stop();
 	}
+	
+	public double getSpeed()
+	{
+		return (this.motorOne.getSpeed() + this.motorTwo.getSpeed()) / 2;
+	}
 
 	public void setDirection(RotationalDirection direction) 
 	{

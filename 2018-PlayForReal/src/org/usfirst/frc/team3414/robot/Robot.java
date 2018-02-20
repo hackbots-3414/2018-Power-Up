@@ -41,7 +41,8 @@ import org.usfirst.frc.team3414.autonomous.AutonSideSwitchAndScale;
  * creating this project, you must also update the build.properties file in the
  * project.
  */
-public class Robot extends TimedRobot{
+public class Robot extends TimedRobot
+{
 	
 
 private PacbotTeleop teleop;
