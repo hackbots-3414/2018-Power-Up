@@ -16,7 +16,7 @@ public class AutonSideSwitch extends AutonBase
 	{
 		if("LRL".equals(this.gameData)|| "LLL".equals(this.gameData)) //Left switch from left side
 		{
-			ActuatorConfig.getInstance().getDrivetrain().movePid(4000);//14 find actual measurements
+//			ActuatorConfig.getInstance().getDrivetrain().movePid(4000);//14 find actual measurements
 //			ActuatorConfig.getInstance().getDrivetrain().turnRight(.8, 90);
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(1);
 			//Drop the power cube
@@ -25,16 +25,16 @@ public class AutonSideSwitch extends AutonBase
 		}
 		else if("RRR".equals(this.gameData) || "RLR".equals(this.gameData)) //Park past switch from left side
 		{
-			ActuatorConfig.getInstance().getDrivetrain().movePid(5);
-			ActuatorConfig.getInstance().getDrivetrain().turnRight(.8,90);
-			ActuatorConfig.getInstance().getDrivetrain().movePid(1);
-			//Drop the power cube
-			ActuatorConfig.getInstance().getDrivetrain().movePid(-1);
+//			ActuatorConfig.getInstance().getDrivetrain().movePid(5);
+//			ActuatorConfig.getInstance().getDrivetrain().turnRight(.8,90);
+//			ActuatorConfig.getInstance().getDrivetrain().movePid(1);
+//			//Drop the power cube
+//			ActuatorConfig.getInstance().getDrivetrain().movePid(-1);
 			System.out.println("Position Left: Park past switch");
 		}
 		else
 		{
-			ActuatorConfig.getInstance().getDrivetrain().movePid(10);
+//			ActuatorConfig.getInstance().getDrivetrain().movePid(10);
 			System.out.println("Fail safe: Hannah, you done messed up. Fix your code!");
 		}
 //		Failsafes ahead ----->
@@ -63,23 +63,23 @@ public class AutonSideSwitch extends AutonBase
 		if("RLR".equals(this.gameData)|| "RRR".equals(this.gameData)) //Right switch from right position
 		{
 		
-		ActuatorConfig.getInstance().getDrivetrain().movePid(4d);//find actual measurements
-		ActuatorConfig.getInstance().getDrivetrain().turnLeft(.8, 90);
-		ActuatorConfig.getInstance().getDrivetrain().movePid(1);
+//		ActuatorConfig.getInstance().getDrivetrain().movePid(4);//find actual measurements
+//		ActuatorConfig.getInstance().getDrivetrain().turnLeft(.8, 90);
+//		ActuatorConfig.getInstance().getDrivetrain().movePid(1);
 		//Drop the power cube
-		ActuatorConfig.getInstance().getDrivetrain().movePid(-1);
+//		ActuatorConfig.getInstance().getDrivetrain().movePid(-1);
 		System.out.println("Position Right: Right switch");
 		}
 		else if ("LRL".equals(this.gameData) || "LLL".equals(this.gameData))
 		{
-			ActuatorConfig.getInstance().getDrivetrain().movePid(5);
-			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.8,90);
-			ActuatorConfig.getInstance().getDrivetrain().movePid(3);
+//			ActuatorConfig.getInstance().getDrivetrain().movePid(5);
+//			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.8,90);
+//			ActuatorConfig.getInstance().getDrivetrain().movePid(3);
 			System.out.println("Position Right: Park past switch");	
 		}
 		else
 		{
-			ActuatorConfig.getInstance().getDrivetrain().movePid(4);
+//			ActuatorConfig.getInstance().getDrivetrain().movePid(4);
 			System.out.println("Fail safe: Hannah, you done messed up. Fix your code!");
 		}
 			

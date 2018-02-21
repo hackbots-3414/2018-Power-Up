@@ -13,7 +13,7 @@ public class AutonGoForward extends AutonBase
 	{
 
 //		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(.1, 0.3);
-		ActuatorConfig.getInstance().getDrivetrain().movePid(100);
+		ActuatorConfig.getInstance().getDrivetrain().movePid(100,0.5);
 //		ActuatorConfig.getInstance().getDrivetrain().movePid(-20000);//16
 		System.out.println("Position left: Goes forward");
 	}
@@ -30,25 +30,25 @@ public class AutonGoForward extends AutonBase
 		}
 		else if ("RLR".equals(this.gameData)|| "RRR".equals(this.gameData))//Runs basic center auton for right switch
 		{
-			ActuatorConfig.getInstance().getDrivetrain().turnRight(0.8, 45);
-			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
-			ActuatorConfig.getInstance().getDrivetrain().turnLeft(0.8,45);
-			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
+//			ActuatorConfig.getInstance().getDrivetrain().turnRight(0.8, 45);
+//			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
+//			ActuatorConfig.getInstance().getDrivetrain().turnLeft(0.8,45);
+//			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
 			System.out.println("Ya can't go forward unless you give gameData some dumb value. I won't allow it!");		
 		}
 		else //This does the right auton so be careful not to run into another robot.
 		{
-			ActuatorConfig.getInstance().getDrivetrain().turnRight(0.8, 45);
-			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
-			ActuatorConfig.getInstance().getDrivetrain().turnLeft(0.8,45);
-			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
+//			ActuatorConfig.getInstance().getDrivetrain().turnRight(0.8, 45);
+//			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
+//			ActuatorConfig.getInstance().getDrivetrain().turnLeft(0.8,45);
+//			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
 			System.out.println("Fail Safe: (Hannah fix your code) Ya can't go forward unless you give gameData some dumb value. I won't allow it!");
 		}
 	}
 
 protected void right() //Goes forward
 	{
-		ActuatorConfig.getInstance().getDrivetrain().movePid(4);	
+//		ActuatorConfig.getInstance().getDrivetrain().movePid(4);	
 		System.out.println("Position right: Goes forward");
 	}
 
