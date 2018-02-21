@@ -7,7 +7,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class ActuatorConfig 
-{
+{   
 	private static ActuatorConfig instance;
 	
 	private TalonSRX talonLeftOne;
