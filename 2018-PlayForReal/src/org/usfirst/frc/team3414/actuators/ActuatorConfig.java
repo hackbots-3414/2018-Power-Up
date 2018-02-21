@@ -134,7 +134,7 @@ public class ActuatorConfig
 		this.talonLeftTwo.set(ControlMode.Follower, this.talonLeftOne.getDeviceID());
 	
 		
-		if(RobotStatus.isTeleop())
+		if(RobotStatus.isAuto())
 		{
 			
 			talonLeftOne.configOpenloopRamp(RampTimeAuton,RampTimeoutMs);

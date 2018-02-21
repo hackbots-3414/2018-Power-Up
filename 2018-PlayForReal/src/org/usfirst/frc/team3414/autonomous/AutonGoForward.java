@@ -13,7 +13,7 @@ public class AutonGoForward extends AutonBase
 	{
 
 //		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(.1, 0.3);
-		ActuatorConfig.getInstance().getDrivetrain().movePid(100,0.5);
+		ActuatorConfig.getInstance().getDrivetrain().movePid(1000,0.5);
 //		ActuatorConfig.getInstance().getDrivetrain().movePid(-20000);//16
 		System.out.println("Position left: Goes forward");
 	}
