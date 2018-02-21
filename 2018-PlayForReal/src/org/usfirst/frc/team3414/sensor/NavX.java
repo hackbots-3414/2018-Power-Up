@@ -2,7 +2,8 @@ package org.usfirst.frc.team3414.sensor;
 
 import com.kauailabs.navx.frc.AHRS;
 
-public class NavX {
+public class NavX
+{
 	private AHRS ahrs;
 	
 	private final static double GRAVITY = 9.80;

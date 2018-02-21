@@ -73,10 +73,10 @@ public class ActuatorConfig
 	{   
 			
 		//talons
-		talonLeftOne = new TalonSRX(1);//1   3
-		talonLeftTwo = new TalonSRX(2);//2   2
-		talonRightOne = new TalonSRX(3);//3   4
-		talonRightTwo = new TalonSRX(4);//4   1
+		talonLeftOne = new TalonSRX(3);//1   3
+		talonLeftTwo = new TalonSRX(4);//2   2
+		talonRightOne = new TalonSRX(0);//3   4
+		talonRightTwo = new TalonSRX(1);//4   1
 
 //		talonIntakeOne = new TalonSRX(5);
 //		talonIntakeTwo = new TalonSRX(6);
