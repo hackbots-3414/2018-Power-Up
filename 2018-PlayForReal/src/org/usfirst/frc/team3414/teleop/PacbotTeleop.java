@@ -61,152 +61,153 @@ public class PacbotTeleop implements ITeleop{
 		}
 	}
 	
-	public class DriveThread implements Runnable {
-
+	public class DriveThread implements Runnable 
+	{
 		public void run()
 		{
 			while(isRunning)
 			{
-				
-			SmartDashboard.putNumber("Left Encoder - Teleop", ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition()) ;//* (-0.000122));//
-			SmartDashboard.putNumber("Right Encoder - Teleop", ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition());// * (0.000122));
-//			System.out.println("Left Encoder Value" + ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition());
-//			System.out.println("Right Encoder Value"  + ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition());
-
-			if(leftJoystick.getRawButton(1)) 
-			{
-				double rightYJoystick = rightJoystick.getY();
-				double leftYJoystick = leftJoystick.getY();
-				double RtargetVelocity_UnitsPer100ms = rightYJoystick * 4096 * 500.0 / 600;
-				double LtargetVelocity_UnitsPer100ms = rightYJoystick * 4096 * 500.0 / 600;
-				
-				ActuatorConfig.getInstance().getRightTalonOne().set(ControlMode.Velocity, RtargetVelocity_UnitsPer100ms);
-				ActuatorConfig.getInstance().getLeftTalonOne().set(ControlMode.Velocity, LtargetVelocity_UnitsPer100ms);
-				ActuatorConfig.getInstance().getRightTalonOne().getSelectedSensorVelocity(ActuatorConfig.kPIDLoopIdx);
-				ActuatorConfig.getInstance().getLeftTalonOne().getSelectedSensorVelocity(ActuatorConfig.kPIDLoopIdx);
-				
-			}
-			else if (leftJoystick.getY() > 0.15 || rightJoystick.getY() > 0.15 || leftJoystick.getY() < -0.20 || rightJoystick.getY() < -0.1)
-			{
-				startYaw = SensorConfig.getInstance().getNavX().getRawYaw();
-				double leftCorrect = 0;
-				double rightCorrect = 0;
-				
-				if (endYaw > (startYaw)) 
-				{
-					System.out.println("Veering Right Telop");
-					rightCorrect = 0.2;
-				}
-				else if (endYaw < (startYaw)) 
-				{	
-					System.out.println("Veering Left Telop");
-					leftCorrect = 0.2;
-				}
-				else
-				{
-					leftCorrect = 0;
-					rightCorrect = 0;
-				}
-				drivetrain.setSpeed((leftJoystick.getYAxis()) + leftCorrect, (rightJoystick.getYAxis()) + rightCorrect);
-				endYaw = SensorConfig.getInstance().getNavX().getRawYaw();
-				
-				SmartDashboard.putNumber("Statrt Yaw Tle", startYaw);
-				SmartDashboard.putNumber("End Yaw Tle", endYaw);
-			}
-			else if((leftJoystick.getY() > 0.15 && rightJoystick.getY() < -0.15) || (leftJoystick.getY() < -0.20 && rightJoystick.getY() > 0.1))
-			{
-				if(rightJoystick.isReversed() && leftJoystick.isReversed())
-				{
-					drivetrain.setSpeed((leftJoystick.getYAxis() / 2), (rightJoystick.getYAxis() / 2));
-				}
-				
-				else
-				{
-					drivetrain.setSpeed((leftJoystick.getYAxis() / 2), (rightJoystick.getYAxis() / 2));
-				}
-			}
-			
-			else
-			{
-				drivetrain.setSpeed(0);
-			}
-			
-			try 
-			{
-				Thread.sleep(1);
-			} 
-			catch (InterruptedException e) 
-			{
-				e.printStackTrace();
-			}
-			
-			if (gamepad.getButtonState(5)) 
-//					&& 
-//			(ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().isRevLimitSwitchClosed()
-//			 || ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().getQuadraturePosition() < 5000)) 
-			{
-				ActuatorConfig.getInstance().getLift().setSpeed(.25);
-			}
-			else if(gamepad.getButtonState(7))
-//					&& 
-//			(ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().isFwdLimitSwitchClosed()
-//					 || ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().getQuadraturePosition() > 0)) 
-			{
-				ActuatorConfig.getInstance().getLift().setSpeed(-.25);
-			}
-			else 
-			{
-				ActuatorConfig.getInstance().getLift().setSpeed(0);
-			}
-			
-			if (gamepad.getButtonState(1)) 
-			{
-				//intakeangler up
-			}
-			
-			else if (gamepad.getButtonState(2)) 
-			{
-				//intake angler down
-			}
-			
-			else
-			{
-				// intake angler no speed
-			}
-			
-//			if (gamepad.getButtonState(3)) 
-//			{
-//				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(.90);
-//			}
+				drivetrain.setSpeed(-leftJoystick.getY(), leftJoystick.getY());
 //			
-//			else if (gamepad.getButtonState(4)) 
+				
+				SmartDashboard.putNumber("Left Encoder - Teleop", ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition()) ;//* (-0.000122));//
+//			SmartDashboard.putNumber("Right Encoder - Teleop", ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition());// * (0.000122));
+////			System.out.println("Left Encoder Value" + ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition());
+////			System.out.println("Right Encoder Value"  + ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition());
+//
+////			if(leftJoystick.getRawButton(1)) 
+////			{
+////				double rightYJoystick = rightJoystick.getY();
+////				double leftYJoystick = leftJoystick.getY();
+////				double RtargetVelocity_UnitsPer100ms = rightYJoystick * 4096 * 500.0 / 600;
+////				double LtargetVelocity_UnitsPer100ms = rightYJoystick * 4096 * 500.0 / 600;
+////				
+////				ActuatorConfig.getInstance().getRightTalonOne().set(ControlMode.Velocity, RtargetVelocity_UnitsPer100ms);
+////				ActuatorConfig.getInstance().getLeftTalonOne().set(ControlMode.Velocity, LtargetVelocity_UnitsPer100ms);
+////				ActuatorConfig.getInstance().getRightTalonOne().getSelectedSensorVelocity(ActuatorConfig.kPIDLoopIdx);
+////				ActuatorConfig.getInstance().getLeftTalonOne().getSelectedSensorVelocity(ActuatorConfig.kPIDLoopIdx);
+////				
+////			}
+////			else 
+//			if (leftJoystick.getY() > 0.15 || rightJoystick.getY() > 0.15 || leftJoystick.getY() < -0.20 || rightJoystick.getY() < -0.1)
 //			{
-//				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(-0.90);
+//				startYaw = SensorConfig.getInstance().getNavX().getRawYaw();
+//				double leftCorrect = 0;
+//				double rightCorrect = 0;
+//				
+//				if (endYaw > (startYaw)) 
+//				{
+//					System.out.println("Veering Right Telop");
+//					rightCorrect = 0.2;
+//				}
+//				else if (endYaw < (startYaw)) 
+//				{	
+//					System.out.println("Veering Left Telop");
+//					leftCorrect = 0.2;
+//				}
+//				else
+//				{
+//					leftCorrect = 0;
+//					rightCorrect = 0;
+//				}
+//				drivetrain.setSpeed((leftJoystick.getYAxis()) + leftCorrect, (-rightJoystick.getYAxis()) + rightCorrect);
+//				endYaw = SensorConfig.getInstance().getNavX().getRawYaw();
+//				
+//				SmartDashboard.putNumber("Statrt Yaw Tle", startYaw);
+//				SmartDashboard.putNumber("End Yaw Tle", endYaw);
+//			}
+//			else if((leftJoystick.getY() > 0.15 && rightJoystick.getY() < -0.15) || (leftJoystick.getY() < -0.20 && rightJoystick.getY() > 0.1))
+//			{
+//				if(rightJoystick.isReversed() && leftJoystick.isReversed())
+//				{
+//					drivetrain.setSpeed((leftJoystick.getYAxis() / 2), (-rightJoystick.getYAxis() / 2));
+//				}
+//				
+//				else
+//				{
+//					drivetrain.setSpeed((leftJoystick.getYAxis() / 2), (-rightJoystick.getYAxis() / 2));
+//				}
 //			}
 //			
 //			else
 //			{
-//				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(0);
+//				drivetrain.setSpeed(0);
 //			}
-			
-			if (gamepad.getButtonState(11)) 
-			{
-				//wings down
+//			
+//			try 
+//			{
+//				Thread.sleep(1);
+//			} 
+//			catch (InterruptedException e) 
+//			{
+//				e.printStackTrace();
+//			}
+//			
+//			if (gamepad.getButtonState(5)) 
+////					&& 
+////			(ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().isRevLimitSwitchClosed()
+////			 || ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().getQuadraturePosition() < 5000)) 
+//			{
+//				ActuatorConfig.getInstance().getLift().setSpeed(.25);
+//			}
+//			else if(gamepad.getButtonState(7))
+////					&& 
+////			(ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().isFwdLimitSwitchClosed()
+////					 || ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().getQuadraturePosition() > 0)) 
+//			{
+//				ActuatorConfig.getInstance().getLift().setSpeed(-.25);
+//			}
+//			else 
+//			{
+//				ActuatorConfig.getInstance().getLift().setSpeed(0);
+//			}
+//			
+//			if (gamepad.getButtonState(1)) 
+//			{
+//				//intakeangler up
+//			}
+//			
+//			else if (gamepad.getButtonState(2)) 
+//			{
+//				//intake angler down
+//			}
+//			
+//			else
+//			{
+//				// intake angler no speed
+//			}
+//			
+////			if (gamepad.getButtonState(3)) 
+////			{
+////				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(.90);
+////			}
+////			
+////			else if (gamepad.getButtonState(4)) 
+////			{
+////				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(-0.90);
+////			}
+////			
+////			else
+////			{
+////				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(0);
+////			}
+//			
+//			if (gamepad.getButtonState(11)) 
+//			{
+//				//wings down
+//			}
+//			
+//			else if (gamepad.getButtonState(10)) 
+//			{
+//				//wings up
+//			}
+//			
+//			else
+//			{
+//				//wings no speed
+//			}
+//			
 			}
-			
-			else if (gamepad.getButtonState(10)) 
-			{
-				//wings up
-			}
-			
-			else
-			{
-				//wings no speed
-			}
-			
 		}
-	}
-}
-	
-	
+	}	
 }

@@ -79,8 +79,8 @@ public class ActuatorConfig
 		//talons
 		talonLeftOne = new TalonSRX(3);//1   3
 		talonLeftTwo = new TalonSRX(4);//2   2
-		talonRightOne = new TalonSRX(0);//3   4
-		talonRightTwo = new TalonSRX(1);//4   1
+		talonRightOne = new TalonSRX(1);//3   4
+		talonRightTwo = new TalonSRX(0);//4   1
 
 //		talonIntakeOne = new TalonSRX(5);
 //		talonIntakeTwo = new TalonSRX(6);
@@ -134,9 +134,8 @@ public class ActuatorConfig
 		this.talonLeftTwo.set(ControlMode.Follower, this.talonLeftOne.getDeviceID());
 	
 		
-		if(RobotStatus.isAuto())
-		{
-			
+		
+			System.out.println("PIDing-----------------------------------------------------------------------------");
 			talonLeftOne.configOpenloopRamp(RampTimeAuton,RampTimeoutMs);
 			talonRightOne.configOpenloopRamp(RampTimeAuton, RampTimeoutMs);
 			
@@ -157,8 +156,9 @@ public class ActuatorConfig
 			talonLeftOne.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
 			talonLeftOne.config_kD(kPIDLoopIdx, 0, kTimeoutMs);
 						
-		}
 		
+		
+		drivetrain = new Drivetrain(doubleMotorRight, doubleMotorLeft);
 	}
 	
 	public TalonSRX getRightTalonOne()
