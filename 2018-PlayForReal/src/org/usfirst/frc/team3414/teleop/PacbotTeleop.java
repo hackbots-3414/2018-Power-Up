@@ -192,21 +192,18 @@ public class PacbotTeleop implements ITeleop{
 ////				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(0);
 ////			}
 //			
-//			if (gamepad.getButtonState(11)) 
-//			{
-//				//wings down
-//			}
-//			
-//			else if (gamepad.getButtonState(10)) 
-//			{
-//				//wings up
-//			}
-//			
-//			else
-//			{
-//				//wings no speed
-//			}
-//			
+			if (gamepad.getButtonState(11)) 
+			{
+				ActuatorConfig.getInstance().servoWingOne().engage();
+				ActuatorConfig.getInstance().servoWingTwo().engage();
+			}
+			else
+			{
+				ActuatorConfig.getInstance().servoWingOne().disengage();
+				ActuatorConfig.getInstance().servoWingTwo().disengage();
+			}
+			
+			
 			}
 		}
 	}	

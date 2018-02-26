@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3414.actuators;
 
 import org.usfirst.frc.team3414.robot.RobotStatus;
+import org.usfirst.frc.team3414.actuators.Servo;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -39,17 +40,14 @@ public class ActuatorConfig
 	private Motor motorLiftOne;
 	private Motor motorLiftTwo;
 	
-	private Motor motorWingOne;
-	private Motor motorWingTwo;
-	
+	private Servo servoWingOne;
+	private Servo servoWingTwo;
 	
 	private DoubleMotor doubleMotorRight;
 	private DoubleMotor doubleMotorLeft;
 	
 	private DoubleMotor doubleMotorIntake;
  	private DoubleMotor doubleMotorLift;
- 	
- 	private DoubleMotor doubleMotorWings;
 	
 	private Drivetrain drivetrain;
 	
@@ -90,8 +88,8 @@ public class ActuatorConfig
 		talonLiftOne = new TalonSRX(8);
 		talonLiftTwo = new TalonSRX(9);
 		
-//		talonWingOne = new TalonSRX(10);
-//		talonWingTwo = new TalonSRX(11);
+//		servoWingOne = new Servo(1);
+//		servoWingTwo = new Servo(2);
 		
 		
 		//motors
@@ -108,11 +106,9 @@ public class ActuatorConfig
 		motorLiftOne = new Motor(talonLiftOne);
 		motorLiftTwo = new Motor(talonLiftTwo);
 		
-//		motorWingOne = new Motor(talonWingOne);
-//		motorWingTwo = new Motor(talonWingTwo);
 
 //		motorIntakeTwo.setMotorReveresed(true);
-	//	motorLiftOne.setMotorReveresed(true);	
+//		motorLiftOne.setMotorReveresed(true);	
 		
 		
 		//double motors
@@ -201,5 +197,14 @@ public class ActuatorConfig
 //		return doubleMotorIntake;
 //	}
 	
+	public Servo servoWingOne()
+	{
+		return servoWingOne;
+	}
+	
+	public Servo servoWingTwo()
+	{
+		return servoWingTwo;
+	}
 }
 	
