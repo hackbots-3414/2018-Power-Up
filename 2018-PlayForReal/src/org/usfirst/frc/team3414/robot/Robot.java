@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 //import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.DriverStation;
+
 import org.usfirst.frc.team3414.teleop.PacbotTeleop;
 import org.usfirst.frc.team3414.autonomous.AutonBase;
 import org.usfirst.frc.team3414.autonomous.AutonCenterSwitch;
@@ -105,7 +106,6 @@ private PacbotTeleop teleop;
 		autonChooser = new SendableChooser<AutonBase>();
 		positionChooser = new SendableChooser<Position>();
 		
-	
 		autonChooser.addObject("Do Nothing", new AutonDoNothing());
 		autonChooser.addDefault("Go Forward", new AutonGoForward());
 		autonChooser.addObject("Side Switch", new AutonSideSwitch());

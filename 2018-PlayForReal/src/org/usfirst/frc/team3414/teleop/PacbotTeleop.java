@@ -143,25 +143,25 @@ public class PacbotTeleop implements ITeleop{
 //				e.printStackTrace();
 //			}
 //			
-//			if (gamepad.getButtonState(5)) 
-////					&& 
-////			(ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().isRevLimitSwitchClosed()
-////			 || ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().getQuadraturePosition() < 5000)) 
-//			{
-//				ActuatorConfig.getInstance().getLift().setSpeed(.25);
-//			}
-//			else if(gamepad.getButtonState(7))
-////					&& 
-////			(ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().isFwdLimitSwitchClosed()
-////					 || ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().getQuadraturePosition() > 0)) 
-//			{
-//				ActuatorConfig.getInstance().getLift().setSpeed(-.25);
-//			}
-//			else 
-//			{
-//				ActuatorConfig.getInstance().getLift().setSpeed(0);
-//			}
-//			
+			if (gamepad.getButtonState(5)) 
+//					&& 
+//			(ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().isRevLimitSwitchClosed()
+//			 || ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().getQuadraturePosition() < 5000)) 
+			{
+				ActuatorConfig.getInstance().getLift().setSpeed(.25);
+			}
+			else if(gamepad.getButtonState(7))
+//					&& 
+//			(ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().isFwdLimitSwitchClosed()
+//					 || ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().getQuadraturePosition() > 0)) 
+			{
+				ActuatorConfig.getInstance().getLift().setSpeed(-.25);
+			}
+			else 
+			{
+				ActuatorConfig.getInstance().getLift().setSpeed(0);
+			}
+			
 //			if (gamepad.getButtonState(1)) 
 //			{
 //				//intakeangler up
@@ -177,21 +177,32 @@ public class PacbotTeleop implements ITeleop{
 //				// intake angler no speed
 //			}
 //			
-////			if (gamepad.getButtonState(3)) 
-////			{
-////				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(.90);
-////			}
-////			
-////			else if (gamepad.getButtonState(4)) 
-////			{
-////				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(-0.90);
-////			}
-////			
-////			else
-////			{
-////				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(0);
-////			}
+//			if (gamepad.getButtonState(3)) 
+//			{
+//				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(.90);
+//			}
 //			
+//			else if (gamepad.getButtonState(4)) 
+//			{
+//				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(-0.90);
+//			}
+//			
+//			else
+//			{
+//				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(0);
+//			}
+			
+			if (gamepad.getButtonState(10))
+			{
+				ActuatorConfig.getInstance().doubleMotorWings().setSpeed(.80);
+			}
+			
+			else
+			{
+				ActuatorConfig.getInstance().doubleMotorWings().setSpeed(0);
+			}
+				
+				
 			if (gamepad.getButtonState(11)) 
 			{
 				ActuatorConfig.getInstance().servoWingOne().engage();
