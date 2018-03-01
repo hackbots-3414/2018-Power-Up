@@ -86,10 +86,10 @@ public class ActuatorConfig
 		talonRightOne = new TalonSRX(1);//3   4
 		talonRightTwo = new TalonSRX(0);//4   1
 
-//		talonIntakeOne = new TalonSRX(5);
-//		talonIntakeTwo = new TalonSRX(6);
+		talonIntakeOne = new TalonSRX(5);
+		talonIntakeTwo = new TalonSRX(6);
 		
-//		talonIntakeAngler = new TalonSRX(7);
+		talonIntakeAngler = new TalonSRX(7);
 		
 		talonLiftOne = new TalonSRX(8);
 		talonLiftTwo = new TalonSRX(9);
@@ -97,8 +97,8 @@ public class ActuatorConfig
 		talonWingOne = new TalonSRX(10);
 		talonWingTwo = new TalonSRX(11);
 		
-//		servoWingOne = new Servo(1);
-//		servoWingTwo = new Servo(2);
+		servoWingOne = new Servo(1);
+		servoWingTwo = new Servo(2);
 		
 		
 		//motors
@@ -107,10 +107,10 @@ public class ActuatorConfig
 		motorRightOne = new Motor(talonRightOne);
 		motorRightTwo = new Motor(talonRightTwo);
 		
-//		motorIntakeOne = new Motor(talonIntakeOne);
-//		motorIntakeTwo = new Motor(talonIntakeTwo);
+		motorIntakeOne = new Motor(talonIntakeOne);
+		motorIntakeTwo = new Motor(talonIntakeTwo);
 		
-//		motorIntakeAngler = new Motor(talonIntakeAngler);
+		motorIntakeAngler = new Motor(talonIntakeAngler);
 		
 		motorLiftOne = new Motor(talonLiftOne);
 		motorLiftTwo = new Motor(talonLiftTwo);
@@ -119,15 +119,15 @@ public class ActuatorConfig
 		motorWingTwo = new Motor(talonWingTwo);
 
 		motorWingTwo.setMotorReveresed(true);
-//		motorIntakeTwo.setMotorReveresed(true);
-//		motorLiftOne.setMotorReveresed(true);	
+		motorIntakeTwo.setMotorReveresed(true);
+		motorLiftOne.setMotorReveresed(true);	
 		
 		
 		//double motors
 		doubleMotorLeft = new DoubleMotor(motorLeftOne, motorLeftTwo);
 		doubleMotorRight = new DoubleMotor(motorRightOne, motorRightTwo);
 		
-//		doubleMotorIntake = new DoubleMotor(motorIntakeOne, motorIntakeTwo);		
+		doubleMotorIntake = new DoubleMotor(motorIntakeOne, motorIntakeTwo);		
 		doubleMotorLift = new DoubleMotor(motorLiftOne, motorLiftTwo);
 		doubleMotorWings = new DoubleMotor(motorWingOne, motorWingTwo);
 		
@@ -209,10 +209,10 @@ public class ActuatorConfig
 		return talonLiftOne;
 	}
 	
-//	public DoubleMotor getIntakeMotor()
-//	{
-//		return doubleMotorIntake;
-//	}
+	public DoubleMotor getIntakeMotor()
+	{
+		return doubleMotorIntake;
+	}
 	
 	public Servo servoWingOne()
 	{
@@ -227,6 +227,11 @@ public class ActuatorConfig
 	public DoubleMotor doubleMotorWings()
 	{
 		return doubleMotorWings;
+	}
+	
+	public Motor motorIntakeAngler()
+	{
+		return motorIntakeAngler;
 	}
 
 }

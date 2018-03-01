@@ -162,35 +162,35 @@ public class PacbotTeleop implements ITeleop{
 				ActuatorConfig.getInstance().getLift().setSpeed(0);
 			}
 			
-//			if (gamepad.getButtonState(1)) 
-//			{
-//				//intakeangler up
-//			}
-//			
-//			else if (gamepad.getButtonState(2)) 
-//			{
-//				//intake angler down
-//			}
-//			
-//			else
-//			{
-//				// intake angler no speed
-//			}
-//			
-//			if (gamepad.getButtonState(3)) 
-//			{
-//				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(.90);
-//			}
-//			
-//			else if (gamepad.getButtonState(4)) 
-//			{
-//				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(-0.90);
-//			}
-//			
-//			else
-//			{
-//				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(0);
-//			}
+			if (gamepad.getButtonState(1)) 
+			{
+				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(.75);
+			}
+			
+			else if (gamepad.getButtonState(2)) 
+			{
+				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(-.75);
+			}
+			
+			else
+			{
+				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(0);
+			}
+			
+			if (gamepad.getButtonState(3)) 
+			{
+				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(.90);
+			}
+			
+			else if (gamepad.getButtonState(4)) 
+			{
+				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(-0.90);
+			}
+			
+			else
+			{
+				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(0);
+			}
 			
 			if (gamepad.getButtonState(10))
 			{
