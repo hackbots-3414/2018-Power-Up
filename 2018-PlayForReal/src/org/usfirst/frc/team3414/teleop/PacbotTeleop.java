@@ -143,38 +143,20 @@ public class PacbotTeleop implements ITeleop{
 //				e.printStackTrace();
 //			}
 //			
-			if (gamepad.getButtonState(5)) 
-//					&& 
-//			(ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().isRevLimitSwitchClosed()
-//			 || ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().getQuadraturePosition() < 5000)) 
-			{
-				ActuatorConfig.getInstance().getLift().setSpeed(.25);
-			}
-			else if(gamepad.getButtonState(7))
-//					&& 
-//			(ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().isFwdLimitSwitchClosed()
-//					 || ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().getQuadraturePosition() > 0)) 
-			{
-				ActuatorConfig.getInstance().getLift().setSpeed(-.25);
-			}
-			else 
-			{
-				ActuatorConfig.getInstance().getLift().setSpeed(0);
-			}
 			
 			if (gamepad.getButtonState(1)) 
 			{
-				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(.75);
+				ActuatorConfig.getInstance().motorIntakeAngler().setSpeed(.75);
 			}
 			
 			else if (gamepad.getButtonState(2)) 
 			{
-				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(-.75);
+				ActuatorConfig.getInstance().motorIntakeAngler().setSpeed(-.75);
 			}
 			
 			else
 			{
-				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(0);
+				ActuatorConfig.getInstance().motorIntakeAngler().setSpeed(0);
 			}
 			
 			if (gamepad.getButtonState(3)) 
@@ -190,6 +172,26 @@ public class PacbotTeleop implements ITeleop{
 			else
 			{
 				ActuatorConfig.getInstance().getIntakeMotor().setSpeed(0);
+			}
+			
+			if (gamepad.getButtonState(5)) 
+//					&& 
+//			(ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().isRevLimitSwitchClosed()
+//		 	|| ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().getQuadraturePosition() < 5000)) 
+			{
+				ActuatorConfig.getInstance().getLift().setSpeed(.25);
+			}
+			else if(gamepad.getButtonState(7))
+//					&& 
+//			(ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().isFwdLimitSwitchClosed()
+//					 || ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().getQuadraturePosition() > 0)) 
+			{
+				ActuatorConfig.getInstance().getLift().setSpeed(-.25);
+			}
+		
+			else 
+			{
+				ActuatorConfig.getInstance().getLift().setSpeed(0);
 			}
 			
 			if (gamepad.getButtonState(10))
