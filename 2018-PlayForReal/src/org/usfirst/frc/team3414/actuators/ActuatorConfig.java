@@ -40,6 +40,9 @@ public class ActuatorConfig
 	private Motor motorLiftOne;
 	private Motor motorLiftTwo;
 	
+	private Motor motorWingOne;
+	private Motor motorWingTwo;
+	
 	private Servo servoWingOne;
 	private Servo servoWingTwo;
 	
@@ -88,13 +91,16 @@ public class ActuatorConfig
 		talonLiftOne = new TalonSRX(8);
 		talonLiftTwo = new TalonSRX(9);
 		
+		talonWingOne = new TalonSRX(10);
+		talonWingTwo = new TalonSRX(11);
+		
 //		servoWingOne = new Servo(1);
 //		servoWingTwo = new Servo(2);
 		
 		
 		//motors
 		motorLeftOne = new Motor(talonLeftOne);
-	    motorLeftTwo = new Motor(talonLeftTwo);
+	    	motorLeftTwo = new Motor(talonLeftTwo);
 		motorRightOne = new Motor(talonRightOne);
 		motorRightTwo = new Motor(talonRightTwo);
 		
@@ -106,7 +112,10 @@ public class ActuatorConfig
 		motorLiftOne = new Motor(talonLiftOne);
 		motorLiftTwo = new Motor(talonLiftTwo);
 		
+		motorWingOne = new Motor(motorWingOne);
+		motorWingTwo = new Motor(motorWingTwo);
 
+		motorWingTwo.setMotorReveresed(true);
 //		motorIntakeTwo.setMotorReveresed(true);
 //		motorLiftOne.setMotorReveresed(true);	
 		
@@ -205,6 +214,16 @@ public class ActuatorConfig
 	public Servo servoWingTwo()
 	{
 		return servoWingTwo;
+	}
+	
+	public Motor motorWingOne()
+	{
+		return motorWingOne;
+	}
+	
+	public Motor motorWingTwo()
+	{
+		return motorWingTwo;
 	}
 }
 	
