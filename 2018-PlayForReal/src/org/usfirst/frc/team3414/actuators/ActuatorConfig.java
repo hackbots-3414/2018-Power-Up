@@ -81,10 +81,10 @@ public class ActuatorConfig
 	{   
 			
 		//talons
-		talonLeftOne = new TalonSRX(3);//1   3
-		talonLeftTwo = new TalonSRX(4);//2   2
-		talonRightOne = new TalonSRX(1);//3   4
-		talonRightTwo = new TalonSRX(0);//4   1
+		talonLeftOne = new TalonSRX(1);//3  1   3
+		talonLeftTwo = new TalonSRX(2);//4  2   2
+		talonRightOne = new TalonSRX(3);//1  3   4
+		talonRightTwo = new TalonSRX(4);//0  4   1
 
 		talonIntakeOne = new TalonSRX(5);
 		talonIntakeTwo = new TalonSRX(6);
@@ -97,8 +97,8 @@ public class ActuatorConfig
 		talonWingOne = new TalonSRX(10);
 		talonWingTwo = new TalonSRX(11);
 		
-		servoWingOne = new Servo(1);
-		servoWingTwo = new Servo(2);
+		servoWingOne = new Servo(0);
+		servoWingTwo = new Servo(1);
 		
 		
 		//motors
@@ -120,14 +120,13 @@ public class ActuatorConfig
 
 		motorWingTwo.setMotorReveresed(true);
 		motorIntakeTwo.setMotorReveresed(true);
-		motorLiftOne.setMotorReveresed(true);	
+//		motorLiftTwo.setMotorReveresed(true);	
 		
 		
 		//double motors
 		doubleMotorLeft = new DoubleMotor(motorLeftOne, motorLeftTwo);
 		doubleMotorRight = new DoubleMotor(motorRightOne, motorRightTwo);
-		
-		doubleMotorIntake = new DoubleMotor(motorIntakeOne, motorIntakeTwo);		
+				
 		doubleMotorLift = new DoubleMotor(motorLiftOne, motorLiftTwo);
 		doubleMotorWings = new DoubleMotor(motorWingOne, motorWingTwo);
 		
@@ -139,13 +138,15 @@ public class ActuatorConfig
 		talonLeftOne.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, kTimeoutMs);
 		talonRightOne.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, kTimeoutMs);
 		
+		servoWingOne.disengage();
+		servoWingTwo.disengage();
 		
 		//limit switch stuff
- 		talonLiftOne.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, kTimeoutMs);
-		talonLiftOne.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
- 		talonLiftOne.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
- 		talonLiftOne.overrideLimitSwitchesEnable(true);
- 		talonLiftOne.getSensorCollection().isRevLimitSwitchClosed();
+ 		talonLiftTwo.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, kTimeoutMs);
+		talonLiftTwo.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
+ 		talonLiftTwo.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
+ 		talonLiftTwo.overrideLimitSwitchesEnable(true);
+ 		talonLiftTwo.getSensorCollection().isRevLimitSwitchClosed();
 		
 		
 			System.out.println("PIDing-----------------------------------------------------------------------------");
@@ -206,12 +207,17 @@ public class ActuatorConfig
 	
 	public TalonSRX getLiftLimitSwitch()
 	{
-		return talonLiftOne;
+		return talonLiftTwo;
 	}
 	
-	public DoubleMotor getIntakeMotor()
+	public Motor motorIntakeOne()
 	{
-		return doubleMotorIntake;
+		return motorIntakeOne;
+	}
+	
+	public Motor motorIntakeTwo()
+	{
+		return motorIntakeTwo;
 	}
 	
 	public Servo servoWingOne()
