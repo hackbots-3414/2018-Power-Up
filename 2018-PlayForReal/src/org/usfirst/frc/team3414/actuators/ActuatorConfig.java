@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import org.usfirst.frc.team3414.actuators.LimitSwitchDigital;
 
 public class ActuatorConfig 
 {   
@@ -47,6 +48,8 @@ public class ActuatorConfig
 	
 	private Servo servoWingOne;
 	private Servo servoWingTwo;
+	
+	private LimitSwitchDigital limitSwitchBottomLift;
 	
 	private DoubleMotor doubleMotorRight;
 	private DoubleMotor doubleMotorLeft;
@@ -100,6 +103,8 @@ public class ActuatorConfig
 		servoWingOne = new Servo(0);
 		servoWingTwo = new Servo(1);
 		
+		limitSwitchBottomLift = new LimitSwitchDigital(1, false);
+		
 		
 		//motors
 		motorLeftFront = new Motor(talonLeftFront);
@@ -147,7 +152,7 @@ public class ActuatorConfig
  		talonLiftTwo.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, kTimeoutMs);
 		talonLiftTwo.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
  		talonLiftTwo.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
- 		talonLiftTwo.overrideLimitSwitchesEnable(true);
+ 		talonLiftTwo.overrideLimitSwitchesEnable(false);
  		talonLiftTwo.getSensorCollection().isRevLimitSwitchClosed();
 		
 		
@@ -245,6 +250,11 @@ public class ActuatorConfig
 	public TalonSRX talonIntakeAngler()
 	{
 		return talonIntakeAngler;
+	}
+	
+	public LimitSwitchDigital limitSwitchBottomLift()
+	{
+		return limitSwitchBottomLift;
 	}
 
 }
