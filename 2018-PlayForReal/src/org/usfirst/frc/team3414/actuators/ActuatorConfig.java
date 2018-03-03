@@ -13,10 +13,10 @@ public class ActuatorConfig
 {   
 	private static ActuatorConfig instance;
 	
-	private TalonSRX talonLeftOne;
-	private TalonSRX talonLeftTwo;
-	private TalonSRX talonRightOne;
-	private TalonSRX talonRightTwo;
+	private TalonSRX talonLeftFront;
+	private TalonSRX talonLeftBack;
+	private TalonSRX talonRightFront;
+	private TalonSRX talonRightBack;
 	
 	private TalonSRX talonIntakeOne;
 	private TalonSRX talonIntakeTwo;
@@ -29,10 +29,10 @@ public class ActuatorConfig
 	private TalonSRX talonWingOne;
 	private TalonSRX talonWingTwo;
 	
-	private Motor motorLeftOne;
-	private Motor motorLeftTwo;
-	private Motor motorRightOne;
-	private Motor motorRightTwo;
+	private Motor motorLeftFront;
+	private Motor motorLeftBack;
+	private Motor motorRightFront;
+	private Motor motorRightBack;
 	
 	private Motor motorIntakeOne;
 	private Motor motorIntakeTwo;
@@ -81,31 +81,31 @@ public class ActuatorConfig
 	{   
 			
 		//talons
-		talonLeftOne = new TalonSRX(1);//3  1   3
-		talonLeftTwo = new TalonSRX(2);//4  2   2
-		talonRightOne = new TalonSRX(3);//1  3   4
-		talonRightTwo = new TalonSRX(4);//0  4   1
+		talonLeftFront = new TalonSRX(1);//3  1   3
+		talonLeftBack = new TalonSRX(0);//4  2   2
+		talonRightFront = new TalonSRX(3);//1  3   4
+		talonRightBack = new TalonSRX(2);//0  4   1
 
-		talonIntakeOne = new TalonSRX(5);
-		talonIntakeTwo = new TalonSRX(6);
+		talonIntakeOne = new TalonSRX(7);
+		talonIntakeTwo = new TalonSRX(8);
 		
-		talonIntakeAngler = new TalonSRX(7);
+		talonIntakeAngler = new TalonSRX(6);
 		
-		talonLiftOne = new TalonSRX(8);
-		talonLiftTwo = new TalonSRX(9);
+		talonLiftOne = new TalonSRX(9);
+		talonLiftTwo = new TalonSRX(10);
 		
-		talonWingOne = new TalonSRX(10);
-		talonWingTwo = new TalonSRX(11);
+		talonWingOne = new TalonSRX(4);
+		talonWingTwo = new TalonSRX(5);
 		
 		servoWingOne = new Servo(0);
 		servoWingTwo = new Servo(1);
 		
 		
 		//motors
-		motorLeftOne = new Motor(talonLeftOne);
-	    motorLeftTwo = new Motor(talonLeftTwo);
-		motorRightOne = new Motor(talonRightOne);
-		motorRightTwo = new Motor(talonRightTwo);
+		motorLeftFront = new Motor(talonLeftFront);
+	    motorLeftBack = new Motor(talonLeftBack);
+		motorRightFront = new Motor(talonRightFront);
+		motorRightBack = new Motor(talonRightBack);
 		
 		motorIntakeOne = new Motor(talonIntakeOne);
 		motorIntakeTwo = new Motor(talonIntakeTwo);
@@ -118,31 +118,33 @@ public class ActuatorConfig
 		motorWingOne = new Motor(talonWingOne);
 		motorWingTwo = new Motor(talonWingTwo);
 
-		motorWingTwo.setMotorReveresed(true);
+//		motorWingTwo.setMotorReveresed(true);
 		motorIntakeTwo.setMotorReveresed(true);
 //		motorLiftTwo.setMotorReveresed(true);	
 		
 		
 		//double motors
-		doubleMotorLeft = new DoubleMotor(motorLeftOne, motorLeftTwo);
-		doubleMotorRight = new DoubleMotor(motorRightOne, motorRightTwo);
+		doubleMotorLeft = new DoubleMotor(motorLeftFront, motorLeftBack);
+		doubleMotorRight = new DoubleMotor(motorRightFront, motorRightBack);
 				
 		doubleMotorLift = new DoubleMotor(motorLiftOne, motorLiftTwo);
 		doubleMotorWings = new DoubleMotor(motorWingOne, motorWingTwo);
 		
 		
 		//talon configs
-		talonRightOne.setSensorPhase(true);
-		talonLeftOne.setSensorPhase(true);
+		talonRightFront.setSensorPhase(true);
+		talonLeftFront.setSensorPhase(true);
 		
-		talonLeftOne.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, kTimeoutMs);
-		talonRightOne.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, kTimeoutMs);
+		talonLeftFront.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, kTimeoutMs);
+		talonRightFront.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, kTimeoutMs);
+		
+		talonIntakeAngler.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, kTimeoutMs);
 		
 		servoWingOne.disengage();
 		servoWingTwo.disengage();
 		
 		//limit switch stuff
- 		talonLiftTwo.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, kTimeoutMs);
+ 		talonLiftTwo.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, kTimeoutMs);
 		talonLiftTwo.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
  		talonLiftTwo.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
  		talonLiftTwo.overrideLimitSwitchesEnable(true);
@@ -150,25 +152,25 @@ public class ActuatorConfig
 		
 		
 			System.out.println("PIDing-----------------------------------------------------------------------------");
-			talonLeftOne.configOpenloopRamp(RampTimeAuton,RampTimeoutMs);
-			talonRightOne.configOpenloopRamp(RampTimeAuton, RampTimeoutMs);
+			talonLeftFront.configOpenloopRamp(RampTimeAuton,RampTimeoutMs);
+			talonRightFront.configOpenloopRamp(RampTimeAuton, RampTimeoutMs);
 			
-			talonRightOne.configNominalOutputForward(0, kTimeoutMs);
-			talonRightOne.configNominalOutputReverse(0, kTimeoutMs);
-			talonRightOne.configPeakOutputForward(1, kTimeoutMs);
-			talonRightOne.configPeakOutputReverse(-1, kTimeoutMs);
-			talonLeftOne.configNominalOutputReverse(0, kTimeoutMs);
-			talonLeftOne.configPeakOutputForward(1, kTimeoutMs);
-			talonLeftOne.configPeakOutputReverse(-1, kTimeoutMs);
+			talonRightFront.configNominalOutputForward(0, kTimeoutMs);
+			talonRightFront.configNominalOutputReverse(0, kTimeoutMs);
+			talonRightFront.configPeakOutputForward(1, kTimeoutMs);
+			talonRightFront.configPeakOutputReverse(-1, kTimeoutMs);
+			talonLeftFront.configNominalOutputReverse(0, kTimeoutMs);
+			talonLeftFront.configPeakOutputForward(1, kTimeoutMs);
+			talonLeftFront.configPeakOutputReverse(-1, kTimeoutMs);
 			
-			talonRightOne.config_kF(kPIDLoopIdx, 0.09366, kTimeoutMs);//0.09053
-			talonRightOne.config_kP(kPIDLoopIdx, 1.2, kTimeoutMs);
-			talonRightOne.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
-			talonRightOne.config_kD(kPIDLoopIdx, 0, kTimeoutMs);
-			talonLeftOne.config_kF(kPIDLoopIdx, 0.08999, kTimeoutMs);//3.9346
-			talonLeftOne.config_kP(kPIDLoopIdx, 0.365357, kTimeoutMs);
-			talonLeftOne.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
-			talonLeftOne.config_kD(kPIDLoopIdx, 0, kTimeoutMs);
+			talonRightFront.config_kF(kPIDLoopIdx, 0.09366, kTimeoutMs);//0.09053
+			talonRightFront.config_kP(kPIDLoopIdx, 1.2, kTimeoutMs);
+			talonRightFront.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
+			talonRightFront.config_kD(kPIDLoopIdx, 0, kTimeoutMs);
+			talonLeftFront.config_kF(kPIDLoopIdx, 0.08999, kTimeoutMs);//3.9346
+			talonLeftFront.config_kP(kPIDLoopIdx, 0.365357, kTimeoutMs);
+			talonLeftFront.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
+			talonLeftFront.config_kD(kPIDLoopIdx, 0, kTimeoutMs);
 						
 		
 		
@@ -177,22 +179,22 @@ public class ActuatorConfig
 	
 	public TalonSRX getRightTalonOne()
 	{
-		return talonRightOne;
+		return talonRightFront;
 	}
 	
 	public TalonSRX getLeftTalonOne()
 	{
-		return talonLeftOne;
+		return talonLeftFront;
 	}
 	
 	public TalonSRX getRightEncoder()
 	{
-		return talonRightOne;//Figure out which talons to use for encoders
+		return talonRightFront;//Figure out which talons to use for encoders
 	}
 	
 	public TalonSRX getLeftEncoder()
 	{
-		return talonLeftOne; //Figure out which talons to use for encoders
+		return talonLeftFront; //Figure out which talons to use for encoders
 	}
 	
 	public Drivetrain getDrivetrain()
@@ -238,6 +240,11 @@ public class ActuatorConfig
 	public Motor motorIntakeAngler()
 	{
 		return motorIntakeAngler;
+	}
+	
+	public TalonSRX talonIntakeAngler()
+	{
+		return talonIntakeAngler;
 	}
 
 }
