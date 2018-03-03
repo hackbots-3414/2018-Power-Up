@@ -166,16 +166,16 @@ public class PacbotTeleop implements ITeleop
 				if (gamepad.getButtonState(1))
 				{
 					ActuatorConfig.getInstance().motorIntakeAngler().setSpeed(.40);
-					System.out.println("Angler: " + ActuatorConfig.getInstance().talonIntakeAngler()
-							.getSensorCollection().getPulseWidthPosition());
+//					System.out.println("Angler: " + ActuatorConfig.getInstance().talonIntakeAngler()
+//							.getSensorCollection().getPulseWidthPosition());
 
 				}
 
 				else if (gamepad.getButtonState(2))
 				{
 					ActuatorConfig.getInstance().motorIntakeAngler().setSpeed(-.40);
-					System.out.println("Angler: " + ActuatorConfig.getInstance().talonIntakeAngler()
-							.getSensorCollection().getPulseWidthPosition());
+//					System.out.println("Angler: " + ActuatorConfig.getInstance().talonIntakeAngler()
+//							.getSensorCollection().getPulseWidthPosition());
 				}
 
 				else
