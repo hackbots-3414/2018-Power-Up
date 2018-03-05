@@ -70,8 +70,13 @@ public class PacbotTeleop implements ITeleop
 			{				
 				
 				drivetrain.setSpeed(-leftJoystick.getY(), leftJoystick.getY());
-				//
+				SmartDashboard.putBoolean("Bottom Limit Switch Lift", ActuatorConfig.getInstance().limitSwitchBottomLift().isHit());
+				SmartDashboard.putBoolean("Top Limit Switch Lift", ActuatorConfig.getInstance().getLiftLimitSwitch().getSensorCollection().isFwdLimitSwitchClosed());
 
+				SmartDashboard.putBoolean("Top Limit Switch Angler", ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().isFwdLimitSwitchClosed());
+				SmartDashboard.putBoolean("Bottom Limit Switch Angler", ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().isRevLimitSwitchClosed());
+
+				
 				SmartDashboard.putNumber("Left Encoder - Teleop",
 						ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition());// *
 																														// (-0.000122));//
@@ -163,19 +168,23 @@ public class PacbotTeleop implements ITeleop
 				// }
 				//
 
-				if (gamepad.getButtonState(1))
+				//angler up
+				if (gamepad.getButtonState(1) &&
+						!(ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().isFwdLimitSwitchClosed()))
 				{
-					ActuatorConfig.getInstance().motorIntakeAngler().setSpeed(.40);
-//					System.out.println("Angler: " + ActuatorConfig.getInstance().talonIntakeAngler()
-//							.getSensorCollection().getPulseWidthPosition());
+				//	ActuatorConfig.getInstance().motorIntakeAngler().setSpeed(.40);
+					System.out.println("Angler: " + ActuatorConfig.getInstance().talonIntakeAngler()
+							.getSensorCollection().isRevLimitSwitchClosed());
 
 				}
-
-				else if (gamepad.getButtonState(2))
+				
+				//angler down
+				else if (gamepad.getButtonState(2) &&
+				!(ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().isRevLimitSwitchClosed()))
 				{
-					ActuatorConfig.getInstance().motorIntakeAngler().setSpeed(-.40);
-//					System.out.println("Angler: " + ActuatorConfig.getInstance().talonIntakeAngler()
-//							.getSensorCollection().getPulseWidthPosition());
+				//	ActuatorConfig.getInstance().motorIntakeAngler().setSpeed(-.40);
+					System.out.println("Angler: " + ActuatorConfig.getInstance().talonIntakeAngler()
+							.getSensorCollection().isFwdLimitSwitchClosed());
 				}
 
 				else
@@ -224,32 +233,39 @@ public class PacbotTeleop implements ITeleop
 					ActuatorConfig.getInstance().getLift().setSpeed(0);
 				}
 
-				if (gamepad.getButtonState(10) && gamepad.getButtonState(9))
-				{
-					ActuatorConfig.getInstance().doubleMotorWings().setSpeed(-.80);
-				}
-
-				else if (gamepad.getButtonState(10))
-				{
-					ActuatorConfig.getInstance().doubleMotorWings().setSpeed(.80);
-				}
-
-				else
-				{
-					ActuatorConfig.getInstance().doubleMotorWings().setSpeed(0);
-				}
-
 				if (gamepad.getButtonState(9))
 				{
-					ActuatorConfig.getInstance().servoWingOne().engage();
-					ActuatorConfig.getInstance().servoWingTwo().disengage();
-					// System.out.println(ActuatorConfig.getInstance().servoWingTwo().get());
+				//	ActuatorConfig.getInstance().servoWingOne().engage();
+					ActuatorConfig.getInstance().servoWingOne().setAngle(150);
+				//	ActuatorConfig.getInstance().servoWingTwo().disengage();
+					ActuatorConfig.getInstance().servoWingTwo().setAngle(30); //180-30
 				}
 
 				else
 				{
 					ActuatorConfig.getInstance().servoWingOne().disengage();
 					ActuatorConfig.getInstance().servoWingTwo().engage();
+				}
+				
+				if (gamepad.getButtonState(10) && 
+						!ActuatorConfig.getInstance().talonWingTwo().getSensorCollection().isFwdLimitSwitchClosed())
+					
+					//deploy wings
+				{
+					ActuatorConfig.getInstance().doubleMotorWings().setSpeed(.80);
+				}
+				
+
+				else if (gamepad.getButtonState(10) && gamepad.getButtonState(9))
+					
+					//reset wings
+				{
+					ActuatorConfig.getInstance().doubleMotorWings().setSpeed(-.80);
+				}
+
+				else
+				{
+					ActuatorConfig.getInstance().doubleMotorWings().setSpeed(0);
 				}
 
 			}

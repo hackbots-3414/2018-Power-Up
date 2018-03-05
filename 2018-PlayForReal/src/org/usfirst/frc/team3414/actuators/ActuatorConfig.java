@@ -144,16 +144,26 @@ public class ActuatorConfig
 		talonRightFront.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, kTimeoutMs);
 		
 		talonIntakeAngler.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, kTimeoutMs);
-		
+
 		servoWingOne.disengage();
 		servoWingTwo.disengage();
 		
 		//limit switch stuff
- 		talonLiftTwo.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, kTimeoutMs);
+ 		talonLiftTwo.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, kTimeoutMs);
 		talonLiftTwo.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
  		talonLiftTwo.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
  		talonLiftTwo.overrideLimitSwitchesEnable(false);
  		talonLiftTwo.getSensorCollection().isRevLimitSwitchClosed();
+ 		
+		talonIntakeAngler.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
+		talonIntakeAngler.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
+		
+		talonWingTwo.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
+		talonWingTwo.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
+
+		
+ //		talonIntakeAngler.overrideSoftLimitsEnable(true);
+ //		talonIntakeAngler.overrideLimitSwitchesEnable(true);
 		
 		
 			System.out.println("PIDing-----------------------------------------------------------------------------");
@@ -245,6 +255,11 @@ public class ActuatorConfig
 	public Motor motorIntakeAngler()
 	{
 		return motorIntakeAngler;
+	}
+	
+	public TalonSRX talonWingTwo()
+	{
+		return talonWingTwo;
 	}
 	
 	public TalonSRX talonIntakeAngler()
