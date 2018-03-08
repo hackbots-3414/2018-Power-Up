@@ -35,6 +35,8 @@ import org.usfirst.frc.team3414.autonomous.Position;
 import org.usfirst.frc.team3414.autonomous.AutonSideSwitch;
 import org.usfirst.frc.team3414.autonomous.AutonSideSwitchAndScale;
 
+import edu.wpi.first.wpilibj.Spark;
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -48,6 +50,7 @@ public class Robot extends TimedRobot
 
 private PacbotTeleop teleop;
 	
+	Spark lights = new Spark(2);
 	Command autonomousCommand;
 	private SendableChooser<AutonBase> autonChooser;
 	private SendableChooser<Position> positionChooser;
@@ -57,6 +60,8 @@ private PacbotTeleop teleop;
 
 	public void robotInit() 
 	{
+		lights.setSpeed(.91);	//purple lights
+		
 		RobotStatus.setIsRunning(true);
 		
 //		CameraServer.getInstance().addAxisCamera("10.34.14.3");
@@ -74,6 +79,7 @@ private PacbotTeleop teleop;
 		chooseAuto();	
 		
 		
+		
 	}
 
 	public void disabledInit()
@@ -82,6 +88,8 @@ private PacbotTeleop teleop;
 		// Mentor Francis added the next two lines to reset the encoders each time. This allows repeated testing of Auton without redeploying code
 		ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().setQuadraturePosition(0, 10);
 		ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().setQuadraturePosition(0, 10);
+		
+		ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().setQuadraturePosition(0, 10);
 		
 		teleop.stop();
 	}

@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import org.usfirst.frc.team3414.actuators.LimitSwitchDigital;
 
@@ -49,6 +50,7 @@ public class ActuatorConfig
 	private Servo servoWingOne;
 	private Servo servoWingTwo;
 	
+	private LimitSwitchDigital limitSwitchWings;
 	private LimitSwitchDigital limitSwitchBottomLift;
 	
 	private DoubleMotor doubleMotorRight;
@@ -103,6 +105,7 @@ public class ActuatorConfig
 		servoWingOne = new Servo(0);
 		servoWingTwo = new Servo(1);
 		
+		limitSwitchWings = new LimitSwitchDigital(0, false);
 		limitSwitchBottomLift = new LimitSwitchDigital(1, false);
 		
 		
@@ -128,11 +131,12 @@ public class ActuatorConfig
 //		motorLiftTwo.setMotorReveresed(true);	
 		
 		
+		
 		//double motors
 		doubleMotorLeft = new DoubleMotor(motorLeftFront, motorLeftBack);
 		doubleMotorRight = new DoubleMotor(motorRightFront, motorRightBack);
 				
-		doubleMotorLift = new DoubleMotor(motorLiftOne, motorLiftTwo);
+		doubleMotorLift = new DoubleMotor(motorLiftTwo, motorLiftOne);
 		doubleMotorWings = new DoubleMotor(motorWingOne, motorWingTwo);
 		
 		
@@ -143,10 +147,16 @@ public class ActuatorConfig
 		talonLeftFront.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, kTimeoutMs);
 		talonRightFront.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, kTimeoutMs);
 		
-		talonIntakeAngler.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, kTimeoutMs);
+		talonIntakeAngler.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, kTimeoutMs);
 
 		servoWingOne.disengage();
 		servoWingTwo.disengage();
+		
+		
+		
+		//current limits
+		
+		
 		
 		//limit switch stuff
  		talonLiftTwo.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, kTimeoutMs);
@@ -157,14 +167,36 @@ public class ActuatorConfig
  		
 		talonIntakeAngler.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
 		talonIntakeAngler.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
-		
-		talonWingTwo.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
-		talonWingTwo.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
 
 		
- //		talonIntakeAngler.overrideSoftLimitsEnable(true);
- //		talonIntakeAngler.overrideLimitSwitchesEnable(true);
+ 		talonIntakeAngler.overrideSoftLimitsEnable(true);
+ 		talonIntakeAngler.overrideLimitSwitchesEnable(true);
 		
+ 		
+ 		//motion magic lift
+ 				/* Set relevant frame periods to be at least as fast as periodic rate*/
+ 				talonLiftTwo.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, kTimeoutMs);
+ 				talonLiftTwo.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, kTimeoutMs);
+ 				/* set the peak and nominal outputs */
+ 				talonLiftTwo.configNominalOutputForward(0, kTimeoutMs);
+ 				talonLiftTwo.configNominalOutputReverse(0, kTimeoutMs);
+ 				talonLiftTwo.configPeakOutputForward(1, kTimeoutMs);
+ 				talonLiftTwo.configPeakOutputReverse(-1, kTimeoutMs);
+ 				/* set closed loop gains in slot0 - see documentation */
+ 				talonLiftTwo.selectProfileSlot(0, kPIDLoopIdx);
+ 				talonLiftTwo.config_kF(kPIDLoopIdx, 0.93084622, kTimeoutMs);//0.2481
+ 				talonLiftTwo.config_kP(kPIDLoopIdx, 0, kTimeoutMs);
+ 				talonLiftTwo.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
+ 				talonLiftTwo.config_kD(kPIDLoopIdx, 0, kTimeoutMs);
+ 				/* set acceleration and vcruise velocity - see documentation */
+ 				talonLiftTwo.configMotionCruiseVelocity(824, kTimeoutMs);
+ 				talonLiftTwo.configMotionAcceleration(824, kTimeoutMs);//2725
+ 				/* zero the sensor */
+ 				talonLiftTwo.setSelectedSensorPosition(0, 0, 0);
+ 		
+ 		
+ 		
+ 		//drive pid config
 		
 			System.out.println("PIDing-----------------------------------------------------------------------------");
 			talonLeftFront.configOpenloopRamp(RampTimeAuton,RampTimeoutMs);
@@ -222,7 +254,7 @@ public class ActuatorConfig
 		return doubleMotorLift;
 	}
 	
-	public TalonSRX getLiftLimitSwitch()
+	public TalonSRX getLiftTalonTwo()
 	{
 		return talonLiftTwo;
 	}
@@ -257,11 +289,6 @@ public class ActuatorConfig
 		return motorIntakeAngler;
 	}
 	
-	public TalonSRX talonWingTwo()
-	{
-		return talonWingTwo;
-	}
-	
 	public TalonSRX talonIntakeAngler()
 	{
 		return talonIntakeAngler;
@@ -270,6 +297,11 @@ public class ActuatorConfig
 	public LimitSwitchDigital limitSwitchBottomLift()
 	{
 		return limitSwitchBottomLift;
+	}
+	
+	public LimitSwitchDigital limitSwitchWings()
+	{
+		return limitSwitchWings;
 	}
 
 }
