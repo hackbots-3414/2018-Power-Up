@@ -105,47 +105,38 @@ public class PacbotTeleop implements ITeleop
 				 ActuatorConfig.getInstance().getLeftTalonOne().getSelectedSensorVelocity(ActuatorConfig.kPIDLoopIdx);
 				
 				 }
-				 else if (leftJoystick.getY() > 0.15 || rightJoystick.getY() > 0.15 || leftJoystick.getY() < -0.20 || rightJoystick.getY() <-0.1)
+				 else if (leftJoystick.getY() > 0.15 || rightJoystick.getY() > 0.15 || leftJoystick.getY() < -0.15 || rightJoystick.getY() <-0.15)
 				 {
-					 startYaw = SensorConfig.getInstance().getNavX().getRawYaw();
-					 double leftCorrect = 0;
-					 double rightCorrect = 0;
-				
-					 if (endYaw > (startYaw))
-					 {
-						 System.out.println("Veering Right Telop");
-						 rightCorrect = 0.2;
-					 }
-					 else if (endYaw < (startYaw))
-					 {
-						 System.out.println("Veering Left Telop");
-						 leftCorrect = 0.2;
-					 }
-					 else
-					 {
-						 leftCorrect = 0;
-						 rightCorrect = 0;
-					 }
 					 
-				 drivetrain.setSpeed((leftJoystick.getYAxis()) + leftCorrect,(-rightJoystick.getYAxis()) + rightCorrect);
+// 					//self correction
+//					 startYaw = SensorConfig.getInstance().getNavX().getRawYaw();
+//					 double leftCorrect = 0;
+//					 double rightCorrect = 0;
+//				
+//					 if (endYaw > (startYaw))
+//					 {
+//						 //System.out.println("Veering Right Telop");
+//						 rightCorrect = 0.2;
+//					 }
+//					 else if (endYaw < (startYaw))
+//					 {
+//						// System.out.println("Veering Left Telop");
+//						 leftCorrect = 0.2;
+//					 }
+//					 else
+//					 {
+//						 leftCorrect = 0;
+//						 rightCorrect = 0;
+//					 }
+//				//			 drivetrain.setSpeed((leftJoystick.getYAxis()) + leftCorrect,(-rightJoystick.getYAxis()) + rightCorrect);
+					 
+				 drivetrain.setSpeed((leftJoystick.getYAxis()) ,(-rightJoystick.getYAxis()));
+
+
 				 endYaw = SensorConfig.getInstance().getNavX().getRawYaw();
 				
-				 SmartDashboard.putNumber("Statrt Yaw Tle", startYaw);
-				 SmartDashboard.putNumber("End Yaw Tle", endYaw);
-				 }
-				 
-				 else if((leftJoystick.getY() > 0.15 && rightJoystick.getY() < -0.15) || (leftJoystick.getY() < -0.20 && rightJoystick.getY() > 0.1))
-				 {
-					 
-					 if(rightJoystick.isReversed() && leftJoystick.isReversed())
-					 {
-						 drivetrain.setSpeed((leftJoystick.getYAxis() / 2), (-rightJoystick.getYAxis() / 2));
-					 }
-				
-				 	else
-				 	{
-				 		drivetrain.setSpeed((leftJoystick.getYAxis() / 2),(-rightJoystick.getYAxis() / 2));
-				 	}
+		//		 SmartDashboard.putNumber("Statrt Yaw Tle", startYaw);
+		//		 SmartDashboard.putNumber("End Yaw Tle", endYaw);
 				 }
 				
 				 else
@@ -213,7 +204,7 @@ public class PacbotTeleop implements ITeleop
 						!(ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().isFwdLimitSwitchClosed()))
 				// top
 				{
-					ActuatorConfig.getInstance().getLift().setSpeed(-.35);
+					ActuatorConfig.getInstance().getLift().setSpeed(-.40);
 //					System.out.println(ActuatorConfig.getInstance().getLiftTalonTwo().getSelectedSensorVelocity(0));
 //					System.out.println("Quad:" + ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition());
 //				
@@ -232,7 +223,7 @@ public class PacbotTeleop implements ITeleop
 								|| ActuatorConfig.getInstance().limitSwitchBottomLift().isHit()))
 				// bottom
 				{
-					ActuatorConfig.getInstance().getLift().setSpeed(.30);
+					ActuatorConfig.getInstance().getLift().setSpeed(.35);
 //					System.out.println(ActuatorConfig.getInstance().getLiftTalonTwo().getSelectedSensorVelocity(0));
 //					System.out.println("Quad:" + ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition());
 //					

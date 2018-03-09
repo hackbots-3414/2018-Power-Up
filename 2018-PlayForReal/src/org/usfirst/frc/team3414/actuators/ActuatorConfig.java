@@ -154,8 +154,16 @@ public class ActuatorConfig
 		
 		
 		
-		//current limits
+		//current limit
+		talonLeftFront.configContinuousCurrentLimit(20, 0);
+		talonLeftBack.configContinuousCurrentLimit(20, 0);
+		talonRightFront.configContinuousCurrentLimit(20, 0);
+		talonRightBack.configContinuousCurrentLimit(20, 0);
 		
+		talonLeftFront.enableCurrentLimit(true);
+		talonLeftBack.enableCurrentLimit(true);
+		talonRightFront.enableCurrentLimit(true);
+		talonRightBack.enableCurrentLimit(true);
 		
 		
 		//limit switch stuff
@@ -172,6 +180,11 @@ public class ActuatorConfig
  		talonIntakeAngler.overrideSoftLimitsEnable(true);
  		talonIntakeAngler.overrideLimitSwitchesEnable(true);
 		
+ 		
+ 		//ramp rates lift
+ 		talonLiftTwo.configOpenloopRamp(0.65, 0);
+ 		
+ 		
  		
  		//motion magic lift
  				/* Set relevant frame periods to be at least as fast as periodic rate*/
