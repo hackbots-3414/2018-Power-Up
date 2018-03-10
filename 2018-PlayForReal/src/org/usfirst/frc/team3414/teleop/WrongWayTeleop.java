@@ -15,7 +15,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class PacbotTeleop implements ITeleop
+public class WrongWayTeleop implements ITeleop
 {
 
 	private HBJoystick rightJoystick;

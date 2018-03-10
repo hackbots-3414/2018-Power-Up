@@ -210,8 +210,8 @@ public class ActuatorConfig
  		
  		
  		
- 		//drive pid config
-		
+ 		//drive motion magic pid config
+ 				
 			System.out.println("PIDing-----------------------------------------------------------------------------");
 			talonLeftFront.configOpenloopRamp(RampTimeAuton,RampTimeoutMs);
 			talonRightFront.configOpenloopRamp(RampTimeAuton, RampTimeoutMs);
@@ -233,10 +233,10 @@ public class ActuatorConfig
 			talonLeftFront.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
 			talonLeftFront.config_kD(kPIDLoopIdx, 0, kTimeoutMs);
 			
-//			talonLeftFront.configMotionCruiseVelocity(824, kTimeoutMs);
-//			talonLeftFront.configMotionAcceleration(824, kTimeoutMs);
-//			talonRightFront.configMotionCruiseVelocity(824, kTimeoutMs);
-//			talonRightFront.configMotionAcceleration(824, kTimeoutMs);
+//			talonLeftFront.configMotionCruiseVelocity(0, kTimeoutMs);
+//			talonLeftFront.configMotionAcceleration(0, kTimeoutMs);
+//			talonRightFront.configMotionCruiseVelocity(0, kTimeoutMs);
+//			talonRightFront.configMotionAcceleration(0, kTimeoutMs);
 						
 		
 		

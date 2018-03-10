@@ -25,7 +25,7 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 //import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.DriverStation;
 
-import org.usfirst.frc.team3414.teleop.PacbotTeleop;
+import org.usfirst.frc.team3414.teleop.WrongWayTeleop;
 import org.usfirst.frc.team3414.autonomous.AutonBase;
 import org.usfirst.frc.team3414.autonomous.AutonCenterSwitch;
 import org.usfirst.frc.team3414.autonomous.AutonDoNothing;
@@ -48,7 +48,7 @@ public class Robot extends TimedRobot
 {
 	
 
-private PacbotTeleop teleop;
+private WrongWayTeleop teleop;
 	
 	Spark lights = new Spark(2);
 	Command autonomousCommand;
@@ -72,7 +72,7 @@ private PacbotTeleop teleop;
 		
 //		pdb = SensorConfig.getInstance().getPDB();
 		
-		teleop = new PacbotTeleop();
+		teleop = new WrongWayTeleop();
 		
 //		logThread.start();
 		
@@ -89,7 +89,8 @@ private PacbotTeleop teleop;
 		ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().setQuadraturePosition(0, 10);
 		ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().setQuadraturePosition(0, 10);
 		
-	//	ActuatorConfig.getInstance().getRightTalonOne().setSelectedSensorPosition(0, 0, TimeoutMs);
+		ActuatorConfig.getInstance().getRightTalonFront().setSelectedSensorPosition(0, 0, 10);
+		ActuatorConfig.getInstance().getLeftTalonFront().setSelectedSensorPosition(0, 0, 10);
 		
 		ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().setQuadraturePosition(0, 10);
 		

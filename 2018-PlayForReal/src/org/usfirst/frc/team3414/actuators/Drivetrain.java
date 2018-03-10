@@ -461,4 +461,12 @@ public class Drivetrain implements IDriveTrain {
 	{
 		moveGyro(distance, speed, true);
 	}
+	
+	public void motionMagic (double distance)
+	{
+		double targetPos = distance * 4096 *10.0;
+		ActuatorConfig.getInstance().getLeftTalonFront().set(ControlMode.MotionMagic, targetPos);
+		ActuatorConfig.getInstance().getRightTalonFront().set(ControlMode.MotionMagic, targetPos);
+
+	}
 }
