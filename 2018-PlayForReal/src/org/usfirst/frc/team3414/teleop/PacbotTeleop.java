@@ -99,36 +99,36 @@ public class PacbotTeleop implements ITeleop
 					 double RtargetVelocity_UnitsPer100ms = rightYJoystick *4096 * 500.0 / 600;
 					 double LtargetVelocity_UnitsPer100ms = rightYJoystick *4096 * 500.0 / 600;
 				//
-				 ActuatorConfig.getInstance().getRightTalonOne().set(ControlMode.Velocity, RtargetVelocity_UnitsPer100ms);
-				 ActuatorConfig.getInstance().getLeftTalonOne().set(ControlMode.Velocity, LtargetVelocity_UnitsPer100ms);
-				 ActuatorConfig.getInstance().getRightTalonOne().getSelectedSensorVelocity(ActuatorConfig.kPIDLoopIdx);
-				 ActuatorConfig.getInstance().getLeftTalonOne().getSelectedSensorVelocity(ActuatorConfig.kPIDLoopIdx);
+				 ActuatorConfig.getInstance().getRightTalonFront().set(ControlMode.Velocity, RtargetVelocity_UnitsPer100ms);
+				 ActuatorConfig.getInstance().getLeftTalonFront().set(ControlMode.Velocity, LtargetVelocity_UnitsPer100ms);
+				 ActuatorConfig.getInstance().getRightTalonFront().getSelectedSensorVelocity(ActuatorConfig.kPIDLoopIdx);
+				 ActuatorConfig.getInstance().getLeftTalonFront().getSelectedSensorVelocity(ActuatorConfig.kPIDLoopIdx);
 				
 				 }
 				 else if (leftJoystick.getY() > 0.15 || rightJoystick.getY() > 0.15 || leftJoystick.getY() < -0.15 || rightJoystick.getY() <-0.15)
 				 {
 					 
-// 					//self correction
-//					 startYaw = SensorConfig.getInstance().getNavX().getRawYaw();
-//					 double leftCorrect = 0;
-//					 double rightCorrect = 0;
-//				
-//					 if (endYaw > (startYaw))
-//					 {
-//						 //System.out.println("Veering Right Telop");
-//						 rightCorrect = 0.2;
-//					 }
-//					 else if (endYaw < (startYaw))
-//					 {
-//						// System.out.println("Veering Left Telop");
-//						 leftCorrect = 0.2;
-//					 }
-//					 else
-//					 {
-//						 leftCorrect = 0;
-//						 rightCorrect = 0;
-//					 }
-//				//			 drivetrain.setSpeed((leftJoystick.getYAxis()) + leftCorrect,(-rightJoystick.getYAxis()) + rightCorrect);
+/* 					//self correction
+					 startYaw = SensorConfig.getInstance().getNavX().getRawYaw();
+					 double leftCorrect = 0;
+					 double rightCorrect = 0;
+				
+					 if (endYaw > (startYaw))
+					 {
+						 //System.out.println("Veering Right Telop");
+						 rightCorrect = 0.2;
+					 }
+					 else if (endYaw < (startYaw))
+					 {
+						// System.out.println("Veering Left Telop");
+						 leftCorrect = 0.2;
+					 }
+					 else
+					 {
+						 leftCorrect = 0;
+						 rightCorrect = 0;
+					 }
+*/				//			 drivetrain.setSpeed((leftJoystick.getYAxis()) + leftCorrect,(-rightJoystick.getYAxis()) + rightCorrect);
 					 
 				 drivetrain.setSpeed((leftJoystick.getYAxis()) ,(-rightJoystick.getYAxis()));
 
@@ -183,8 +183,8 @@ public class PacbotTeleop implements ITeleop
 				if (gamepad.getButtonState(3))
 				{
 					// out
-					ActuatorConfig.getInstance().motorIntakeOne().setSpeed(0.50);
-					ActuatorConfig.getInstance().motorIntakeTwo().setSpeed(0.50);
+					ActuatorConfig.getInstance().motorIntakeOne().setSpeed(0.40);
+					ActuatorConfig.getInstance().motorIntakeTwo().setSpeed(0.40);
 				}
 
 				else if (gamepad.getButtonState(4))
@@ -205,6 +205,7 @@ public class PacbotTeleop implements ITeleop
 				// top
 				{
 					ActuatorConfig.getInstance().getLift().setSpeed(-.40);
+					
 //					System.out.println(ActuatorConfig.getInstance().getLiftTalonTwo().getSelectedSensorVelocity(0));
 //					System.out.println("Quad:" + ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition());
 //				
@@ -224,6 +225,7 @@ public class PacbotTeleop implements ITeleop
 				// bottom
 				{
 					ActuatorConfig.getInstance().getLift().setSpeed(.35);
+					
 //					System.out.println(ActuatorConfig.getInstance().getLiftTalonTwo().getSelectedSensorVelocity(0));
 //					System.out.println("Quad:" + ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition());
 //					
@@ -233,6 +235,7 @@ public class PacbotTeleop implements ITeleop
 //					 double targetPos = 0;
 //
 //				 ActuatorConfig.getInstance().getLiftTalonTwo().set(ControlMode.MotionMagic, targetPos);
+					
 				}
 
 				else

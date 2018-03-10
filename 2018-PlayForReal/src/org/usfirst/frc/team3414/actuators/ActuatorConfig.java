@@ -181,8 +181,9 @@ public class ActuatorConfig
  		talonIntakeAngler.overrideLimitSwitchesEnable(true);
 		
  		
- 		//ramp rates lift
+ 		//ramp rates lift and angler
  		talonLiftTwo.configOpenloopRamp(0.65, 0);
+ 		talonIntakeAngler.configOpenloopRamp(.85, 0);
  		
  		
  		
@@ -223,26 +224,31 @@ public class ActuatorConfig
 			talonLeftFront.configPeakOutputForward(1, kTimeoutMs);
 			talonLeftFront.configPeakOutputReverse(-1, kTimeoutMs);
 			
-			talonRightFront.config_kF(kPIDLoopIdx, 0.09366, kTimeoutMs);//0.09053
-			talonRightFront.config_kP(kPIDLoopIdx, 1.2, kTimeoutMs);
+			talonRightFront.config_kF(kPIDLoopIdx, 0, kTimeoutMs);//0.09053
+			talonRightFront.config_kP(kPIDLoopIdx, 0, kTimeoutMs);
 			talonRightFront.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
 			talonRightFront.config_kD(kPIDLoopIdx, 0, kTimeoutMs);
-			talonLeftFront.config_kF(kPIDLoopIdx, 0.08999, kTimeoutMs);//3.9346
-			talonLeftFront.config_kP(kPIDLoopIdx, 0.365357, kTimeoutMs);
+			talonLeftFront.config_kF(kPIDLoopIdx, 0, kTimeoutMs);//3.9346
+			talonLeftFront.config_kP(kPIDLoopIdx, 0, kTimeoutMs);
 			talonLeftFront.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
 			talonLeftFront.config_kD(kPIDLoopIdx, 0, kTimeoutMs);
+			
+//			talonLeftFront.configMotionCruiseVelocity(824, kTimeoutMs);
+//			talonLeftFront.configMotionAcceleration(824, kTimeoutMs);
+//			talonRightFront.configMotionCruiseVelocity(824, kTimeoutMs);
+//			talonRightFront.configMotionAcceleration(824, kTimeoutMs);
 						
 		
 		
 		drivetrain = new Drivetrain(doubleMotorRight, doubleMotorLeft);
 	}
 	
-	public TalonSRX getRightTalonOne()
+	public TalonSRX getRightTalonFront()
 	{
 		return talonRightFront;
 	}
 	
-	public TalonSRX getLeftTalonOne()
+	public TalonSRX getLeftTalonFront()
 	{
 		return talonLeftFront;
 	}

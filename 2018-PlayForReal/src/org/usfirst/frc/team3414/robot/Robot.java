@@ -89,6 +89,8 @@ private PacbotTeleop teleop;
 		ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().setQuadraturePosition(0, 10);
 		ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().setQuadraturePosition(0, 10);
 		
+	//	ActuatorConfig.getInstance().getRightTalonOne().setSelectedSensorPosition(0, 0, TimeoutMs);
+		
 		ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().setQuadraturePosition(0, 10);
 		
 		teleop.stop();

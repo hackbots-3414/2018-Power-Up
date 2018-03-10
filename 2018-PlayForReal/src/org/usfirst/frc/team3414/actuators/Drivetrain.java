@@ -418,15 +418,15 @@ public class Drivetrain implements IDriveTrain {
 //		 double RtargetVelocity_UnitsPer100ms = -0.35 * 8192 * 500.0 / 600;
 //		 double LtargetVelocity_UnitsPer100ms = -0.35 * 8192 * 500.0 / 600;
 		
-		double finalDistance = ActuatorConfig.getInstance().getLeftTalonOne().getSelectedSensorPosition(0) + distance;
+		double finalDistance = ActuatorConfig.getInstance().getLeftTalonFront().getSelectedSensorPosition(0) + distance;
 //		 
 		
 
 		 SmartDashboard.putNumber("Final distance", finalDistance);
 		 
- 		 while (ActuatorConfig.getInstance().getLeftTalonOne().getSelectedSensorPosition(0) < finalDistance) 
+ 		 while (ActuatorConfig.getInstance().getLeftTalonFront().getSelectedSensorPosition(0) < finalDistance) 
  		 {
- 			 SmartDashboard.putNumber("Enc distance", ActuatorConfig.getInstance().getLeftTalonOne().getSelectedSensorPosition(0));
+ 			 SmartDashboard.putNumber("Enc distance", ActuatorConfig.getInstance().getLeftTalonFront().getSelectedSensorPosition(0));
 // 	 		 System.out.println(_Ltalon.getSelectedSensorPosition(0));
  			 /* Speed mode */
  			 /*
@@ -438,16 +438,16 @@ public class Drivetrain implements IDriveTrain {
 // 			 ActuatorConfig.getInstance().getRightTalonOne().set(ControlMode.Velocity, RtargetVelocity_UnitsPer100ms);
 // 			 ActuatorConfig.getInstance().getLeftTalonOne().set(ControlMode.Velocity, LtargetVelocity_UnitsPer100ms);
  			 
- 			ActuatorConfig.getInstance().getRightTalonOne().set(ControlMode.PercentOutput, -speed);
- 	 		ActuatorConfig.getInstance().getLeftTalonOne().set(ControlMode.PercentOutput, speed);
+ 			ActuatorConfig.getInstance().getRightTalonFront().set(ControlMode.PercentOutput, -speed);
+ 	 		ActuatorConfig.getInstance().getLeftTalonFront().set(ControlMode.PercentOutput, speed);
  			 
 // 			 ActuatorConfig.getInstance().getRightTalonOne().getSelectedSensorVelocity(ActuatorConfig.kPIDLoopIdx);
 // 			 ActuatorConfig.getInstance().getLeftTalonOne().getSelectedSensorVelocity(ActuatorConfig.kPIDLoopIdx);
  		 }
  		 
  		
- 		ActuatorConfig.getInstance().getRightTalonOne().set(ControlMode.PercentOutput, 0);
- 		ActuatorConfig.getInstance().getLeftTalonOne().set(ControlMode.PercentOutput, 0);
+ 		ActuatorConfig.getInstance().getRightTalonFront().set(ControlMode.PercentOutput, 0);
+ 		ActuatorConfig.getInstance().getLeftTalonFront().set(ControlMode.PercentOutput, 0);
 
 	}
 	
