@@ -26,8 +26,8 @@ public class AutonCenterSwitch extends AutonBase{
 			ActuatorConfig.getInstance().getLift().setSpeed(-.20);
 			SensorConfig.getInstance().getTimer().waitTimeInMillis(1500);
 			ActuatorConfig.getInstance().getLift().setSpeed(0);
-			ActuatorConfig.getInstance().motorIntakeOne().setSpeed(.35);
-			ActuatorConfig.getInstance().motorIntakeTwo().setSpeed(.35);
+			ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(.35);
+			ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.35);
 
 			
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(2);

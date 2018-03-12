@@ -278,32 +278,32 @@ public class ActuatorConfig
 		return talonLiftTwo;
 	}
 	
-	public Motor motorIntakeOne()
+	public Motor getMotorIntakeOne()
 	{
 		return motorIntakeOne;
 	}
 	
-	public Motor motorIntakeTwo()
+	public Motor getMotorIntakeTwo()
 	{
 		return motorIntakeTwo;
 	}
 	
-	public Servo servoWingOne()
+	public Servo getServoWingOne()
 	{
 		return servoWingOne;
 	}
 	
-	public Servo servoWingTwo()
+	public Servo getServoWingTwo()
 	{
 		return servoWingTwo;
 	}
 	
-	public DoubleMotor doubleMotorWings()
+	public DoubleMotor getDoubleMotorWings()
 	{
 		return doubleMotorWings;
 	}
 	
-	public Motor motorIntakeAngler()
+	public Motor getMotorIntakeAngler()
 	{
 		return motorIntakeAngler;
 	}
