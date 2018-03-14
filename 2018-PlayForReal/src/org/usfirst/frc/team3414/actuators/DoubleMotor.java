@@ -82,11 +82,11 @@ public class DoubleMotor extends MotorBase {
 		return isSafeConfig;
 	}
 	
-	public void setMotorReveresed(boolean reverse)
+	public void setMotorReversed(boolean reverse)
 	{
 		this.isReversed = reverse;
 		
-		motorOne.setMotorReveresed(reverse);
-		motorTwo.setMotorReveresed(reverse);
+		motorOne.setMotorReversed(reverse);
+		motorTwo.setMotorReversed(reverse);
 	}
 }

@@ -58,5 +58,5 @@ public abstract class MotorBase {
 	 * Reverses the motor if set to true
 	 * @param reverse
 	 */
-	public abstract void setMotorReveresed(boolean reverse);
+	public abstract void setMotorReversed(boolean reverse);
 }

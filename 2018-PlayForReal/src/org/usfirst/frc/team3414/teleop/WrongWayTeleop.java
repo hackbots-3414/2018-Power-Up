@@ -80,8 +80,8 @@ public class WrongWayTeleop implements ITeleop
 				SmartDashboard.putBoolean("Bottom Limit Switch Angler", ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().isRevLimitSwitchClosed());
 
 				SmartDashboard.putNumber("Angler Encoder", ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition());
-				
-				
+
+				SmartDashboard.putNumber("NavX", SensorConfig.getInstance().getNavX().getRawYaw());
 				
 //				 SmartDashboard.putNumber("Left Encoder - Teleop", ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition());// *
 //																														// (-0.000122));//
@@ -130,10 +130,7 @@ public class WrongWayTeleop implements ITeleop
 					 }
 */				//			 drivetrain.setSpeed((leftJoystick.getYAxis()) + leftCorrect,(-rightJoystick.getYAxis()) + rightCorrect);
 					 
-//					 ActuatorConfig.getInstance().getLeftMotorBack().setSpeed(leftJoystick.getYAxis());
-//					 ActuatorConfig.getInstance().getLeftMotorFront().setSpeed(rightJoystick.getYAxis());
-				 drivetrain.setSpeed((leftJoystick.getYAxis()) ,(-rightJoystick.getYAxis()));
-
+				 drivetrain.setSpeed((leftJoystick.getYAxis()) ,(rightJoystick.getYAxis()));
 
 				 endYaw = SensorConfig.getInstance().getNavX().getRawYaw();
 				

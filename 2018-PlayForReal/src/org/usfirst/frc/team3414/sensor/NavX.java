@@ -44,7 +44,7 @@ public class NavX
 	
 	public float getYaw()
 	{
-		pastYaw = ahrs.getYaw();
+		pastYaw = ahrs.getYaw(); 	
 		
 		if(pastYaw < 0)
 		{			

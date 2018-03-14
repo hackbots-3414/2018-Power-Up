@@ -126,19 +126,17 @@ public class ActuatorConfig
 		motorWingOne = new Motor(talonWingOne);
 		motorWingTwo = new Motor(talonWingTwo);
 
-//		motorWingTwo.setMotorReveresed(true);
-		motorIntakeTwo.setMotorReveresed(true);
-//		motorLiftTwo.setMotorReveresed(true);	
-		
+		motorIntakeTwo.setMotorReversed(true);
 		
 		
 		//double motors
 		doubleMotorLeft = new DoubleMotor(motorLeftFront, motorLeftBack);
 		doubleMotorRight = new DoubleMotor(motorRightFront, motorRightBack);
-				
+		
+		doubleMotorRight.setMotorReversed(true);
+		
 		doubleMotorLift = new DoubleMotor(motorLiftTwo, motorLiftOne);
 		doubleMotorWings = new DoubleMotor(motorWingOne, motorWingTwo);
-		
 		
 		//talon configs
 		talonRightFront.setSensorPhase(true);
@@ -150,9 +148,7 @@ public class ActuatorConfig
 		talonIntakeAngler.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, kTimeoutMs);
 
 		servoWingOne.disengage();
-		servoWingTwo.disengage();
-		
-		
+		servoWingTwo.engage();
 		
 		//current limit
 //		talonLeftFront.configContinuousCurrentLimit(20, 0);
@@ -165,7 +161,6 @@ public class ActuatorConfig
 //		talonRightFront.enableCurrentLimit(true);
 //		talonRightBack.enableCurrentLimit(true);
 		
-		
 		//limit switch stuff
  		talonLiftTwo.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, kTimeoutMs);
 		talonLiftTwo.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
@@ -175,11 +170,9 @@ public class ActuatorConfig
  		
 		talonIntakeAngler.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
 		talonIntakeAngler.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
-
 		
  		talonIntakeAngler.overrideSoftLimitsEnable(true);
  		talonIntakeAngler.overrideLimitSwitchesEnable(true);
-		
  		
  		//ramp rates lift and angler
  		talonLiftTwo.configOpenloopRamp(0.65, 0);
@@ -225,25 +218,42 @@ public class ActuatorConfig
 			talonRightFront.configNominalOutputReverse(0, kTimeoutMs);
 			talonRightFront.configPeakOutputForward(1, kTimeoutMs);
 			talonRightFront.configPeakOutputReverse(-1, kTimeoutMs);
+			
+			talonLeftFront.configNominalOutputForward(0, kTimeoutMs);
 			talonLeftFront.configNominalOutputReverse(0, kTimeoutMs);
 			talonLeftFront.configPeakOutputForward(1, kTimeoutMs);
 			talonLeftFront.configPeakOutputReverse(-1, kTimeoutMs);
 			
+<<<<<<< HEAD
 			talonRightFront.config_kF(kPIDLoopIdx, 0.10774092, kTimeoutMs);//0.09053
 			talonRightFront.config_kP(kPIDLoopIdx, 0, kTimeoutMs);
 			talonRightFront.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
 			talonRightFront.config_kD(kPIDLoopIdx, 0, kTimeoutMs);
 			talonLeftFront.config_kF(kPIDLoopIdx, 0.1094703, kTimeoutMs);//3.9346
+=======
+			talonRightFront.config_kF(kPIDLoopIdx, 0.109, kTimeoutMs);//0.09053
+			talonRightFront.config_kP(kPIDLoopIdx, 0, kTimeoutMs);
+			talonRightFront.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
+			talonRightFront.config_kD(kPIDLoopIdx, 0, kTimeoutMs);
+			talonLeftFront.config_kF(kPIDLoopIdx, 0.0999, kTimeoutMs);//3.9346
+>>>>>>> origin/master
 			talonLeftFront.config_kP(kPIDLoopIdx, 0, kTimeoutMs);
 			talonLeftFront.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
 			talonLeftFront.config_kD(kPIDLoopIdx, 0, kTimeoutMs);
 			
+<<<<<<< HEAD
 			talonLeftFront.configMotionCruiseVelocity(7009, kTimeoutMs);
 			talonLeftFront.configMotionAcceleration(7009, kTimeoutMs);
 			talonRightFront.configMotionCruiseVelocity(7121, kTimeoutMs);
 			talonRightFront.configMotionAcceleration(7121, kTimeoutMs);
 						
 		
+=======
+			talonLeftFront.configMotionCruiseVelocity(8000, kTimeoutMs);
+			talonLeftFront.configMotionAcceleration(4000, kTimeoutMs);
+			talonRightFront.configMotionCruiseVelocity(8000, kTimeoutMs);
+			talonRightFront.configMotionAcceleration(4000, kTimeoutMs);
+>>>>>>> origin/master
 		
 		drivetrain = new Drivetrain(doubleMotorRight, doubleMotorLeft);
 	}
