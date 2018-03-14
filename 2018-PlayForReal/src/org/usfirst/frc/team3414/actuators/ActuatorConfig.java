@@ -223,37 +223,33 @@ public class ActuatorConfig
 			talonLeftFront.configNominalOutputReverse(0, kTimeoutMs);
 			talonLeftFront.configPeakOutputForward(1, kTimeoutMs);
 			talonLeftFront.configPeakOutputReverse(-1, kTimeoutMs);
+
+			// Beta numbers for PID
+//			talonRightFront.config_kF(kPIDLoopIdx, 0.10774092, kTimeoutMs);//0.09053
+//			talonRightFront.config_kP(kPIDLoopIdx, 0, kTimeoutMs);
+//			talonRightFront.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
+//			talonRightFront.config_kD(kPIDLoopIdx, 0, kTimeoutMs);
 			
-<<<<<<< HEAD
-			talonRightFront.config_kF(kPIDLoopIdx, 0.10774092, kTimeoutMs);//0.09053
-			talonRightFront.config_kP(kPIDLoopIdx, 0, kTimeoutMs);
-			talonRightFront.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
-			talonRightFront.config_kD(kPIDLoopIdx, 0, kTimeoutMs);
-			talonLeftFront.config_kF(kPIDLoopIdx, 0.1094703, kTimeoutMs);//3.9346
-=======
+//			talonLeftFront.config_kF(kPIDLoopIdx, 0.1094703, kTimeoutMs);//3.9346
+//			talonLeftFront.config_kP(kPIDLoopIdx, 0, kTimeoutMs);
+//			talonLeftFront.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
+//			talonLeftFront.config_kD(kPIDLoopIdx, 0, kTimeoutMs);
+			
+			// Alpha numbers for PID
 			talonRightFront.config_kF(kPIDLoopIdx, 0.109, kTimeoutMs);//0.09053
 			talonRightFront.config_kP(kPIDLoopIdx, 0, kTimeoutMs);
 			talonRightFront.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
 			talonRightFront.config_kD(kPIDLoopIdx, 0, kTimeoutMs);
+			
 			talonLeftFront.config_kF(kPIDLoopIdx, 0.0999, kTimeoutMs);//3.9346
->>>>>>> origin/master
 			talonLeftFront.config_kP(kPIDLoopIdx, 0, kTimeoutMs);
 			talonLeftFront.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
 			talonLeftFront.config_kD(kPIDLoopIdx, 0, kTimeoutMs);
 			
-<<<<<<< HEAD
 			talonLeftFront.configMotionCruiseVelocity(7009, kTimeoutMs);
 			talonLeftFront.configMotionAcceleration(7009, kTimeoutMs);
 			talonRightFront.configMotionCruiseVelocity(7121, kTimeoutMs);
-			talonRightFront.configMotionAcceleration(7121, kTimeoutMs);
-						
-		
-=======
-			talonLeftFront.configMotionCruiseVelocity(8000, kTimeoutMs);
-			talonLeftFront.configMotionAcceleration(4000, kTimeoutMs);
-			talonRightFront.configMotionCruiseVelocity(8000, kTimeoutMs);
-			talonRightFront.configMotionAcceleration(4000, kTimeoutMs);
->>>>>>> origin/master
+			talonRightFront.configMotionAcceleration(7121, kTimeoutMs);		
 		
 		drivetrain = new Drivetrain(doubleMotorRight, doubleMotorLeft);
 	}
