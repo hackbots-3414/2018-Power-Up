@@ -73,7 +73,7 @@ public class WrongWayTeleop implements ITeleop
 				
 				SmartDashboard.putBoolean("Wing Limit Switch", ActuatorConfig.getInstance().limitSwitchWings().isHit());
 				
-				SmartDashboard.putBoolean("Bottom Limit Switch Lift", ActuatorConfig.getInstance().limitSwitchBottomLift().isHit());
+				SmartDashboard.putBoolean("Bottom Limit Switch Lift", ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().isRevLimitSwitchClosed());
 				SmartDashboard.putBoolean("Top Limit Switch Lift", ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().isFwdLimitSwitchClosed());
 
 				SmartDashboard.putBoolean("Top Limit Switch Angler", ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().isFwdLimitSwitchClosed());
@@ -130,6 +130,8 @@ public class WrongWayTeleop implements ITeleop
 					 }
 */				//			 drivetrain.setSpeed((leftJoystick.getYAxis()) + leftCorrect,(-rightJoystick.getYAxis()) + rightCorrect);
 					 
+//					 ActuatorConfig.getInstance().getLeftMotorBack().setSpeed(leftJoystick.getYAxis());
+//					 ActuatorConfig.getInstance().getLeftMotorFront().setSpeed(rightJoystick.getYAxis());
 				 drivetrain.setSpeed((leftJoystick.getYAxis()) ,(-rightJoystick.getYAxis()));
 
 
@@ -246,15 +248,15 @@ public class WrongWayTeleop implements ITeleop
 				if (gamepad.getButtonState(9))
 				{
 				//	ActuatorConfig.getInstance().servoWingOne().engage();
-					ActuatorConfig.getInstance().getServoWingOne().setAngle(150);
+					ActuatorConfig.getInstance().getServoWingOne().setAngle(130);//140
 				//	ActuatorConfig.getInstance().servoWingTwo().disengage();
-					ActuatorConfig.getInstance().getServoWingTwo().setAngle(30); //180-30
+					ActuatorConfig.getInstance().getServoWingTwo().setAngle(20); //180-160
 				}
 
 				else
 				{
 					ActuatorConfig.getInstance().getServoWingOne().disengage();
-					ActuatorConfig.getInstance().getServoWingTwo().engage();
+					ActuatorConfig.getInstance().getServoWingTwo().setAngle(130);
 				}
 				
 				if (gamepad.getButtonState(10) && 

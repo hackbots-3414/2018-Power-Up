@@ -258,160 +258,162 @@ public class Drivetrain implements IDriveTrain {
 		move(distance, speed, true);
 	}
 	
-	public void moveGyro(double distance, double speed, boolean isReversed)
-	{
-		double startYaw = SensorConfig.getInstance().getNavX().getRawYaw();
-		double leftCorrect = 0;
-		double rightCorrect = 0;
-		
-		double deviationDistance =0 ;
-		double theta = 0;
-		
-		boolean isDone = false;
-		
-		while(RobotStatus.isAuto())
-		{
-			
-			theta = endYaw - startYaw;
-			
-			deviationDistance = Math.sin(Math.abs(theta));
-			
-			if(endYaw > (startYaw + .5)) 
-			{
-				System.out.println("Veering Right Auton");
-				leftCorrect =+ 0.09; //.1
-				rightCorrect =-0.05;
-			}
-			else if (endYaw < (startYaw - .5)) 
-			{	
-				System.out.println("Veering Left Auton");
-				rightCorrect =+ 0.05; //.1
-				leftCorrect =- 0.09;
-			}
-			else
-			{
-				leftCorrect = 0;
-				rightCorrect = 0;
-			}
-			
-			setSpeed(speed + leftCorrect, speed + rightCorrect);
-			endYaw = SensorConfig.getInstance().getNavX().getRawYaw();
-			
-			SmartDashboard.putNumber("Statrt Yaw Tle", startYaw);
-			SmartDashboard.putNumber("End Yaw Tle", endYaw);
-			SmartDashboard.putNumber("Left Speed", ActuatorConfig.getInstance().getDrivetrain().getLeftMotor().getSpeed());
-			SmartDashboard.putNumber("Right Speed", ActuatorConfig.getInstance().getDrivetrain().getRightMotor().getSpeed());
-			
-			SmartDashboard.putNumber("Deviation Distance", deviationDistance);
-			SmartDashboard.putNumber("Theta", theta);
-		}
-	}
-	
-//	
 //	public void moveGyro(double distance, double speed, boolean isReversed)
-//	{	
-//		NavX navx = SensorConfig.getInstance().getNavX();
+//	{
+//		double startYaw = SensorConfig.getInstance().getNavX().getRawYaw();
+//		double leftCorrect = 0;
+//		double rightCorrect = 0;
 //		
-//		boolean isRightComplete = false;
-//		boolean isLeftComplete = false;
-//		double distanceRight;
-//		double distanceLeft;	
-//		double rightEncoderValue = ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition() / (8192.0);//8192 is the ppr of the encoder x4
-//		double leftEncoderValue =  ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition() / (-8192.0);
-//
-//		if(isReversed)
-//		{
-//			speed = speed * -1;
-//			distanceRight  = rightEncoderValue - distance;
-//			distanceLeft = leftEncoderValue - distan ce;
-//		} 
-//		else 
-//		{
-//			distanceRight  = rightEncoderValue + distance;
-//			distanceLeft = leftEncoderValue + distance;
-//		}
+//		double deviationDistance =0 ;
+//		double theta = 0;
 //		
-//		double currentYaw;
-//		double startYaw = navx.getRawYaw();
-////		SmartDashboard.putNumber("Start Yaw: ", startYaw);
-//		ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed);
-////		SmartDashboard.putNumber("Right Distance To ", distanceRight);
-////		SmartDashboard.putNumber("Left Distance To ", distanceLeft);
-////		SmartDashboard.putNumber("Start Left Enoder Value ", leftEncoderValue);
-////		SmartDashboard.putNumber("Start Right Encoder Value", rightEncoderValue);
+//		boolean isDone = false;
 //		
-//		while(!isRightComplete && !isLeftComplete)
+//		while(RobotStatus.isAuto())
 //		{
-//			 rightEncoderValue = ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition()  / (8192.0);
-//			 leftEncoderValue = ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition() / (-8192.0);
-//			 
-//			 SmartDashboard.putNumber("Left Enoder Value ", leftEncoderValue);
-//			 SmartDashboard.putNumber("Right Encoder Value", rightEncoderValue);
-//		}	 
-//			 // This Kill Switch will only work once Teleop begins and Joysticks start working
-//			 // This is a safety in case loop cannot complete for some reason while running Auton.
-//			 // To test: Run Auton and hit disable before lop completes. Then start teleop and press kill switch buttons 
-//			/*if(rightJoystick.getRawButton(1) || leftJoystick.getRawButton(1))
+//			
+//			theta = endYaw - startYaw;
+//			
+//			deviationDistance = Math.sin(Math.abs(theta));
+//			
+//			if(endYaw > (startYaw + .5)) 
 //			{
-//				System.out.println("Kill Switch");
-//				break;
-//		  	}*/
-//			 
-//			 if(RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
-//			 {
-//				// break;
-//			 }
-//			 
-//			 
-//			if(isReversed)
-//			{
-//				if(rightEncoderValue <= distanceRight)
-//				{
-//					isLeftComplete = true;
-//				//	ActuatorConfig.getInstance().getDrivetrain().getLeftMotor().stop();
-//					System.out.println("Left Finished First");
-//				}
-//					currentYaw = navx.getRawYaw();
-//					SmartDashboard.putNumber("Current Yaw ", currentYaw);
-//				if (currentYaw > (startYaw + 0.5)) 
-//				{
-//					// Veering left, so slow down right
-//					//System.out.println("Veering left");
-//					ActuatorConfig.getInstance().getDrivetrain().setSpeed((speed + .15), speed);	
-//				}
-//				else if (currentYaw < (startYaw + 0.5)) 
-//				{	
-//					// Veering right, so slow down left
-//					//System.out.println("Veering right");
-//					ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed, (speed + .15));
-//				}
+//				System.out.println("Veering Right Auton");
+//				leftCorrect =+ 0.09; //.1
+//				rightCorrect =-0.05;
+//			}
+//			else if (endYaw < (startYaw - .5)) 
+//			{	
+//				System.out.println("Veering Left Auton");
+//				rightCorrect =+ 0.05; //.1
+//				leftCorrect =- 0.09;
 //			}
 //			else
 //			{
-//				if(rightEncoderValue >= distanceRight)
-//				{
-//					isLeftComplete = true;
-//				//	ActuatorConfig.getInstance().getDrivetrain().getLeftMotor().stop();
-//					System.out.println("Left Finished First");
-//				}
-//				currentYaw = navx.getRawYaw();
-//				SmartDashboard.putNumber("Current Yaw ", currentYaw);
-//				if (currentYaw > (startYaw + 1)) 
-//				{
-//					// Veering left, so slow down right
-//					//System.out.println("Veering left");
-//					ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed, (speed - .16));	
-//				}
-//				else if (currentYaw < (startYaw + 1)) 
-//				{	
-//					// Veering right, so slow down left
-//					//System.out.println("Veering right");
-//					ActuatorConfig.getInstance().getDrivetrain().setSpeed((speed - .16),speed );
-//				}
+//				leftCorrect = 0;
+//				rightCorrect = 0;
 //			}
-//		}	
-//	//	ActuatorConfig.getInstance().getDrivetrain().stop();
-//	//}
+//			
+//			setSpeed(speed + leftCorrect, speed + rightCorrect);
+//			endYaw = SensorConfig.getInstance().getNavX().getRawYaw();
+//			
+//			SmartDashboard.putNumber("Statrt Yaw Tle", startYaw);
+//			SmartDashboard.putNumber("End Yaw Tle", endYaw);
+//			SmartDashboard.putNumber("Left Speed", ActuatorConfig.getInstance().getDrivetrain().getLeftMotor().getSpeed());
+//			SmartDashboard.putNumber("Right Speed", ActuatorConfig.getInstance().getDrivetrain().getRightMotor().getSpeed());
+//			
+//			SmartDashboard.putNumber("Deviation Distance", deviationDistance);
+//			SmartDashboard.putNumber("Theta", theta);
+//		}
+//	}
+	
+	
+	public void moveGyro(double distance, double speed, boolean isReversed)
+	{	
+		NavX navx = SensorConfig.getInstance().getNavX();
+		
+		boolean isRightComplete = false;
+		boolean isLeftComplete = false;
+		double distanceRight;
+		double distanceLeft;	
+		double rightEncoderValue = ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition() / (8192.0);//8192 is the ppr of the encoder x4
+		double leftEncoderValue =  ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition() / (-8192.0);
+
+		if(isReversed)
+		{
+			speed = speed * -1;
+			distanceRight  = rightEncoderValue - distance;
+			distanceLeft = leftEncoderValue - distance;
+		} 
+		else 
+		{
+			distanceRight  = rightEncoderValue + distance;
+			distanceLeft = leftEncoderValue + distance;
+		}
+		
+		double currentYaw;
+		double startYaw = navx.getRawYaw();
+//		SmartDashboard.putNumber("Start Yaw: ", startYaw);
+		ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed);
+//		SmartDashboard.putNumber("Right Distance To ", distanceRight);
+//		SmartDashboard.putNumber("Left Distance To ", distanceLeft);
+//		SmartDashboard.putNumber("Start Left Enoder Value ", leftEncoderValue);
+//		SmartDashboard.putNumber("Start Right Encoder Value", rightEncoderValue);
+		
+		while(!isRightComplete && !isLeftComplete)
+		{
+			 rightEncoderValue = ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition()  / (8192.0);
+			 leftEncoderValue = ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition() / (-8192.0);
+			 
+			 SmartDashboard.putNumber("Left Enoder Value ", leftEncoderValue);
+			 SmartDashboard.putNumber("Right Encoder Value", rightEncoderValue);
+		}	 
+			 // This Kill Switch will only work once Teleop begins and Joysticks start working
+			 // This is a safety in case loop cannot complete for some reason while running Auton.
+			 // To test: Run Auton and hit disable before lop completes. Then start teleop and press kill switch buttons 
+			/*if(rightJoystick.getRawButton(1) || leftJoystick.getRawButton(1))
+			{
+				System.out.println("Kill Switch");
+				break;
+		  	}*/
+			 
+			 if(RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
+			 {
+				// break;
+			 }
+			 
+			 
+			if(isReversed)
+			{
+				if(rightEncoderValue <= distanceRight)
+				{
+					isLeftComplete = true;
+				//	ActuatorConfig.getInstance().getDrivetrain().getLeftMotor().stop();
+					System.out.println("Left Finished First");
+				}
+					currentYaw = navx.getRawYaw();
+					SmartDashboard.putNumber("Current Yaw ", currentYaw);
+				if (currentYaw > (startYaw + 0.5)) 
+				{
+					// Veering left, so slow down right
+					//System.out.println("Veering left");
+					ActuatorConfig.getInstance().getDrivetrain().setSpeed((speed + .15), speed);	
+				}
+				else if (currentYaw < (startYaw + 0.5)) 
+				{	
+					// Veering right, so slow down left
+					//System.out.println("Veering right");
+					ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed, (speed + .15));
+				}
+			}
+			else
+			{
+				if(rightEncoderValue >= distanceRight)
+				{
+					isLeftComplete = true;
+				//	ActuatorConfig.getInstance().getDrivetrain().getLeftMotor().stop();
+					System.out.println("Left Finished First");
+				}
+				currentYaw = navx.getRawYaw();
+				SmartDashboard.putNumber("Current Yaw ", currentYaw);
+				if (currentYaw > (startYaw + 1)) 
+				{
+					// Veering left, so slow down right
+					//System.out.println("Veering left");
+					ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed, (speed - .16));	
+				}
+				else if (currentYaw < (startYaw + 1)) 
+				{	
+					// Veering right, so slow down left
+					//System.out.println("Veering right");
+					ActuatorConfig.getInstance().getDrivetrain().setSpeed((speed - .16),speed );
+				}
+			}
+		}	
+	//	ActuatorConfig.getInstance().getDrivetrain().stop();
+	//}
+	
+	
 	public void movePid (double distance, double speed) 
 	{
 
@@ -466,7 +468,7 @@ public class Drivetrain implements IDriveTrain {
 	{
 		double targetPos = distance * 4096 *10.0;
 		ActuatorConfig.getInstance().getLeftTalonFront().set(ControlMode.MotionMagic, targetPos);
-		ActuatorConfig.getInstance().getRightTalonFront().set(ControlMode.MotionMagic, targetPos);
+		ActuatorConfig.getInstance().getRightTalonFront().set(ControlMode.MotionMagic, -targetPos);
 
 	}
 }

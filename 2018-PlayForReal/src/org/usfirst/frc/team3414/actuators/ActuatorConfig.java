@@ -155,15 +155,15 @@ public class ActuatorConfig
 		
 		
 		//current limit
-		talonLeftFront.configContinuousCurrentLimit(20, 0);
-		talonLeftBack.configContinuousCurrentLimit(20, 0);
-		talonRightFront.configContinuousCurrentLimit(20, 0);
-		talonRightBack.configContinuousCurrentLimit(20, 0);
-		
-		talonLeftFront.enableCurrentLimit(true);
-		talonLeftBack.enableCurrentLimit(true);
-		talonRightFront.enableCurrentLimit(true);
-		talonRightBack.enableCurrentLimit(true);
+//		talonLeftFront.configContinuousCurrentLimit(20, 0);
+//		talonLeftBack.configContinuousCurrentLimit(20, 0);
+//		talonRightFront.configContinuousCurrentLimit(20, 0);
+//		talonRightBack.configContinuousCurrentLimit(20, 0);
+//		
+//		talonLeftFront.enableCurrentLimit(true);
+//		talonLeftBack.enableCurrentLimit(true);
+//		talonRightFront.enableCurrentLimit(true);
+//		talonRightBack.enableCurrentLimit(true);
 		
 		
 		//limit switch stuff
@@ -185,6 +185,11 @@ public class ActuatorConfig
  		talonLiftTwo.configOpenloopRamp(0.65, 0);
  		talonIntakeAngler.configOpenloopRamp(.85, 0);
  		
+ 		
+ 		//wings servos
+ 		servoWingOne.disengage();
+ 		servoWingTwo.engage();
+ 		servoWingTwo.set(130);
  		
  		
  		//motion magic lift
@@ -224,19 +229,19 @@ public class ActuatorConfig
 			talonLeftFront.configPeakOutputForward(1, kTimeoutMs);
 			talonLeftFront.configPeakOutputReverse(-1, kTimeoutMs);
 			
-			talonRightFront.config_kF(kPIDLoopIdx, 0, kTimeoutMs);//0.09053
+			talonRightFront.config_kF(kPIDLoopIdx, 0.10774092, kTimeoutMs);//0.09053
 			talonRightFront.config_kP(kPIDLoopIdx, 0, kTimeoutMs);
 			talonRightFront.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
 			talonRightFront.config_kD(kPIDLoopIdx, 0, kTimeoutMs);
-			talonLeftFront.config_kF(kPIDLoopIdx, 0, kTimeoutMs);//3.9346
+			talonLeftFront.config_kF(kPIDLoopIdx, 0.1094703, kTimeoutMs);//3.9346
 			talonLeftFront.config_kP(kPIDLoopIdx, 0, kTimeoutMs);
 			talonLeftFront.config_kI(kPIDLoopIdx, 0, kTimeoutMs);
 			talonLeftFront.config_kD(kPIDLoopIdx, 0, kTimeoutMs);
 			
-//			talonLeftFront.configMotionCruiseVelocity(0, kTimeoutMs);
-//			talonLeftFront.configMotionAcceleration(0, kTimeoutMs);
-//			talonRightFront.configMotionCruiseVelocity(0, kTimeoutMs);
-//			talonRightFront.configMotionAcceleration(0, kTimeoutMs);
+			talonLeftFront.configMotionCruiseVelocity(7009, kTimeoutMs);
+			talonLeftFront.configMotionAcceleration(7009, kTimeoutMs);
+			talonRightFront.configMotionCruiseVelocity(7121, kTimeoutMs);
+			talonRightFront.configMotionAcceleration(7121, kTimeoutMs);
 						
 		
 		
@@ -251,6 +256,25 @@ public class ActuatorConfig
 	public TalonSRX getLeftTalonFront()
 	{
 		return talonLeftFront;
+	}
+	
+	public Motor getRightMotorFront()
+	{
+		return motorRightFront;
+	}
+	
+	public Motor getRightMotorBack()
+	{
+		return motorRightBack;
+	}
+	
+	public Motor getLeftMotorFront()
+	{
+		return motorLeftFront;
+	}
+	public Motor getLeftMotorBack()
+	{
+		return motorLeftBack;
 	}
 	
 	public TalonSRX getRightEncoder()

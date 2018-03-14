@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3414.autonomous;
 
 import org.usfirst.frc.team3414.actuators.ActuatorConfig;
+import org.usfirst.frc.team3414.sensor.SensorConfig;
 
 public class AutonGoForward extends AutonBase
 {
@@ -14,19 +15,24 @@ public class AutonGoForward extends AutonBase
 	//	ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(.1, 0.3);
     //	ActuatorConfig.getInstance().getDrivetrain().movePid(500000, 0.5);
 		
-		ActuatorConfig.getInstance().getDrivetrain().motionMagic(5);
+		//ActuatorConfig.getInstance().getDrivetrain().motionMagic(1);
+		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2, .30);
 		System.out.println("Position left: Goes forward");
 	}
 
 	protected void center() //Has a fail safe so if chosen in game, it'll run center auton.
 	{
-		if ("LRL".equals(this.gameData) || "LLL".equals(this.gameData))//Runs basic center auton for left switch
+		if (("LRL".equals(this.gameData))|| ("LLL".equals(this.gameData)))//Runs basic center auton for left switch
 		{
-			ActuatorConfig.getInstance().getDrivetrain().motionMagic(3);
+			ActuatorConfig.getInstance().getDrivetrain().motionMagic(.25);
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
 			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.45, 90);
-			ActuatorConfig.getInstance().getDrivetrain().motionMagic(3);
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+			ActuatorConfig.getInstance().getDrivetrain().motionMagic(1);
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
 			ActuatorConfig.getInstance().getDrivetrain().turnRight(.45, 90);
-			ActuatorConfig.getInstance().getDrivetrain().motionMagic(3);
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+			ActuatorConfig.getInstance().getDrivetrain().motionMagic(1);
 
 			
 //			ActuatorConfig.getInstance().getDrivetrain().turnLeft(0.8, 45);
