@@ -126,10 +126,7 @@ public class ActuatorConfig
 		motorWingOne = new Motor(talonWingOne);
 		motorWingTwo = new Motor(talonWingTwo);
 
-//		motorWingTwo.setMotorReveresed(true);
 		motorIntakeTwo.setMotorReversed(true);
-//		motorLiftTwo.setMotorReveresed(true);	
-		
 		
 		
 		//double motors
@@ -140,7 +137,6 @@ public class ActuatorConfig
 		
 		doubleMotorLift = new DoubleMotor(motorLiftTwo, motorLiftOne);
 		doubleMotorWings = new DoubleMotor(motorWingOne, motorWingTwo);
-		
 		
 		//talon configs
 		talonRightFront.setSensorPhase(true);
@@ -154,8 +150,6 @@ public class ActuatorConfig
 		servoWingOne.disengage();
 		servoWingTwo.engage();
 		
-		
-		
 		//current limit
 		talonLeftFront.configContinuousCurrentLimit(20, 0);
 		talonLeftBack.configContinuousCurrentLimit(20, 0);
@@ -167,7 +161,6 @@ public class ActuatorConfig
 		talonRightFront.enableCurrentLimit(true);
 		talonRightBack.enableCurrentLimit(true);
 		
-		
 		//limit switch stuff
  		talonLiftTwo.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, kTimeoutMs);
 		talonLiftTwo.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
@@ -177,11 +170,9 @@ public class ActuatorConfig
  		
 		talonIntakeAngler.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
 		talonIntakeAngler.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
-
 		
  		talonIntakeAngler.overrideSoftLimitsEnable(true);
  		talonIntakeAngler.overrideLimitSwitchesEnable(true);
-		
  		
  		//ramp rates lift and angler
  		talonLiftTwo.configOpenloopRamp(0.65, 0);
@@ -241,8 +232,6 @@ public class ActuatorConfig
 			talonLeftFront.configMotionAcceleration(4000, kTimeoutMs);
 			talonRightFront.configMotionCruiseVelocity(8000, kTimeoutMs);
 			talonRightFront.configMotionAcceleration(4000, kTimeoutMs);
-						
-		
 		
 		drivetrain = new Drivetrain(doubleMotorRight, doubleMotorLeft);
 	}
