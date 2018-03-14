@@ -25,6 +25,13 @@ public class Servo {
 	{
 		servo.set(value);
 	}
+	
+	public void setAngle(double degrees)
+	{
+	//	this.setSpeed(value);
+		servo.setAngle(degrees);
+	}
+	
 
 	public double get() 
 	{

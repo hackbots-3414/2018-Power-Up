@@ -24,7 +24,8 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 //import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.DriverStation;
-import org.usfirst.frc.team3414.teleop.PacbotTeleop;
+
+import org.usfirst.frc.team3414.teleop.WrongWayTeleop;
 import org.usfirst.frc.team3414.autonomous.AutonBase;
 import org.usfirst.frc.team3414.autonomous.AutonCenterSwitch;
 import org.usfirst.frc.team3414.autonomous.AutonDoNothing;
@@ -33,6 +34,8 @@ import org.usfirst.frc.team3414.autonomous.AutonGoForward;
 import org.usfirst.frc.team3414.autonomous.Position;
 import org.usfirst.frc.team3414.autonomous.AutonSideSwitch;
 import org.usfirst.frc.team3414.autonomous.AutonSideSwitchAndScale;
+
+import edu.wpi.first.wpilibj.Spark;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -45,8 +48,9 @@ public class Robot extends TimedRobot
 {
 	
 
-private PacbotTeleop teleop;
+private WrongWayTeleop teleop;
 	
+	Spark lights = new Spark(2);
 	Command autonomousCommand;
 	private SendableChooser<AutonBase> autonChooser;
 	private SendableChooser<Position> positionChooser;
@@ -56,6 +60,8 @@ private PacbotTeleop teleop;
 
 	public void robotInit() 
 	{
+		lights.setSpeed(.91);	//purple lights
+		
 		RobotStatus.setIsRunning(true);
 		
 //		CameraServer.getInstance().addAxisCamera("10.34.14.3");
@@ -66,11 +72,12 @@ private PacbotTeleop teleop;
 		
 //		pdb = SensorConfig.getInstance().getPDB();
 		
-		teleop = new PacbotTeleop();
+		teleop = new WrongWayTeleop();
 		
 //		logThread.start();
 		
 		chooseAuto();	
+		
 		
 		
 	}
@@ -81,6 +88,11 @@ private PacbotTeleop teleop;
 		// Mentor Francis added the next two lines to reset the encoders each time. This allows repeated testing of Auton without redeploying code
 		ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().setQuadraturePosition(0, 10);
 		ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().setQuadraturePosition(0, 10);
+		
+		ActuatorConfig.getInstance().getRightTalonFront().setSelectedSensorPosition(0, 0, 10);
+		ActuatorConfig.getInstance().getLeftTalonFront().setSelectedSensorPosition(0, 0, 10);
+		
+		ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().setQuadraturePosition(0, 10);
 		
 		teleop.stop();
 	}
@@ -105,7 +117,6 @@ private PacbotTeleop teleop;
 		autonChooser = new SendableChooser<AutonBase>();
 		positionChooser = new SendableChooser<Position>();
 		
-	
 		autonChooser.addObject("Do Nothing", new AutonDoNothing());
 		autonChooser.addDefault("Go Forward", new AutonGoForward());
 		autonChooser.addObject("Side Switch", new AutonSideSwitch());
@@ -127,6 +138,7 @@ private PacbotTeleop teleop;
 	
 	public void autonomousInit()
 	{	
+		System.out.println(ActuatorConfig.getInstance());
 		System.out.println("Auton Init");
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();
 		

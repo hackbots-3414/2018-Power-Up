@@ -79,7 +79,7 @@ public class Motor extends MotorBase
 		this.direction = direction;
 	}	
 	
-	public void setMotorReveresed(boolean reverse)
+	public void setMotorReversed(boolean reverse)
 	{
 		//this.isReversed = reverse;
 		talon.setInverted(reverse);
