@@ -17,25 +17,24 @@ public class AutonSideSwitch extends AutonBase
 	{
 		if("LRL".equals(this.gameData)|| "LLL".equals(this.gameData)) //Left switch from left side
 		{
+			
+			
+			//deliver to switch
+			ActuatorConfig.getInstance().getServoWingOne().disengage();
+			ActuatorConfig.getInstance().getServoWingTwo().setAngle(130);
 			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(15, .35);
-			ActuatorConfig.getInstance().getDrivetrain().turnRight(.2, 90);
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+			ActuatorConfig.getInstance().getDrivetrain().turnRight(.36, 90);
+			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(750);
 			ActuatorConfig.getInstance().getLift().setSpeed(-.40);
-
-		//	ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().se
-//			if (ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition() < 7800)
-//			{
-//				ActuatorConfig.getInstance().getLift().setSpeed(.40);
-//			}
 			SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
 			ActuatorConfig.getInstance().getLift().setSpeed(0);
 			ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(.40);
 			ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.40);
-//			ActuatorConfig.getInstance().getLift().setSpeed(-40);
-//			if (ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection()..getQuadraturePosition(7800))
-//			{
-//				
-//			}
-//			
+
+
+
 			
 			//testing
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(4000);//14 find actual measurements
@@ -47,11 +46,12 @@ public class AutonSideSwitch extends AutonBase
 		}
 		else if("RRR".equals(this.gameData) || "RLR".equals(this.gameData)) //Park past switch from left side
 		{
-			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2, .35);
-			ActuatorConfig.getInstance().getDrivetrain().turnRight(.2, 90);
-			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2, .35);
-			ActuatorConfig.getInstance().getDrivetrain().turnRight(.2, 90);
-			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(.2, .35);
+			
+			
+			//go forward turn right
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(18, .35);
+//			ActuatorConfig.getInstance().getDrivetrain().turnRight(.35, 90);
+//			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(3, .35);
 			
 			//testing
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(5);
@@ -91,8 +91,21 @@ public class AutonSideSwitch extends AutonBase
 	{
 		if("RLR".equals(this.gameData)|| "RRR".equals(this.gameData)) //Right switch from right position
 		{
-			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(1.5, .35);
-			ActuatorConfig.getInstance().getDrivetrain().turnRight(.2, 90);
+			
+			
+			//deliver to switch
+			ActuatorConfig.getInstance().getServoWingOne().disengage();
+			ActuatorConfig.getInstance().getServoWingTwo().setAngle(130);
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(15, .35);
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.36, 90);
+			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(750);
+			ActuatorConfig.getInstance().getLift().setSpeed(-.40);
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
+			ActuatorConfig.getInstance().getLift().setSpeed(0);
+			ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(.40);
+			ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.40);
 			
 			
 			//testing
@@ -105,11 +118,12 @@ public class AutonSideSwitch extends AutonBase
 		}
 		else if ("LRL".equals(this.gameData) || "LLL".equals(this.gameData))
 		{
-			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2, .35);
-			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.2, 90);
-			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2, .35);
-			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.2, 90);
-			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(.2, .35);
+			
+			//go forward turn left
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(18, .35);
+//			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.35, 90);
+//			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(3, .35);
+			
 			
 			//testing
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(5);
