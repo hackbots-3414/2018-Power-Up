@@ -49,6 +49,8 @@ public class AutonSideSwitch extends AutonBase
 			
 			
 			//go forward turn right
+			ActuatorConfig.getInstance().getServoWingOne().disengage();
+			ActuatorConfig.getInstance().getServoWingTwo().setAngle(130);
 			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(18, .35);
 //			ActuatorConfig.getInstance().getDrivetrain().turnRight(.35, 90);
 //			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(3, .35);
@@ -120,6 +122,8 @@ public class AutonSideSwitch extends AutonBase
 		{
 			
 			//go forward turn left
+			ActuatorConfig.getInstance().getServoWingOne().disengage();
+			ActuatorConfig.getInstance().getServoWingTwo().setAngle(130);
 			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(18, .35);
 //			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.35, 90);
 //			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(3, .35);
