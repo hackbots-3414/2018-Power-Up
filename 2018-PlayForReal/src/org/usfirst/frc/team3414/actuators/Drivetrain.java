@@ -55,6 +55,12 @@ public class Drivetrain implements IDriveTrain
 		leftMotor.stop();
 		rightMotor.stop();
 	}
+	
+	public void setInitialServoPosition()
+	{
+		ActuatorConfig.getInstance().getServoWingOne().disengage();
+		ActuatorConfig.getInstance().getServoWingTwo().setAngle(130);
+	}
 
 	public DoubleMotor getRightMotor()
 	{
