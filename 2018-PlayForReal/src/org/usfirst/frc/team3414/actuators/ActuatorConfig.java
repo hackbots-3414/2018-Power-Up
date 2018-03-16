@@ -151,15 +151,15 @@ public class ActuatorConfig
 		servoWingTwo.engage();
 		
 		//current limit
-//		talonLeftFront.configContinuousCurrentLimit(20, 0);
-//		talonLeftBack.configContinuousCurrentLimit(20, 0);
-//		talonRightFront.configContinuousCurrentLimit(20, 0);
-//		talonRightBack.configContinuousCurrentLimit(20, 0);
-//		
-//		talonLeftFront.enableCurrentLimit(true);
-//		talonLeftBack.enableCurrentLimit(true);
-//		talonRightFront.enableCurrentLimit(true);
-//		talonRightBack.enableCurrentLimit(true);
+		talonLeftFront.configContinuousCurrentLimit(20, 0);
+		talonLeftBack.configContinuousCurrentLimit(20, 0);
+		talonRightFront.configContinuousCurrentLimit(20, 0);
+		talonRightBack.configContinuousCurrentLimit(20, 0);
+		
+		talonLeftFront.enableCurrentLimit(true);
+		talonLeftBack.enableCurrentLimit(true);
+		talonRightFront.enableCurrentLimit(true);
+		talonRightBack.enableCurrentLimit(true);
 		
 		//limit switch stuff
  		talonLiftTwo.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, kTimeoutMs);
@@ -173,6 +173,13 @@ public class ActuatorConfig
 		
  		talonIntakeAngler.overrideSoftLimitsEnable(true);
  		talonIntakeAngler.overrideLimitSwitchesEnable(true);
+ 		
+ 		if(talonLiftTwo.getSensorCollection().isRevLimitSwitchClosed())
+ 		{
+ 			talonLiftTwo.getSensorCollection().setQuadraturePosition(0, 0);
+ 		}
+
+ 		
  		
  		//ramp rates lift and angler
  		talonLiftTwo.configOpenloopRamp(0.65, 0);

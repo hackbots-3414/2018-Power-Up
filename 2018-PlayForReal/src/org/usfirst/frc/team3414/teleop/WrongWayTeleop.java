@@ -206,7 +206,7 @@ public class WrongWayTeleop implements ITeleop
 					ActuatorConfig.getInstance().getLift().setSpeed(-.40);
 					
 //					System.out.println(ActuatorConfig.getInstance().getLiftTalonTwo().getSelectedSensorVelocity(0));
-//					System.out.println("Quad:" + ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition());
+					System.out.println("Quad:" + ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition());
 //				
 //				//motion magic	
 //					 double liftGamepad = gamepad.getY();
@@ -256,9 +256,10 @@ public class WrongWayTeleop implements ITeleop
 					ActuatorConfig.getInstance().getServoWingTwo().setAngle(130);
 				}
 				
-				if (gamepad.getButtonState(10) && 
-						!ActuatorConfig.getInstance().limitSwitchWings().isHit() &&
-						gamepad.getButtonState(9))
+				if (gamepad.getButtonState(10)) 
+						//&& 
+				//		(!ActuatorConfig.getInstance().limitSwitchWings().isHit()) &&
+				//		gamepad.getButtonState(9))
 					
 					//deploy wings
 				{

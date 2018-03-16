@@ -12,7 +12,7 @@ public class AutonGoForward extends AutonBase
 
 	protected void left() //Goes forward
 	{
-		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(3, 0.3);
+		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(12, 0.3);
 		System.out.println("Position left: Goes forward");
 	}
 
@@ -20,15 +20,19 @@ public class AutonGoForward extends AutonBase
 	{
 		if (("LRL".equals(this.gameData))|| ("LLL".equals(this.gameData)))//Runs basic center auton for left switch
 		{
-			ActuatorConfig.getInstance().getDrivetrain().motionMagic(.25);
-			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
-			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.45, 90);
-			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
-			ActuatorConfig.getInstance().getDrivetrain().motionMagic(1);
-			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
-			ActuatorConfig.getInstance().getDrivetrain().turnRight(.45, 90);
-			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
-			ActuatorConfig.getInstance().getDrivetrain().motionMagic(1);
+			
+			
+			
+			//testing
+//			ActuatorConfig.getInstance().getDrivetrain().motionMagic(.25);
+//			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+//			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.45, 90);
+//			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+//			ActuatorConfig.getInstance().getDrivetrain().motionMagic(1);
+//			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+//			ActuatorConfig.getInstance().getDrivetrain().turnRight(.45, 90);
+//			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+//			ActuatorConfig.getInstance().getDrivetrain().motionMagic(1);
 
 			
 //			ActuatorConfig.getInstance().getDrivetrain().turnLeft(0.8, 45);
@@ -39,11 +43,15 @@ public class AutonGoForward extends AutonBase
 		}
 		else if ("RLR".equals(this.gameData)|| "RRR".equals(this.gameData))//Runs basic center auton for right switch
 		{
-			ActuatorConfig.getInstance().getDrivetrain().motionMagic(3);
-			ActuatorConfig.getInstance().getDrivetrain().turnRight(.45, 90);
-			ActuatorConfig.getInstance().getDrivetrain().motionMagic(3);
-			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.45, 90);
-			ActuatorConfig.getInstance().getDrivetrain().motionMagic(3);
+			
+			
+			
+			//testing
+//			ActuatorConfig.getInstance().getDrivetrain().motionMagic(3);
+//			ActuatorConfig.getInstance().getDrivetrain().turnRight(.45, 90);
+//			ActuatorConfig.getInstance().getDrivetrain().motionMagic(3);
+//			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.45, 90);
+//			ActuatorConfig.getInstance().getDrivetrain().motionMagic(3);
 			
 //			ActuatorConfig.getInstance().getDrivetrain().turnRight(0.8, 45);
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
@@ -53,11 +61,14 @@ public class AutonGoForward extends AutonBase
 		}
 		else //This does the right auton so be careful not to run into another robot.
 		{
-			ActuatorConfig.getInstance().getDrivetrain().motionMagic(3);
-			ActuatorConfig.getInstance().getDrivetrain().turnRight(.45, 90);
-			ActuatorConfig.getInstance().getDrivetrain().motionMagic(3);
-			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.45, 90);
-			ActuatorConfig.getInstance().getDrivetrain().motionMagic(3);
+			
+			
+			//testing
+//			ActuatorConfig.getInstance().getDrivetrain().motionMagic(3);
+//			ActuatorConfig.getInstance().getDrivetrain().turnRight(.45, 90);
+//			ActuatorConfig.getInstance().getDrivetrain().motionMagic(3);
+//			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.45, 90);
+//			ActuatorConfig.getInstance().getDrivetrain().motionMagic(3);
 			
 //			ActuatorConfig.getInstance().getDrivetrain().turnRight(0.8, 45);
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
@@ -70,8 +81,10 @@ public class AutonGoForward extends AutonBase
 protected void right() //Goes forward
 	{
 	
-		ActuatorConfig.getInstance().getDrivetrain().motionMagic(5);
-	
+		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(12, 0.3);
+
+		//testing
+//		ActuatorConfig.getInstance().getDrivetrain().motionMagic(5);
 //		ActuatorConfig.getInstance().getDrivetrain().movePid(4);	
 		System.out.println("Position right: Goes forward");
 	}

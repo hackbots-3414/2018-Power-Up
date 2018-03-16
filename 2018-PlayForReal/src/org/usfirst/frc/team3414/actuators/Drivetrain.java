@@ -333,10 +333,10 @@ public class Drivetrain implements IDriveTrain
 		double distanceRight;
 		double distanceLeft;
 		double rightEncoderValue = ActuatorConfig.getInstance().getRightEncoder().getSensorCollection()
-				.getQuadraturePosition() / (8192.0);// 8192 is the ppr of the
+				.getQuadraturePosition() / (2048.0);// 8192 is the ppr of the
 													// encoder x4
 		double leftEncoderValue = ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection()
-				.getQuadraturePosition() / (-8192.0);
+				.getQuadraturePosition() / (-2048.0);
 
 		if (isReversed)
 		{
@@ -364,9 +364,9 @@ public class Drivetrain implements IDriveTrain
 		{
 
 			rightEncoderValue = ActuatorConfig.getInstance().getRightEncoder().getSensorCollection()
-					.getQuadraturePosition() / (8192.0);
+					.getQuadraturePosition() / (2048.0);
 			leftEncoderValue = ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection()
-					.getQuadraturePosition() / (-8192.0);
+					.getQuadraturePosition() / (-2048.0);
 
 			SmartDashboard.putNumber("Left Enoder Value ", leftEncoderValue);
 			SmartDashboard.putNumber("Right Encoder Value", rightEncoderValue);

@@ -14,6 +14,11 @@ public class AutonSideSwitchAndScale extends AutonBase
 		if("LRL".equals(this.gameData)) //Switch only
 		{
 		
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(1.5, .35);
+			ActuatorConfig.getInstance().getDrivetrain().turnRight(.2, 90);
+		//	ActuatorConfig.getInstance()
+			
+			//testing
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(4);//find actual measurements
 //			ActuatorConfig.getInstance().getDrivetrain().turnRight(.8, 90);
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(1);
@@ -23,6 +28,11 @@ public class AutonSideSwitchAndScale extends AutonBase
 	}
 		else if ("LLL".equals(this.gameData)) //Both Switch and Scale
 		{
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2.5, .35);
+			ActuatorConfig.getInstance().getDrivetrain().turnRight(.2, 90);
+			
+			
+			//testing
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(4);//find actual measurements
 //			ActuatorConfig.getInstance().getDrivetrain().turnRight(.8, 90);
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(1);
@@ -46,6 +56,11 @@ public class AutonSideSwitchAndScale extends AutonBase
 		}
 		else if ("RLR".equals(this.gameData))//Scale only
 		{
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2.5, .35);
+			ActuatorConfig.getInstance().getDrivetrain().turnRight(.2, 90);
+			
+			
+			//testing
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(7);
 //			ActuatorConfig.getInstance().getDrivetrain().turnRight(.8, 90);
 //			//Raise elevator
@@ -55,8 +70,13 @@ public class AutonSideSwitchAndScale extends AutonBase
 //			//Lower elevator
 //			System.out.println("Postion left: Going for scale");
 		}
-		else if ("RRR".equals(this.gameData))
+		else if ("RRR".equals(this.gameData))//park her 
 		{
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2, .35);
+			ActuatorConfig.getInstance().getDrivetrain().turnRight(.2, 90);
+			
+			
+			//testing
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(5);
 //			ActuatorConfig.getInstance().getDrivetrain().turnRight(.8,90);
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(3);
@@ -78,6 +98,10 @@ public class AutonSideSwitchAndScale extends AutonBase
 		if("RLR".equals(this.gameData)) //Switch only
 		{
 		
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(1.5, .35);
+			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.2, 90);
+			
+		//testing	
 //		ActuatorConfig.getInstance().getDrivetrain().movePid(4);//find actual measurements
 //		ActuatorConfig.getInstance().getDrivetrain().turnLeft(.8, 90);
 //		ActuatorConfig.getInstance().getDrivetrain().movePid(1);
@@ -87,6 +111,11 @@ public class AutonSideSwitchAndScale extends AutonBase
 	}
 		else if ("RRR".equals(this.gameData)) //Both Switch and Scale
 		{
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2.5, .35);
+			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.2, 90);
+			
+			
+			//testing
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(4);//find actual measurements
 //			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.8, 90);
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(1);
@@ -110,6 +139,10 @@ public class AutonSideSwitchAndScale extends AutonBase
 		}
 		else if ("LRL".equals(this.gameData))//Scale only
 		{
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2.5, .35);
+			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.2, 90);
+			
+			//testing
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(7);
 //			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.8, 90);
 //			//Raise elevator
@@ -121,6 +154,11 @@ public class AutonSideSwitchAndScale extends AutonBase
 		}
 		else if ("LLL".equals(this.gameData))
 		{
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2, .35);
+			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.2, 90);
+			
+			
+			//testing
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(5);
 //			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.8,90);
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(3);

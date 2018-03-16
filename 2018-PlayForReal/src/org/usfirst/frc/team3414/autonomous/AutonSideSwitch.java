@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3414.autonomous;
 
 import org.usfirst.frc.team3414.actuators.ActuatorConfig;
+import org.usfirst.frc.team3414.sensor.SensorConfig;
 
 
 public class AutonSideSwitch extends AutonBase
@@ -16,6 +17,27 @@ public class AutonSideSwitch extends AutonBase
 	{
 		if("LRL".equals(this.gameData)|| "LLL".equals(this.gameData)) //Left switch from left side
 		{
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(15, .35);
+			ActuatorConfig.getInstance().getDrivetrain().turnRight(.2, 90);
+			ActuatorConfig.getInstance().getLift().setSpeed(-.40);
+
+		//	ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().se
+//			if (ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition() < 7800)
+//			{
+//				ActuatorConfig.getInstance().getLift().setSpeed(.40);
+//			}
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
+			ActuatorConfig.getInstance().getLift().setSpeed(0);
+			ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(.40);
+			ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.40);
+//			ActuatorConfig.getInstance().getLift().setSpeed(-40);
+//			if (ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection()..getQuadraturePosition(7800))
+//			{
+//				
+//			}
+//			
+			
+			//testing
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(4000);//14 find actual measurements
 //			ActuatorConfig.getInstance().getDrivetrain().turnRight(.8, 90);
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(1);
@@ -25,6 +47,13 @@ public class AutonSideSwitch extends AutonBase
 		}
 		else if("RRR".equals(this.gameData) || "RLR".equals(this.gameData)) //Park past switch from left side
 		{
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2, .35);
+			ActuatorConfig.getInstance().getDrivetrain().turnRight(.2, 90);
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2, .35);
+			ActuatorConfig.getInstance().getDrivetrain().turnRight(.2, 90);
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(.2, .35);
+			
+			//testing
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(5);
 //			ActuatorConfig.getInstance().getDrivetrain().turnRight(.8,90);
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(1);
@@ -62,7 +91,11 @@ public class AutonSideSwitch extends AutonBase
 	{
 		if("RLR".equals(this.gameData)|| "RRR".equals(this.gameData)) //Right switch from right position
 		{
-		
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(1.5, .35);
+			ActuatorConfig.getInstance().getDrivetrain().turnRight(.2, 90);
+			
+			
+			//testing
 //		ActuatorConfig.getInstance().getDrivetrain().movePid(4);//find actual measurements
 //		ActuatorConfig.getInstance().getDrivetrain().turnLeft(.8, 90);
 //		ActuatorConfig.getInstance().getDrivetrain().movePid(1);
@@ -72,6 +105,13 @@ public class AutonSideSwitch extends AutonBase
 		}
 		else if ("LRL".equals(this.gameData) || "LLL".equals(this.gameData))
 		{
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2, .35);
+			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.2, 90);
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2, .35);
+			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.2, 90);
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(.2, .35);
+			
+			//testing
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(5);
 //			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.8,90);
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(3);
