@@ -18,7 +18,7 @@ public class AutonSideSwitchAndScale extends AutonBase
 			
 			//deliver to switch
 			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
-			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(15, .35);
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(17, .35);
 			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
 			ActuatorConfig.getInstance().getDrivetrain().turnRight(.36, 90);
 			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
@@ -40,10 +40,22 @@ public class AutonSideSwitchAndScale extends AutonBase
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(-1);
 			System.out.println("Position left: Going for the switch");
 	}
-		else if ("LLL".equals(this.gameData)) //Both Switch and Scale
+		else if ("LLL".equals(this.gameData)) //Switch
 		{
-			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2.5, .35);
-			ActuatorConfig.getInstance().getDrivetrain().turnRight(.2, 90);
+			
+			
+			//deliver to switch
+			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(17, .35);
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+			ActuatorConfig.getInstance().getDrivetrain().turnRight(.36, 90);
+			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(750);
+			ActuatorConfig.getInstance().getLift().setSpeed(-.40);
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
+			ActuatorConfig.getInstance().getLift().setSpeed(0);
+			ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(.40);
+			ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.40);
 			
 			
 			//testing
@@ -70,8 +82,22 @@ public class AutonSideSwitchAndScale extends AutonBase
 		}
 		else if ("RLR".equals(this.gameData))//Scale only
 		{
-			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2.5, .35);
-			ActuatorConfig.getInstance().getDrivetrain().turnRight(.2, 90);
+			
+			
+			//deliver to scale
+			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(22, .35);
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+			ActuatorConfig.getInstance().getDrivetrain().turnRight(.36, 90);
+			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(750);
+			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(0);
+			ActuatorConfig.getInstance().getLift().setSpeed(-.40);
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(2250);
+			ActuatorConfig.getInstance().getLift().setSpeed(0);
+			ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(.40);
+			ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.40);
+
 			
 			
 			//testing
@@ -84,10 +110,12 @@ public class AutonSideSwitchAndScale extends AutonBase
 //			//Lower elevator
 //			System.out.println("Postion left: Going for scale");
 		}
-		else if ("RRR".equals(this.gameData))//park her 
+		else if ("RRR".equals(this.gameData))//drive forward 
 		{
-			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2, .35);
-			ActuatorConfig.getInstance().getDrivetrain().turnRight(.2, 90);
+			
+			//drive forwards
+			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(18, .35);
 			
 			
 			//testing
@@ -115,7 +143,7 @@ public class AutonSideSwitchAndScale extends AutonBase
 			
 			//deliver to switch
 			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
-			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(15, .35);
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(17, .35);
 			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
 			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.36, 90);
 			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
@@ -135,10 +163,22 @@ public class AutonSideSwitchAndScale extends AutonBase
 //		ActuatorConfig.getInstance().getDrivetrain().movePid(-1);
 		System.out.println("Position right: Going for the switch");
 	}
-		else if ("RRR".equals(this.gameData)) //Both Switch and Scale
+		else if ("RRR".equals(this.gameData)) //switch
 		{
-			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2.5, .35);
-			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.2, 90);
+			
+			
+			//deliver to switch
+			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(17, .35);
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.36, 90);
+			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(750);
+			ActuatorConfig.getInstance().getLift().setSpeed(-.40);
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
+			ActuatorConfig.getInstance().getLift().setSpeed(0);
+			ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(.40);
+			ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.40);
 			
 			
 			//testing
@@ -165,8 +205,23 @@ public class AutonSideSwitchAndScale extends AutonBase
 		}
 		else if ("LRL".equals(this.gameData))//Scale only
 		{
-			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2.5, .35);
-			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.2, 90);
+			
+			
+			//deliver to scale
+			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(22, .35);
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.36, 90);
+			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(750);
+			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(0);
+			ActuatorConfig.getInstance().getLift().setSpeed(-.40);
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(2250);
+			ActuatorConfig.getInstance().getLift().setSpeed(0);
+			ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(.40);
+			ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.40);
+			
+			
 			
 			//testing
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(7);
@@ -178,10 +233,12 @@ public class AutonSideSwitchAndScale extends AutonBase
 //			//Lower elevator
 //			System.out.println("Position right: Going for scale");
 		}
-		else if ("LLL".equals(this.gameData))
+		else if ("LLL".equals(this.gameData))//drive forward
 		{
-			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2, .35);
-			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.2, 90);
+			
+			//drive forwards
+			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(18, .35);
 			
 			
 			//testing

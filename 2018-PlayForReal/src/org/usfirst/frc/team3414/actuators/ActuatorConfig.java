@@ -65,7 +65,7 @@ public class ActuatorConfig
 	public static final int kTimeoutMs = 10;
 	public static final int kPIDLoopIdx = 0;
 	
-	public static final double RampTimeTeleop =  0.5;//0.5
+	public static final double RampTimeTeleop =  0.25;//0.5
 	public static final double RampTimeAuton =  1;
 			
 	public static final int RampTimeoutMs = 20000;

@@ -158,7 +158,7 @@ public class WrongWayTeleop implements ITeleop
 //						&& ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition() < -150)
 //						!(ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().isFwdLimitSwitchClosed()))
 				{
-					ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(.40);
+					ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(.45);//40
 //					System.out.println("Angler: " + ActuatorConfig.getInstance().talonIntakeAngler()
 //							.getSensorCollection().isRevLimitSwitchClosed());
 
@@ -169,7 +169,7 @@ public class WrongWayTeleop implements ITeleop
 //						&& ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition() > 1400)
 //				!(ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().isRevLimitSwitchClosed()))
 				{
-					ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
+					ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.45);//40
 //					System.out.println("Angler: " + ActuatorConfig.getInstance().talonIntakeAngler()
 //							.getSensorCollection().isFwdLimitSwitchClosed());
 				}
@@ -203,7 +203,7 @@ public class WrongWayTeleop implements ITeleop
 						!(ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().isFwdLimitSwitchClosed()))
 				// top
 				{
-					ActuatorConfig.getInstance().getLift().setSpeed(-.40);
+					ActuatorConfig.getInstance().getLift().setSpeed(-.45);//-.40
 					
 //					System.out.println(ActuatorConfig.getInstance().getLiftTalonTwo().getSelectedSensorVelocity(0));
 					System.out.println("Quad:" + ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition());
@@ -223,7 +223,7 @@ public class WrongWayTeleop implements ITeleop
 								|| ActuatorConfig.getInstance().limitSwitchBottomLift().isHit()))
 				// bottom
 				{
-					ActuatorConfig.getInstance().getLift().setSpeed(.35);
+					ActuatorConfig.getInstance().getLift().setSpeed(.37);//.35
 					
 //					System.out.println(ActuatorConfig.getInstance().getLiftTalonTwo().getSelectedSensorVelocity(0));
 //					System.out.println("Quad:" + ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition());

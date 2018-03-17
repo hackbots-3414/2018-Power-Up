@@ -21,11 +21,12 @@ public class AutonSideSwitch extends AutonBase
 			
 			//deliver to switch
 			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
-			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(15, .35);
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(17, .35);
 			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
 			ActuatorConfig.getInstance().getDrivetrain().turnRight(.36, 90);
 			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
 			SensorConfig.getInstance().getTimer().waitTimeInMillis(750);
+			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(0);
 			ActuatorConfig.getInstance().getLift().setSpeed(-.40);
 			SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
 			ActuatorConfig.getInstance().getLift().setSpeed(0);
@@ -47,9 +48,11 @@ public class AutonSideSwitch extends AutonBase
 		{
 			
 			
-			//go forward turn right
+			//go forward
 			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
 			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(18, .35);
+			
+			
 //			ActuatorConfig.getInstance().getDrivetrain().turnRight(.35, 90);
 //			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(3, .35);
 			
@@ -95,11 +98,12 @@ public class AutonSideSwitch extends AutonBase
 			
 			//deliver to switch
 			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
-			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(15, .35);
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(17, .35);
 			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
 			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.36, 90);
 			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
 			SensorConfig.getInstance().getTimer().waitTimeInMillis(750);
+			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(0);
 			ActuatorConfig.getInstance().getLift().setSpeed(-.40);
 			SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
 			ActuatorConfig.getInstance().getLift().setSpeed(0);

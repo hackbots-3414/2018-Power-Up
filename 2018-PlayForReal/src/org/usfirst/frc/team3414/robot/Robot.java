@@ -65,7 +65,7 @@ private WrongWayTeleop teleop;
 		RobotStatus.setIsRunning(true);
 		
 //		CameraServer.getInstance().addAxisCamera("10.34.14.3");
-//		CameraServer.getInstance().startAutomaticCapture();
+		CameraServer.getInstance().startAutomaticCapture();
 		
 		ActuatorConfig.getInstance().init();
 		SensorConfig.getInstance().init();
