@@ -70,7 +70,8 @@ public class WrongWayTeleop implements ITeleop
 			{				
 				
 //				drivetrain.setSpeed(-leftJoystick.getY(), leftJoystick.getY());
-				
+				SmartDashboard.putNumber("Elevator Encoder", ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition());
+
 				SmartDashboard.putBoolean("Wing Limit Switch", ActuatorConfig.getInstance().limitSwitchWings().isHit());
 				
 				SmartDashboard.putBoolean("Bottom Limit Switch Lift", ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().isRevLimitSwitchClosed());
@@ -182,15 +183,15 @@ public class WrongWayTeleop implements ITeleop
 				if (gamepad.getButtonState(3))
 				{
 					// out
-					ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(0.40);
-					ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(0.40);
+					ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(0.35);//0.40
+					ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(0.35);//0.40
 				}
 
 				else if (gamepad.getButtonState(4))
 				{
 					// in
-					ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(-.90);
-					ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(-.225);
+					ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(-1.0);//-.90
+					ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(-.225);//-.225
 				}
 
 				else
@@ -203,7 +204,7 @@ public class WrongWayTeleop implements ITeleop
 						!(ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().isFwdLimitSwitchClosed()))
 				// top
 				{
-					ActuatorConfig.getInstance().getLift().setSpeed(-.45);//-.40
+					ActuatorConfig.getInstance().getLift().setSpeed(-.55);//-.45 ,-.40
 					
 //					System.out.println(ActuatorConfig.getInstance().getLiftTalonTwo().getSelectedSensorVelocity(0));
 					System.out.println("Quad:" + ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition());
@@ -223,7 +224,7 @@ public class WrongWayTeleop implements ITeleop
 								|| ActuatorConfig.getInstance().limitSwitchBottomLift().isHit()))
 				// bottom
 				{
-					ActuatorConfig.getInstance().getLift().setSpeed(.37);//.35
+					ActuatorConfig.getInstance().getLift().setSpeed(.45);//.37, .35
 					
 //					System.out.println(ActuatorConfig.getInstance().getLiftTalonTwo().getSelectedSensorVelocity(0));
 //					System.out.println("Quad:" + ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition());
