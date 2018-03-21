@@ -92,6 +92,8 @@ public class WrongWayTeleop implements ITeleop
 //				 ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition());
 //				 System.out.println("Right Encoder Value" +
 //				 ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition());
+
+				
 				
 				 if(leftJoystick.getRawButton(1))
 				 {
@@ -159,7 +161,7 @@ public class WrongWayTeleop implements ITeleop
 //						&& ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition() < -150)
 //						!(ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().isFwdLimitSwitchClosed()))
 				{
-					ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(.45);//40
+					ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(.45);//0.45, 40
 //					System.out.println("Angler: " + ActuatorConfig.getInstance().talonIntakeAngler()
 //							.getSensorCollection().isRevLimitSwitchClosed());
 
@@ -170,7 +172,7 @@ public class WrongWayTeleop implements ITeleop
 //						&& ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition() > 1400)
 //				!(ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().isRevLimitSwitchClosed()))
 				{
-					ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.45);//40
+					ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.45);//0.45, 40
 //					System.out.println("Angler: " + ActuatorConfig.getInstance().talonIntakeAngler()
 //							.getSensorCollection().isFwdLimitSwitchClosed());
 				}
@@ -193,6 +195,13 @@ public class WrongWayTeleop implements ITeleop
 					ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(-1.0);//-.90
 					ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(-.225);//-.225
 				}
+//				else //Setting a constant slow intake to keep the power cube from slipping. Comment other else when using this one.
+//				{
+//					
+//				ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(-0.1);
+//				ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(-0.1);
+//
+//	 			}
 
 				else
 				{

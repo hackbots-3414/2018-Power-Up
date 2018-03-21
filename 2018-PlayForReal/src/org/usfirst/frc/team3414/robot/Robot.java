@@ -85,6 +85,9 @@ private WrongWayTeleop teleop;
 
 	public void disabledInit()
 	{
+		ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().setQuadraturePosition(0, 10);
+		ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().setQuadraturePosition(0, 10);
+		
 		System.out.println("Disabled");
 		// Mentor Francis added the next two lines to reset the encoders each time. This allows repeated testing of Auton without redeploying code
 		ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().setQuadraturePosition(0, 10);
@@ -93,7 +96,7 @@ private WrongWayTeleop teleop;
 		ActuatorConfig.getInstance().getRightTalonFront().setSelectedSensorPosition(0, 0, 10);
 		ActuatorConfig.getInstance().getLeftTalonFront().setSelectedSensorPosition(0, 0, 10);
 		
-		ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().setQuadraturePosition(0, 10);
+		
 		
 		teleop.stop();
 	}
@@ -139,6 +142,7 @@ private WrongWayTeleop teleop;
 	
 	public void autonomousInit()
 	{	
+		
 		System.out.println(ActuatorConfig.getInstance());
 		System.out.println("Auton Init");
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();

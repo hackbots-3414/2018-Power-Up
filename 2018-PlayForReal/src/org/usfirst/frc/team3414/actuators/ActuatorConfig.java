@@ -178,6 +178,11 @@ public class ActuatorConfig
  		{
  			talonLiftTwo.getSensorCollection().setQuadraturePosition(0, 0);
  		}
+ 		
+// 		if(talonIntakeAngler.getSensorCollection().isFwdLimitSwitchClosed())
+// 		{
+// 			talonIntakeAngler.getSensorCollection().setQuadraturePosition(0, 0);
+// 		}
 
  		
  		

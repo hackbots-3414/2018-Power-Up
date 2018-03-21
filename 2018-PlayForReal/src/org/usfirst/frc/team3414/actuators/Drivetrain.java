@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3414.actuators;
 
 import java.awt.Robot;
+import java.util.concurrent.TimeUnit;
 
 import org.usfirst.frc.team3414.actuators.ActuatorConfig;
 import org.usfirst.frc.team3414.actuators.DoubleMotor;
@@ -71,6 +72,30 @@ public class Drivetrain implements IDriveTrain
 	{
 		return leftMotor;
 	}
+	
+	public void liftToSwitch()
+	{
+		if(ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition() > -150)
+		{
+			ActuatorConfig.getInstance().getLift().setSpeed(-.40);
+		}
+		else
+		{
+			ActuatorConfig.getInstance().getLift().setSpeed(0);
+		}
+	}
+	
+	public void lowerAngler()
+	{
+		if (ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition() < 1500 )
+		{
+			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
+		}
+		else 
+		{
+			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(0);
+		}
+	}
 
 	public void turnRight(double speed, double angle)
 	{
@@ -83,8 +108,8 @@ public class Drivetrain implements IDriveTrain
 
 		float currentYaw = navX.getYaw();
 		float endAngle = currentYaw + (float) angle;
-		System.out.println("Start Angle: " + currentYaw);
-		System.out.println("End Angle: " + endAngle);
+	//	System.out.println("Start Angle: " + currentYaw);
+	//	System.out.println("End Angle: " + endAngle);
 		ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed, -speed);
 
 		if (endAngle > 360)
@@ -145,21 +170,39 @@ public class Drivetrain implements IDriveTrain
 			while ((currentYaw + angle) <= 360)
 			{
 				currentYaw = navX.getYaw();
-				System.out.println("Current Angle: " + currentYaw);
+				//System.out.println("Current Angle: " + currentYaw);
 				if (RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
 				{
 					break;
 				}
+				try
+				{
+					TimeUnit.MILLISECONDS.sleep(10);
+				}
+				catch(Exception e)
+				{
+					
+				}
+				//SensorConfig.getInstance().getTimer().waitTimeInMillis(10);
 			}
 			// Now loop until we reach the target angle
 			while (currentYaw > endAngle)
 			{
 				currentYaw = navX.getYaw();
-				System.out.println("Current Angle: " + currentYaw);
+				//System.out.println("Current Angle: " + currentYaw);
 				if (RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
 				{
 					break;
 				}
+				try
+				{
+					TimeUnit.MILLISECONDS.sleep(10);
+				}
+				catch(Exception e)
+				{
+					
+				}
+				//SensorConfig.getInstance().getTimer().waitTimeInMillis(10);
 			}
 		} else
 		{
@@ -170,6 +213,15 @@ public class Drivetrain implements IDriveTrain
 				{
 					break;
 				}
+				try
+				{
+					TimeUnit.MILLISECONDS.sleep(10);
+				}
+				catch(Exception e)
+				{
+					
+				}
+				//SensorConfig.getInstance().getTimer().waitTimeInMillis(10);
 			}
 		}
 		ActuatorConfig.getInstance().getDrivetrain().stop();
@@ -415,7 +467,7 @@ public class Drivetrain implements IDriveTrain
 				{
 					isLeftComplete = true;
 					// ActuatorConfig.getInstance().getDrivetrain().getLeftMotor().stop();
-					System.out.println("Left Finished First");
+					//System.out.println("Left Finished First");
 				}
 				currentYaw = navx.getRawYaw();
 				SmartDashboard.putNumber("Current Yaw ", currentYaw);
