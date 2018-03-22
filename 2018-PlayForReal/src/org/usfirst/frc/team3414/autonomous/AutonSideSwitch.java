@@ -100,9 +100,9 @@ public class AutonSideSwitch extends AutonBase
 			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
 			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2, .35);//18
 			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
-			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.50, 85);
+			//ActuatorConfig.getInstance().getDrivetrain().turnLeft(.50, 85);
 			SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
-			ActuatorConfig.getInstance().getDrivetrain().lowerAngler();
+		//	ActuatorConfig.getInstance().getDrivetrain().lowerAnglerSwitch();
 			SensorConfig.getInstance().getTimer().waitTimeInMillis(1500);
 			ActuatorConfig.getInstance().getDrivetrain().liftToSwitch();
 			SensorConfig.getInstance().getTimer().waitTimeInMillis(1500);//2500 for scale

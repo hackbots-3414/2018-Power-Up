@@ -83,7 +83,7 @@ public class WrongWayTeleop implements ITeleop
 				SmartDashboard.putNumber("Angler Encoder", ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition());
 
 				SmartDashboard.putNumber("NavX", SensorConfig.getInstance().getNavX().getRawYaw());
-				
+								
 //				 SmartDashboard.putNumber("Left Encoder - Teleop", ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition());// *
 //																														// (-0.000122));//
 //				 SmartDashboard.putNumber("Right Encoder - Teleop", ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition());//
@@ -157,7 +157,8 @@ public class WrongWayTeleop implements ITeleop
 				
 
 				//angler up
-				if (gamepad.getButtonState(1))
+				if ((gamepad.getPov() == 0) || (gamepad.getPov() == 45) || (gamepad.getPov() == 315))
+//				(gamepad.getButtonState(1))
 //						&& ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition() < -150)
 //						!(ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().isFwdLimitSwitchClosed()))
 				{
@@ -168,7 +169,8 @@ public class WrongWayTeleop implements ITeleop
 				}
 				
 				//angler down
-				else if (gamepad.getButtonState(2))
+				else if ((gamepad.getPov() == 180) || (gamepad.getPov() == 225) || (gamepad.getPov() == 135))
+//				(gamepad.getButtonState(2))
 //						&& ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition() > 1400)
 //				!(ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().isRevLimitSwitchClosed()))
 				{
@@ -182,14 +184,14 @@ public class WrongWayTeleop implements ITeleop
 					ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(0);
 				}
 
-				if (gamepad.getButtonState(3))
+				if (gamepad.getButtonState(8))
 				{
 					// out
 					ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(0.35);//0.40
 					ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(0.35);//0.40
 				}
 
-				else if (gamepad.getButtonState(4))
+				else if (gamepad.getButtonState(6))
 				{
 					// in
 					ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(-1.0);//-.90

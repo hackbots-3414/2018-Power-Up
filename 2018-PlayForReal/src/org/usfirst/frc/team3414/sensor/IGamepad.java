@@ -1,6 +1,8 @@
 package org.usfirst.frc.team3414.sensor;
 
 public interface IGamepad {
+	double getPov = 0;
+
 	/**
 	 * Gets the state of the button
 	 * @param button
@@ -25,4 +27,6 @@ public interface IGamepad {
 	 * @return Z-axis value
 	 */
 	public double getZ();
+	
+	public double getPov();
 }

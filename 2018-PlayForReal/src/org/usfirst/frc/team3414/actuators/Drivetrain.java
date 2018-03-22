@@ -72,29 +72,60 @@ public class Drivetrain implements IDriveTrain
 	{
 		return leftMotor;
 	}
+	public void liftToScale()
+	{
+		int encoderPos = ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition();
+		while (encoderPos < 27000)
+		{
+			ActuatorConfig.getInstance().getLift().setSpeed(-.40);
+			encoderPos = ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition();
+			SmartDashboard.putNumber("Elevator Encoder", encoderPos);
+		}
+		ActuatorConfig.getInstance().getLift().setSpeed(0);
+	}
 	
 	public void liftToSwitch()
 	{
-		if(ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition() > -150)
+		int encoderPos = ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition();
+		while (encoderPos < 10000)
 		{
 			ActuatorConfig.getInstance().getLift().setSpeed(-.40);
+			encoderPos = ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition();
+			SmartDashboard.putNumber("Elevator Encoder", encoderPos);
 		}
-		else
-		{
-			ActuatorConfig.getInstance().getLift().setSpeed(0);
-		}
+		ActuatorConfig.getInstance().getLift().setSpeed(0);
 	}
 	
-	public void lowerAngler()
+	public void lowerAnglerSwitch()
 	{
-		if (ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition() < 1500 )
+//		if (ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition() < 1500 )
+//		{
+//			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
+//		}
+//		else 
+//		{
+//			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(0);
+//		}
+		int encoderPos = ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition();
+		while (encoderPos < 1500)
 		{
 			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
+			encoderPos = ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition();
+			System.out.println(encoderPos);
 		}
-		else 
+		ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(0);
+	}
+	
+	public void lowerAnglerScale()
+	{
+		int encoderPos = ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition();
+		while (encoderPos < 1000)
 		{
-			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(0);
+			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
+			encoderPos = ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition();
+			System.out.println(encoderPos);
 		}
+		ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(0);
 	}
 
 	public void turnRight(double speed, double angle)
