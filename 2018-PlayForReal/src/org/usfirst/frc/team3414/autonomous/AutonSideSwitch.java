@@ -34,18 +34,18 @@ public class AutonSideSwitch extends AutonBase
 			ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.40);
 			
 			
-//			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
-//			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(18, .35);
-//			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
-//			ActuatorConfig.getInstance().getDrivetrain().turnRight(.36, 88);
-//			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
-//			SensorConfig.getInstance().getTimer().waitTimeInMillis(1600);
-//			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(0);
-//			ActuatorConfig.getInstance().getLift().setSpeed(-.40);
-//			SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
-//			ActuatorConfig.getInstance().getLift().setSpeed(0);
-//			ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(.40);
-//			ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.40);
+			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(18, .35);
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+			ActuatorConfig.getInstance().getDrivetrain().turnRight(.36, 88);
+			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(1600);
+			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(0);
+			ActuatorConfig.getInstance().getLift().setSpeed(-.40);
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
+			ActuatorConfig.getInstance().getLift().setSpeed(0);
+			ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(.40);
+			ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.40);
 
 
 
