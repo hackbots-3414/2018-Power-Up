@@ -282,6 +282,12 @@ public class WrongWayTeleop implements ITeleop
 				{
 					ActuatorConfig.getInstance().getDoubleMotorWings().setSpeed(0);
 				}
+				
+				if (ActuatorConfig.getInstance().limitSwitchBottomLift().isHit())
+				{
+					ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(-0.15);
+					ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(-0.15);
+				}
 
 			}
 		}
