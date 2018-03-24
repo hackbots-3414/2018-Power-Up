@@ -31,4 +31,9 @@ public class Gamepad implements IGamepad {
 	{
 		return driverStation.getStickAxis(port, Axis.Z.value);
 	}
+	
+	public double getPov()
+	{
+		return driverStation.getStickPOV(port, 0);
+	}
 }

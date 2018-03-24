@@ -11,6 +11,7 @@ import org.usfirst.frc.team3414.sensor.SensorConfig;
 import org.usfirst.frc.team3414.util.Status;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -70,7 +71,8 @@ public class WrongWayTeleop implements ITeleop
 			{				
 				
 //				drivetrain.setSpeed(-leftJoystick.getY(), leftJoystick.getY());
-				
+				SmartDashboard.putNumber("Elevator Encoder", ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition());
+
 				SmartDashboard.putBoolean("Wing Limit Switch", ActuatorConfig.getInstance().limitSwitchWings().isHit());
 				
 				SmartDashboard.putBoolean("Bottom Limit Switch Lift", ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().isRevLimitSwitchClosed());
@@ -82,7 +84,7 @@ public class WrongWayTeleop implements ITeleop
 				SmartDashboard.putNumber("Angler Encoder", ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition());
 
 				SmartDashboard.putNumber("NavX", SensorConfig.getInstance().getNavX().getRawYaw());
-				
+								
 //				 SmartDashboard.putNumber("Left Encoder - Teleop", ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition());// *
 //																														// (-0.000122));//
 //				 SmartDashboard.putNumber("Right Encoder - Teleop", ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition());//
@@ -91,6 +93,8 @@ public class WrongWayTeleop implements ITeleop
 //				 ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition());
 //				 System.out.println("Right Encoder Value" +
 //				 ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition());
+
+				
 				
 				 if(leftJoystick.getRawButton(1))
 				 {
@@ -154,24 +158,36 @@ public class WrongWayTeleop implements ITeleop
 				
 
 				//angler up
-				if (gamepad.getButtonState(1))
+				if ((gamepad.getPov() == 0) || (gamepad.getPov() == 45) || (gamepad.getPov() == 315))
+//				(gamepad.getButtonState(1))
 //						&& ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition() < -150)
 //						!(ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().isFwdLimitSwitchClosed()))
 				{
-					ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(.40);
+					ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(.45);//0.45, 40
 //					System.out.println("Angler: " + ActuatorConfig.getInstance().talonIntakeAngler()
 //							.getSensorCollection().isRevLimitSwitchClosed());
 
 				}
 				
 				//angler down
-				else if (gamepad.getButtonState(2))
+				else if ((gamepad.getPov() == 180) || (gamepad.getPov() == 225) || (gamepad.getPov() == 135))
+//				(gamepad.getButtonState(2))
 //						&& ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition() > 1400)
 //				!(ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().isRevLimitSwitchClosed()))
 				{
-					ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
+					ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.45);//0.45, 40
 //					System.out.println("Angler: " + ActuatorConfig.getInstance().talonIntakeAngler()
 //							.getSensorCollection().isFwdLimitSwitchClosed());
+				}
+				
+				else if (gamepad.getButtonState(3))
+				{
+					ActuatorConfig.getInstance().getDrivetrain().liftToSwitch();
+				}
+				
+				else if (gamepad.getButtonState(4))
+				{
+					ActuatorConfig.getInstance().getDrivetrain().liftToScale();
 				}
 
 				else
@@ -179,19 +195,32 @@ public class WrongWayTeleop implements ITeleop
 					ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(0);
 				}
 
-				if (gamepad.getButtonState(3))
+				if (gamepad.getButtonState(8) && !gamepad.getButtonState(2)) //Place
 				{
 					// out
-					ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(0.40);
-					ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(0.40);
+					ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(0.38);//0.45, 0.35, 0.40
+					ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(0.38);//0.45, 0.35, 0.40
+				}
+				else if (gamepad.getButtonState(2)) //Shoot
+				{
+					ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(0.45);
+					ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(0.45);
 				}
 
-				else if (gamepad.getButtonState(4))
+				else if (gamepad.getButtonState(6))
 				{
 					// in
-					ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(-.90);
-					ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(-.225);
+					ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(-1.0);//-.90
+					ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(-.35);//-.225
 				}
+				
+//				else //Setting a constant slow intake to keep the power cube from slipping. Comment other else when using this one.
+//				{
+//					
+//				ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(-0.1);
+//				ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(-0.1);
+//
+//	 			}
 
 				else
 				{
@@ -203,7 +232,7 @@ public class WrongWayTeleop implements ITeleop
 						!(ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().isFwdLimitSwitchClosed()))
 				// top
 				{
-					ActuatorConfig.getInstance().getLift().setSpeed(-.40);
+					ActuatorConfig.getInstance().getLift().setSpeed(-.55);//-.45 ,-.40
 					
 //					System.out.println(ActuatorConfig.getInstance().getLiftTalonTwo().getSelectedSensorVelocity(0));
 //					System.out.println("Quad:" + ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition());
@@ -223,7 +252,7 @@ public class WrongWayTeleop implements ITeleop
 								|| ActuatorConfig.getInstance().limitSwitchBottomLift().isHit()))
 				// bottom
 				{
-					ActuatorConfig.getInstance().getLift().setSpeed(.35);
+					ActuatorConfig.getInstance().getLift().setSpeed(.45);//.37, .35
 					
 //					System.out.println(ActuatorConfig.getInstance().getLiftTalonTwo().getSelectedSensorVelocity(0));
 //					System.out.println("Quad:" + ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition());
@@ -256,9 +285,10 @@ public class WrongWayTeleop implements ITeleop
 					ActuatorConfig.getInstance().getServoWingTwo().setAngle(130);
 				}
 				
-				if (gamepad.getButtonState(10) && 
-						!ActuatorConfig.getInstance().limitSwitchWings().isHit() &&
-						gamepad.getButtonState(9))
+				if (gamepad.getButtonState(10)) 
+						//&& 
+				//		(!ActuatorConfig.getInstance().limitSwitchWings().isHit()) &&
+				//		gamepad.getButtonState(9))
 					
 					//deploy wings
 				{
@@ -268,6 +298,12 @@ public class WrongWayTeleop implements ITeleop
 				else
 				{
 					ActuatorConfig.getInstance().getDoubleMotorWings().setSpeed(0);
+				}
+				
+				if (ActuatorConfig.getInstance().limitSwitchBottomLift().isHit())
+				{
+					ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(-0.15);
+					ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(-0.15);
 				}
 
 			}

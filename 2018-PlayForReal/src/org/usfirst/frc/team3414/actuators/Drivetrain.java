@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3414.actuators;
 
 import java.awt.Robot;
+import java.util.concurrent.TimeUnit;
 
 import org.usfirst.frc.team3414.actuators.ActuatorConfig;
 import org.usfirst.frc.team3414.actuators.DoubleMotor;
@@ -11,6 +12,7 @@ import org.usfirst.frc.team3414.sensor.SensorConfig;
 import org.usfirst.frc.team3414.util.Status;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import org.usfirst.frc.team3414.robot.RobotStatus;
 
@@ -55,6 +57,12 @@ public class Drivetrain implements IDriveTrain
 		leftMotor.stop();
 		rightMotor.stop();
 	}
+	
+	public void setInitialServoPosition()
+	{
+		ActuatorConfig.getInstance().getServoWingOne().disengage();
+		ActuatorConfig.getInstance().getServoWingTwo().setAngle(130);
+	}
 
 	public DoubleMotor getRightMotor()
 	{
@@ -64,6 +72,77 @@ public class Drivetrain implements IDriveTrain
 	public DoubleMotor getLeftMotor()
 	{
 		return leftMotor;
+	}
+	public void liftToScale()
+	{
+		int encoderPos = ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition();
+		while (encoderPos < 27000)
+		{
+			ActuatorConfig.getInstance().getLift().setSpeed(-.40);
+			encoderPos = ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition();
+			SmartDashboard.putNumber("Elevator Encoder", encoderPos);
+		}
+		ActuatorConfig.getInstance().getLift().setSpeed(0);
+	}
+	
+	public void liftToSwitch()
+	{
+		int encoderPos = ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition();
+		while (encoderPos < 10000)
+		{
+			ActuatorConfig.getInstance().getLift().setSpeed(-.40);
+			encoderPos = ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition();
+			SmartDashboard.putNumber("Elevator Encoder", encoderPos);
+		}
+		ActuatorConfig.getInstance().getLift().setSpeed(0);
+	}
+	
+	public void liftTo(double distance)
+	{
+		int encoderPos = ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition();
+		while (encoderPos < distance)
+		{
+			ActuatorConfig.getInstance().getLift().setSpeed(-.40);
+			encoderPos = ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition();
+			SmartDashboard.putNumber("Elevator Encoder", encoderPos);
+		}
+		ActuatorConfig.getInstance().getLift().setSpeed(0);
+	}
+	
+	public void lowerAnglerSwitch()
+	{
+		int encoderPos = ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition();
+		while (encoderPos < 1500)
+		{
+			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
+			encoderPos = ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition();
+			SmartDashboard.putNumber("Angler Encoder", encoderPos);
+		}
+		ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(0);
+	}
+	
+	public void lowerAnglerScale()
+	{
+		int encoderPos = ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition();
+		while (encoderPos < 1000)
+		{
+			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
+			encoderPos = ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition();
+			//System.out.println(encoderPos);
+		}
+		ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(0);
+	}
+	
+	public void lowerAnglerTo(double distance)
+	{
+		int encoderPos = ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition();
+		while (encoderPos < distance)
+		{
+			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
+			encoderPos = ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition();
+			SmartDashboard.putNumber("Angler Encoder", encoderPos);
+		}
+		ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(0);
 	}
 
 	public void turnRight(double speed, double angle)
@@ -77,9 +156,10 @@ public class Drivetrain implements IDriveTrain
 
 		float currentYaw = navX.getYaw();
 		float endAngle = currentYaw + (float) angle;
-		System.out.println("Start Angle: " + currentYaw);
-		System.out.println("End Angle: " + endAngle);
+	//	System.out.println("Start Angle: " + currentYaw);
+	//	System.out.println("End Angle: " + endAngle);
 		ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed, -speed);
+
 
 		if (endAngle > 360)
 		{
@@ -131,6 +211,8 @@ public class Drivetrain implements IDriveTrain
 		System.out.println("Start Angle: " + currentYaw);
 		System.out.println("End Angle: " + endAngle);
 		ActuatorConfig.getInstance().getDrivetrain().setSpeed(-speed, speed);
+
+		
 		if (endAngle < 0)
 		{
 			endAngle = 360 + endAngle;
@@ -139,21 +221,39 @@ public class Drivetrain implements IDriveTrain
 			while ((currentYaw + angle) <= 360)
 			{
 				currentYaw = navX.getYaw();
-				System.out.println("Current Angle: " + currentYaw);
+				//System.out.println("Current Angle: " + currentYaw);
 				if (RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
 				{
 					break;
 				}
+				try
+				{
+					TimeUnit.MILLISECONDS.sleep(10);
+				}
+				catch(Exception e)
+				{
+					
+				}
+				//SensorConfig.getInstance().getTimer().waitTimeInMillis(10);
 			}
 			// Now loop until we reach the target angle
 			while (currentYaw > endAngle)
 			{
 				currentYaw = navX.getYaw();
-				System.out.println("Current Angle: " + currentYaw);
+				//System.out.println("Current Angle: " + currentYaw);
 				if (RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
 				{
 					break;
 				}
+				try
+				{
+					TimeUnit.MILLISECONDS.sleep(10);
+				}
+				catch(Exception e)
+				{
+					
+				}
+				//SensorConfig.getInstance().getTimer().waitTimeInMillis(10);
 			}
 		} else
 		{
@@ -164,6 +264,15 @@ public class Drivetrain implements IDriveTrain
 				{
 					break;
 				}
+				try
+				{
+					TimeUnit.MILLISECONDS.sleep(10);
+				}
+				catch(Exception e)
+				{
+					
+				}
+				//SensorConfig.getInstance().getTimer().waitTimeInMillis(10);
 			}
 		}
 		ActuatorConfig.getInstance().getDrivetrain().stop();
@@ -333,10 +442,10 @@ public class Drivetrain implements IDriveTrain
 		double distanceRight;
 		double distanceLeft;
 		double rightEncoderValue = ActuatorConfig.getInstance().getRightEncoder().getSensorCollection()
-				.getQuadraturePosition() / (8192.0);// 8192 is the ppr of the
+				.getQuadraturePosition() / (2048.0);// 8192 is the ppr of the
 													// encoder x4
 		double leftEncoderValue = ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection()
-				.getQuadraturePosition() / (-8192.0);
+				.getQuadraturePosition() / (-2048.0);
 
 		if (isReversed)
 		{
@@ -364,9 +473,9 @@ public class Drivetrain implements IDriveTrain
 		{
 
 			rightEncoderValue = ActuatorConfig.getInstance().getRightEncoder().getSensorCollection()
-					.getQuadraturePosition() / (8192.0);
+					.getQuadraturePosition() / (2048.0);
 			leftEncoderValue = ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection()
-					.getQuadraturePosition() / (-8192.0);
+					.getQuadraturePosition() / (-2048.0);
 
 			SmartDashboard.putNumber("Left Enoder Value ", leftEncoderValue);
 			SmartDashboard.putNumber("Right Encoder Value", rightEncoderValue);
@@ -409,7 +518,7 @@ public class Drivetrain implements IDriveTrain
 				{
 					isLeftComplete = true;
 					// ActuatorConfig.getInstance().getDrivetrain().getLeftMotor().stop();
-					System.out.println("Left Finished First");
+					//System.out.println("Left Finished First");
 				}
 				currentYaw = navx.getRawYaw();
 				SmartDashboard.putNumber("Current Yaw ", currentYaw);

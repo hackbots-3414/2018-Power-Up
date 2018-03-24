@@ -65,7 +65,7 @@ public class ActuatorConfig
 	public static final int kTimeoutMs = 10;
 	public static final int kPIDLoopIdx = 0;
 	
-	public static final double RampTimeTeleop =  0.5;//0.5
+	public static final double RampTimeTeleop =  0.25;//0.5
 	public static final double RampTimeAuton =  1;
 			
 	public static final int RampTimeoutMs = 20000;
@@ -150,16 +150,16 @@ public class ActuatorConfig
 		servoWingOne.disengage();
 		servoWingTwo.engage();
 		
-		//current limit
+		//current limit - DISABLED POST LINCOLN
 //		talonLeftFront.configContinuousCurrentLimit(20, 0);
 //		talonLeftBack.configContinuousCurrentLimit(20, 0);
 //		talonRightFront.configContinuousCurrentLimit(20, 0);
 //		talonRightBack.configContinuousCurrentLimit(20, 0);
-//		
-//		talonLeftFront.enableCurrentLimit(true);
-//		talonLeftBack.enableCurrentLimit(true);
-//		talonRightFront.enableCurrentLimit(true);
-//		talonRightBack.enableCurrentLimit(true);
+		
+		talonLeftFront.enableCurrentLimit(true);
+		talonLeftBack.enableCurrentLimit(true);
+		talonRightFront.enableCurrentLimit(true);
+		talonRightBack.enableCurrentLimit(true);
 		
 		//limit switch stuff
  		talonLiftTwo.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, kTimeoutMs);
@@ -173,6 +173,18 @@ public class ActuatorConfig
 		
  		talonIntakeAngler.overrideSoftLimitsEnable(true);
  		talonIntakeAngler.overrideLimitSwitchesEnable(true);
+ 		
+ 		if(talonLiftTwo.getSensorCollection().isRevLimitSwitchClosed())
+ 		{
+ 			talonLiftTwo.getSensorCollection().setQuadraturePosition(0, 0);
+ 		}
+ 		
+// 		if(talonIntakeAngler.getSensorCollection().isFwdLimitSwitchClosed())
+// 		{
+// 			talonIntakeAngler.getSensorCollection().setQuadraturePosition(0, 0);
+// 		}
+
+ 		
  		
  		//ramp rates lift and angler
  		talonLiftTwo.configOpenloopRamp(0.65, 0);
@@ -262,6 +274,16 @@ public class ActuatorConfig
 	public TalonSRX getLeftTalonFront()
 	{
 		return talonLeftFront;
+	}
+	
+	public TalonSRX getRightTalonBack()
+	{
+		return talonRightBack;
+	}
+	
+	public TalonSRX getLeftTalonBack()
+	{
+		return talonLeftBack;
 	}
 	
 	public Motor getRightMotorFront()
