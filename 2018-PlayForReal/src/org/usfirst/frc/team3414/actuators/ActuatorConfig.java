@@ -150,11 +150,11 @@ public class ActuatorConfig
 		servoWingOne.disengage();
 		servoWingTwo.engage();
 		
-		//current limit
-		talonLeftFront.configContinuousCurrentLimit(20, 0);
-		talonLeftBack.configContinuousCurrentLimit(20, 0);
-		talonRightFront.configContinuousCurrentLimit(20, 0);
-		talonRightBack.configContinuousCurrentLimit(20, 0);
+		//current limit - DISABLED POST LINCOLN
+//		talonLeftFront.configContinuousCurrentLimit(20, 0);
+//		talonLeftBack.configContinuousCurrentLimit(20, 0);
+//		talonRightFront.configContinuousCurrentLimit(20, 0);
+//		talonRightBack.configContinuousCurrentLimit(20, 0);
 		
 		talonLeftFront.enableCurrentLimit(true);
 		talonLeftBack.enableCurrentLimit(true);
@@ -274,6 +274,16 @@ public class ActuatorConfig
 	public TalonSRX getLeftTalonFront()
 	{
 		return talonLeftFront;
+	}
+	
+	public TalonSRX getRightTalonBack()
+	{
+		return talonRightBack;
+	}
+	
+	public TalonSRX getLeftTalonBack()
+	{
+		return talonLeftBack;
 	}
 	
 	public Motor getRightMotorFront()

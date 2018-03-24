@@ -12,6 +12,7 @@ import org.usfirst.frc.team3414.sensor.SensorConfig;
 import org.usfirst.frc.team3414.util.Status;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import org.usfirst.frc.team3414.robot.RobotStatus;
 
@@ -96,22 +97,26 @@ public class Drivetrain implements IDriveTrain
 		ActuatorConfig.getInstance().getLift().setSpeed(0);
 	}
 	
+	public void liftTo(double distance)
+	{
+		int encoderPos = ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition();
+		while (encoderPos < distance)
+		{
+			ActuatorConfig.getInstance().getLift().setSpeed(-.40);
+			encoderPos = ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition();
+			SmartDashboard.putNumber("Elevator Encoder", encoderPos);
+		}
+		ActuatorConfig.getInstance().getLift().setSpeed(0);
+	}
+	
 	public void lowerAnglerSwitch()
 	{
-//		if (ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition() < 1500 )
-//		{
-//			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
-//		}
-//		else 
-//		{
-//			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(0);
-//		}
 		int encoderPos = ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition();
 		while (encoderPos < 1500)
 		{
 			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
 			encoderPos = ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition();
-			System.out.println(encoderPos);
+			SmartDashboard.putNumber("Angler Encoder", encoderPos);
 		}
 		ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(0);
 	}
@@ -123,7 +128,19 @@ public class Drivetrain implements IDriveTrain
 		{
 			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
 			encoderPos = ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition();
-			System.out.println(encoderPos);
+			//System.out.println(encoderPos);
+		}
+		ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(0);
+	}
+	
+	public void lowerAnglerTo(double distance)
+	{
+		int encoderPos = ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition();
+		while (encoderPos < distance)
+		{
+			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
+			encoderPos = ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition();
+			SmartDashboard.putNumber("Angler Encoder", encoderPos);
 		}
 		ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(0);
 	}
@@ -142,6 +159,7 @@ public class Drivetrain implements IDriveTrain
 	//	System.out.println("Start Angle: " + currentYaw);
 	//	System.out.println("End Angle: " + endAngle);
 		ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed, -speed);
+
 
 		if (endAngle > 360)
 		{
@@ -193,6 +211,8 @@ public class Drivetrain implements IDriveTrain
 		System.out.println("Start Angle: " + currentYaw);
 		System.out.println("End Angle: " + endAngle);
 		ActuatorConfig.getInstance().getDrivetrain().setSpeed(-speed, speed);
+
+		
 		if (endAngle < 0)
 		{
 			endAngle = 360 + endAngle;

@@ -18,6 +18,9 @@ import org.usfirst.frc.team3414.actuators.ActuatorConfig;
 import org.usfirst.frc.team3414.autonomous.AutonStatus;
 import org.usfirst.frc.team3414.sensor.SensorConfig;
 import org.usfirst.frc.team3414.util.Status;
+
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -108,6 +111,11 @@ private WrongWayTeleop teleop;
 		RobotStatus.setIsAuto(false);
 		RobotStatus.setIsTeleop(true);
 		
+		ActuatorConfig.getInstance().getLeftTalonFront().setNeutralMode(NeutralMode.Coast);
+		ActuatorConfig.getInstance().getRightTalonFront().setNeutralMode(NeutralMode.Coast);
+		ActuatorConfig.getInstance().getLeftTalonBack().setNeutralMode(NeutralMode.Coast);
+		ActuatorConfig.getInstance().getRightTalonBack().setNeutralMode(NeutralMode.Coast);
+		
 		System.out.println("Telop Running!");
 		teleop.init();		
 	}
@@ -153,6 +161,11 @@ private WrongWayTeleop teleop;
 		RobotStatus.setIsRunning(true);
 		RobotStatus.setIsAuto(true);
 		RobotStatus.setIsTeleop(false);
+		
+		ActuatorConfig.getInstance().getLeftTalonFront().setNeutralMode(NeutralMode.Brake);
+		ActuatorConfig.getInstance().getRightTalonFront().setNeutralMode(NeutralMode.Brake);
+		ActuatorConfig.getInstance().getLeftTalonBack().setNeutralMode(NeutralMode.Brake);
+		ActuatorConfig.getInstance().getRightTalonBack().setNeutralMode(NeutralMode.Brake);
 		
 		AutonStatus.getInstance().setStatus(Status.RUNNING);
 		

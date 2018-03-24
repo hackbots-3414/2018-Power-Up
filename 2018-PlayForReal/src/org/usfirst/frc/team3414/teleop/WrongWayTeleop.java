@@ -11,6 +11,7 @@ import org.usfirst.frc.team3414.sensor.SensorConfig;
 import org.usfirst.frc.team3414.util.Status;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -178,25 +179,41 @@ public class WrongWayTeleop implements ITeleop
 //					System.out.println("Angler: " + ActuatorConfig.getInstance().talonIntakeAngler()
 //							.getSensorCollection().isFwdLimitSwitchClosed());
 				}
+				
+				else if (gamepad.getButtonState(3))
+				{
+					ActuatorConfig.getInstance().getDrivetrain().liftToSwitch();
+				}
+				
+				else if (gamepad.getButtonState(4))
+				{
+					ActuatorConfig.getInstance().getDrivetrain().liftToScale();
+				}
 
 				else
 				{
 					ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(0);
 				}
 
-				if (gamepad.getButtonState(8))
+				if (gamepad.getButtonState(8) && !gamepad.getButtonState(2)) //Place
 				{
 					// out
-					ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(0.35);//0.40
-					ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(0.35);//0.40
+					ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(0.38);//0.45, 0.35, 0.40
+					ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(0.38);//0.45, 0.35, 0.40
+				}
+				else if (gamepad.getButtonState(2)) //Shoot
+				{
+					ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(0.45);
+					ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(0.45);
 				}
 
 				else if (gamepad.getButtonState(6))
 				{
 					// in
 					ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(-1.0);//-.90
-					ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(-.225);//-.225
+					ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(-.35);//-.225
 				}
+				
 //				else //Setting a constant slow intake to keep the power cube from slipping. Comment other else when using this one.
 //				{
 //					
@@ -218,7 +235,7 @@ public class WrongWayTeleop implements ITeleop
 					ActuatorConfig.getInstance().getLift().setSpeed(-.55);//-.45 ,-.40
 					
 //					System.out.println(ActuatorConfig.getInstance().getLiftTalonTwo().getSelectedSensorVelocity(0));
-					System.out.println("Quad:" + ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition());
+//					System.out.println("Quad:" + ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition());
 //				
 //				//motion magic	
 //					 double liftGamepad = gamepad.getY();
