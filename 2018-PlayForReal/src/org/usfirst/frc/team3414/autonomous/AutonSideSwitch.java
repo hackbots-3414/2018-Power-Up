@@ -20,20 +20,10 @@ public class AutonSideSwitch extends AutonBase
 			
 			
 			//deliver to switch
-			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
-			ActuatorConfig.getInstance().getDrivetrain().lowerAnglerTo(250);
-			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(18, .35);//18, .85
-			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
-			ActuatorConfig.getInstance().getDrivetrain().turnRight(.35, 75);
-			SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
-			ActuatorConfig.getInstance().getDrivetrain().liftToSwitch();
-			ActuatorConfig.getInstance().getDrivetrain().lowerAnglerSwitch();
-			//SensorConfig.getInstance().getTimer().waitTimeInMillis(1500);
-			SensorConfig.getInstance().getTimer().waitTimeInMillis(1500);//2500 for scale
-			ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(.40);
-			ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.40);
+			AutonUtility.deliverSideSwitch(true);
 			
 			
+			//Lincoln-Timed
 //			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
 //			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(18, .35);
 //			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
@@ -48,14 +38,6 @@ public class AutonSideSwitch extends AutonBase
 //			ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.40);
 
 
-
-			
-			//testing
-//			ActuatorConfig.getInstance().getDrivetrain().movePid(4000);//14 find actual measurements
-//			ActuatorConfig.getInstance().getDrivetrain().turnRight(.8, 90);
-//			ActuatorConfig.getInstance().getDrivetrain().movePid(1);
-			//Drop the power cube
-//			ActuatorConfig.getInstance().getDrivetrain().movePid(-1);
 			System.out.println("Position Left: Left switch");
 		}
 		else if("RRR".equals(this.gameData) || "RLR".equals(this.gameData)) //Park past switch from left side
@@ -66,16 +48,6 @@ public class AutonSideSwitch extends AutonBase
 			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
 			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(18, .35);
 			
-			
-//			ActuatorConfig.getInstance().getDrivetrain().turnRight(.35, 90);
-//			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(3, .35);
-			
-			//testing
-//			ActuatorConfig.getInstance().getDrivetrain().movePid(5);
-//			ActuatorConfig.getInstance().getDrivetrain().turnRight(.8,90);
-//			ActuatorConfig.getInstance().getDrivetrain().movePid(1);
-//			//Drop the power cube
-//			ActuatorConfig.getInstance().getDrivetrain().movePid(-1);
 			System.out.println("Position Left: Park past switch");
 		}
 		else
@@ -83,6 +55,8 @@ public class AutonSideSwitch extends AutonBase
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(10);
 			System.out.println("Fail safe: Hannah, you done messed up. Fix your code!");
 		}
+		
+		
 //		Failsafes ahead ----->
 //		else if("RRR".equals(gameData) || "RLR".equals(gameData))
 //		{
@@ -111,17 +85,10 @@ public class AutonSideSwitch extends AutonBase
 			
 			
 			//deliver to switch
-			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
-			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2, .35);//18
-			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
-			//ActuatorConfig.getInstance().getDrivetrain().turnLeft(.50, 85);
-			SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
-		//	ActuatorConfig.getInstance().getDrivetrain().lowerAnglerSwitch();
-			SensorConfig.getInstance().getTimer().waitTimeInMillis(1500);
-			ActuatorConfig.getInstance().getDrivetrain().liftToSwitch();
-			SensorConfig.getInstance().getTimer().waitTimeInMillis(1500);//2500 for scale
-			ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(.40);
-			ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.40);
+			AutonUtility.deliverSideSwitch(false);
+			
+			
+			//Lincoln - timed
 //			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
 //			SensorConfig.getInstance().getTimer().waitTimeInMillis(1600);
 //			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(0);
@@ -131,13 +98,6 @@ public class AutonSideSwitch extends AutonBase
 //			ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(.40);
 //			ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.40);
 			
-			
-			//testing
-//		ActuatorConfig.getInstance().getDrivetrain().movePid(4);//find actual measurements
-//		ActuatorConfig.getInstance().getDrivetrain().turnLeft(.8, 90);
-//		ActuatorConfig.getInstance().getDrivetrain().movePid(1);
-		//Drop the power cube
-//		ActuatorConfig.getInstance().getDrivetrain().movePid(-1);
 		System.out.println("Position Right: Right switch");
 		}
 		else if ("LRL".equals(this.gameData) || "LLL".equals(this.gameData))
@@ -149,11 +109,6 @@ public class AutonSideSwitch extends AutonBase
 //			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.35, 90);
 //			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(3, .35);
 			
-			
-			//testing
-//			ActuatorConfig.getInstance().getDrivetrain().movePid(5);
-//			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.8,90);
-//			ActuatorConfig.getInstance().getDrivetrain().movePid(3);
 			System.out.println("Position Right: Park past switch");	
 		}
 		else
