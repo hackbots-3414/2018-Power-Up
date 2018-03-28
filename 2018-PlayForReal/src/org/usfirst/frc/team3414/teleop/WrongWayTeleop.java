@@ -182,12 +182,12 @@ public class WrongWayTeleop implements ITeleop
 				
 				else if (gamepad.getButtonState(3))
 				{
-					ActuatorConfig.getInstance().getDrivetrain().liftToSwitch();
+					ActuatorConfig.getInstance().getDrivetrain().liftToSwitchTeleop();
 				}
 				
 				else if (gamepad.getButtonState(4))
 				{
-					ActuatorConfig.getInstance().getDrivetrain().liftToScale();
+					ActuatorConfig.getInstance().getDrivetrain().liftToScaleTeleop();
 				}
 
 				else

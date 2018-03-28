@@ -110,6 +110,43 @@ public class Drivetrain implements IDriveTrain
 		ActuatorConfig.getInstance().getLift().setSpeed(0);
 	}
 	
+	public void lowerLiftTo(double distance)
+	{
+		int encoderPos = ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition();
+		while (encoderPos> distance)
+		{
+			ActuatorConfig.getInstance().getLift().setSpeed(.50);//40, 55
+			encoderPos = ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition();
+			SmartDashboard.putNumber("Elevator Encoder", encoderPos);
+		}
+		ActuatorConfig.getInstance().getLift().setSpeed(0);
+	}
+	
+	public void liftToScaleTeleop()
+	{
+		int encoderPos = ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition();
+		while (encoderPos < 27000 && RobotStatus.isTeleop())
+		{
+			ActuatorConfig.getInstance().getLift().setSpeed(-.70);//40
+			encoderPos = ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition();
+			SmartDashboard.putNumber("Elevator Encoder", encoderPos);
+		}
+//		ActuatorConfig.getInstance().getLiftTalonTwo().set(ControlMode.MotionMagic, 27000);
+		ActuatorConfig.getInstance().getLift().setSpeed(0);
+	}
+	
+	public void liftToSwitchTeleop()
+	{
+		int encoderPos = ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition();
+		while (encoderPos < 10000 && RobotStatus.isTeleop())
+		{
+			ActuatorConfig.getInstance().getLift().setSpeed(-.70);
+			encoderPos = ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition();
+			SmartDashboard.putNumber("Elevator Encoder", encoderPos);
+		}
+		ActuatorConfig.getInstance().getLift().setSpeed(0);
+	}
+	
 	public void lowerAnglerSwitch()
 	{
 		int encoderPos = ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition();
@@ -140,6 +177,18 @@ public class Drivetrain implements IDriveTrain
 		while (encoderPos > -distance)
 		{
 			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
+			encoderPos = ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition();
+			SmartDashboard.putNumber("Angler Encoder", encoderPos);
+		}
+		ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(0);
+	}
+	
+	public void raiseAnglerTo(double distance)
+	{
+		int encoderPos = ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition();
+		while (encoderPos < -distance)
+		{
+			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(.40);
 			encoderPos = ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition();
 			SmartDashboard.putNumber("Angler Encoder", encoderPos);
 		}

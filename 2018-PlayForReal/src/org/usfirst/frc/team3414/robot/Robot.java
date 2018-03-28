@@ -89,7 +89,7 @@ private WrongWayTeleop teleop;
 	public void disabledInit()
 	{
 		ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().setQuadraturePosition(0, 10);
-		ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().setQuadraturePosition(0, 10);
+	//	ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().setQuadraturePosition(0, 10);
 		
 		System.out.println("Disabled");
 		// Mentor Francis added the next two lines to reset the encoders each time. This allows repeated testing of Auton without redeploying code
@@ -162,6 +162,8 @@ private WrongWayTeleop teleop;
 		RobotStatus.setIsAuto(true);
 		RobotStatus.setIsTeleop(false);
 		
+		ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().setQuadraturePosition(0, 10);
+
 		ActuatorConfig.getInstance().getLeftTalonFront().setNeutralMode(NeutralMode.Brake);
 		ActuatorConfig.getInstance().getRightTalonFront().setNeutralMode(NeutralMode.Brake);
 		ActuatorConfig.getInstance().getLeftTalonBack().setNeutralMode(NeutralMode.Brake);

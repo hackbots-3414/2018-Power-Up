@@ -10,36 +10,41 @@ public class AutonUtility
 	public static void deliverSideSwitch(boolean turnRight)
 	{
 		ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
-		ActuatorConfig.getInstance().getDrivetrain().lowerAnglerTo(10);
-		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(24, .35);//18, .85
+		ActuatorConfig.getInstance().getDrivetrain().lowerAnglerTo(30);
+		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(23, .35);//24, .85
 		SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
 		if(turnRight == true) {
-			ActuatorConfig.getInstance().getDrivetrain().turnRight(.38, 75);
+			ActuatorConfig.getInstance().getDrivetrain().turnRight(.45, 43);//.38, 75
 		}
 		else 
 		{
 			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.50, 45);
 		}
 		
-		SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
 		ActuatorConfig.getInstance().getDrivetrain().liftToSwitch();
 		ActuatorConfig.getInstance().getDrivetrain().lowerAnglerSwitch();
-		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(3, .35);//18, .85
+		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2.5, .35);//3, .85
 		//SensorConfig.getInstance().getTimer().waitTimeInMillis(1500);
 		SensorConfig.getInstance().getTimer().waitTimeInMillis(500);//2500 for scale
 		ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(.40);
 		ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.40);
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
+		ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(0);
+		ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(0);
+		ActuatorConfig.getInstance().getDrivetrain().goBackwardsGyro(2, .45);
+		ActuatorConfig.getInstance().getDrivetrain().lowerLiftTo(200);
 	}
 	
 	public static void deliverSideScale(boolean turnRight)
 	{
 		ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
-		//ActuatorConfig.getInstance().getDrivetrain().lowerAnglerTo(10);
-		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(48, .45);//53
+		ActuatorConfig.getInstance().getDrivetrain().lowerAnglerTo(60);
+		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(43, .45);//45, 53
 		SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
 		if(turnRight == true)
 		{
-			ActuatorConfig.getInstance().getDrivetrain().turnRight(.35, 88);
+			ActuatorConfig.getInstance().getDrivetrain().turnRight(.43, 38);//.35, 88
 		}
 		else 
 		{
@@ -52,6 +57,10 @@ public class AutonUtility
 		SensorConfig.getInstance().getTimer().waitTimeInMillis(200);
 		ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(.40);
 		ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.40);
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
+		ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(0);
+		ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(0);
+		ActuatorConfig.getInstance().getDrivetrain().lowerLiftTo(100);
 	}
 
 }

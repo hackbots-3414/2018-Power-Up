@@ -65,7 +65,7 @@ public class AutonSideSwitchAndScale extends AutonBase
 			
 			
 			//deliver to scale
-			AutonUtility.deliverSideSwitch(true);
+			AutonUtility.deliverSideScale(true);
 			
 
 		}
