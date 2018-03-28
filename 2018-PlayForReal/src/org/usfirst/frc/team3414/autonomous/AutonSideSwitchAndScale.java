@@ -14,21 +14,33 @@ public class AutonSideSwitchAndScale extends AutonBase
 	{
 		if("LRL".equals(this.gameData)) //Switch only
 		{
+			//deliver across field to scale
+			ActuatorConfig.getInstance().getDrivetrain().lowerAnglerTo(200);
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(20, 0.7);
+			ActuatorConfig.getInstance().getDrivetrain().turnRight(0.3, 90);
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(18, 0.7);
+			ActuatorConfig.getInstance().getDrivetrain().turnLeft(0.3, 90);
+			ActuatorConfig.getInstance().getDrivetrain().liftToScale();
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(5, 0.7);
+			ActuatorConfig.getInstance().getDrivetrain().lowerAnglerScale();
+			ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(0.4);
+			ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(0.4);
+
 		
 			
-			//deliver to switch
-			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
-			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(18, .35);
-			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
-			ActuatorConfig.getInstance().getDrivetrain().turnRight(.36, 88);
-			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
-			SensorConfig.getInstance().getTimer().waitTimeInMillis(1600);
-			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(0);
-			ActuatorConfig.getInstance().getLift().setSpeed(-.40);
-			SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
-			ActuatorConfig.getInstance().getLift().setSpeed(0);
-			ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(.40);
-			ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.40);
+//			//deliver to switch
+//			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
+//			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(18, .35);
+//			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+//			ActuatorConfig.getInstance().getDrivetrain().turnRight(.36, 88);
+//			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
+//			SensorConfig.getInstance().getTimer().waitTimeInMillis(1600);
+//			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(0);
+//			ActuatorConfig.getInstance().getLift().setSpeed(-.40);
+//			SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
+//			ActuatorConfig.getInstance().getLift().setSpeed(0);
+//			ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(.40);
+//			ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.40);
 			
 			
 		//	ActuatorConfig.getInstance()

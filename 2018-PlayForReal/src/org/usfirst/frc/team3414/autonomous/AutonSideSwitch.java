@@ -46,7 +46,7 @@ public class AutonSideSwitch extends AutonBase
 //			ActuatorConfig.getInstance().getLift().setSpeed(0);
 //			ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(.40);
 //			ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.40);
-
+//
 
 
 			
