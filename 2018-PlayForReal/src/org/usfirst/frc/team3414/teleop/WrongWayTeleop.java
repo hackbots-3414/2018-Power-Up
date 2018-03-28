@@ -85,9 +85,9 @@ public class WrongWayTeleop implements ITeleop
 
 				SmartDashboard.putNumber("NavX", SensorConfig.getInstance().getNavX().getRawYaw());
 								
-//				 SmartDashboard.putNumber("Left Encoder - Teleop", ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition());// *
-//																														// (-0.000122));//
-//				 SmartDashboard.putNumber("Right Encoder - Teleop", ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition());//
+				 SmartDashboard.putNumber("Left Encoder - Teleop", ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition());// *
+																														// (-0.000122));//
+				 SmartDashboard.putNumber("Right Encoder - Teleop", ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition());//
 //			//	 * (0.000122));
 //				 System.out.println("Left Encoder Value" +
 //				 ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition());

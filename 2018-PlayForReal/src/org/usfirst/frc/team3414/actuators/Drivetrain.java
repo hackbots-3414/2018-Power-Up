@@ -140,7 +140,7 @@ public class Drivetrain implements IDriveTrain
 		int encoderPos = ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition();
 		while (encoderPos < 10000 && RobotStatus.isTeleop())
 		{
-			ActuatorConfig.getInstance().getLift().setSpeed(-.70);
+			ActuatorConfig.getInstance().getLift().setSpeed(-.60);
 			encoderPos = ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition();
 			SmartDashboard.putNumber("Elevator Encoder", encoderPos);
 		}
