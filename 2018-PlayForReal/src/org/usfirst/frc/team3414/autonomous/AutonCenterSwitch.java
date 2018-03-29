@@ -20,6 +20,7 @@ public class AutonCenterSwitch extends AutonBase{
 		if("LLL".equals(this.gameData) || "LRL".equals(this.gameData)) 
 		{
 			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
+
 			ActuatorConfig.getInstance().getDrivetrain().lowerAnglerTo(30);
 			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(1, 0.4);
 			//SensorConfig.getInstance().getTimer().waitTimeInMillis(300);
@@ -82,10 +83,6 @@ public class AutonCenterSwitch extends AutonBase{
 //			SensorConfig.getInstance().getTimer().waitTimeInMillis(1500);
 //			ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(0);
 //			ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(0);
-			
-			
-			
-			
 			
 			
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
