@@ -36,7 +36,8 @@ import org.usfirst.frc.team3414.autonomous.AutonFancyCenter;
 import org.usfirst.frc.team3414.autonomous.AutonGoForward;
 import org.usfirst.frc.team3414.autonomous.Position;
 import org.usfirst.frc.team3414.autonomous.AutonSideSwitch;
-import org.usfirst.frc.team3414.autonomous.AutonSideSwitchAndScale;
+import org.usfirst.frc.team3414.autonomous.AutonSideSwitchPriorityAndScale;
+import org.usfirst.frc.team3414.autonomous.AutonSideSwitchAndScalePriority;
 
 import edu.wpi.first.wpilibj.Spark;
 
@@ -132,7 +133,8 @@ private WrongWayTeleop teleop;
 		autonChooser.addObject("Do Nothing", new AutonDoNothing());
 		autonChooser.addDefault("Go Forward", new AutonGoForward());
 		autonChooser.addObject("Side Switch", new AutonSideSwitch());
-		autonChooser.addObject("Side Switch and Scale", new AutonSideSwitchAndScale());
+		autonChooser.addObject("Side Switch or Scale (SWITCH PRIORITY)", new AutonSideSwitchPriorityAndScale());
+		autonChooser.addObject("Side Switch or Scale (SCALE PRIORITY)", new AutonSideSwitchAndScalePriority());
 		autonChooser.addObject("Center Switch", new AutonCenterSwitch());
 		autonChooser.addObject("Fancy Center", new AutonFancyCenter());
 		

@@ -3,10 +3,10 @@ package org.usfirst.frc.team3414.autonomous;
 import org.usfirst.frc.team3414.actuators.ActuatorConfig;
 import org.usfirst.frc.team3414.sensor.SensorConfig;
 
-public class AutonSideSwitchAndScale extends AutonBase
+public class AutonSideSwitchPriorityAndScale extends AutonBase
 {
 
-	public AutonSideSwitchAndScale() {
+	public AutonSideSwitchPriorityAndScale() {
 		super();
 	}
 

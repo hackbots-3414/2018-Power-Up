@@ -290,12 +290,9 @@ public class WrongWayTeleop implements ITeleop
 					ActuatorConfig.getInstance().getServoWingTwo().setAngle(130);
 				}
 				
-				if (gamepad.getButtonState(10)) 
-						//&& 
-				//		(!ActuatorConfig.getInstance().limitSwitchWings().isHit()) &&
-				//		gamepad.getButtonState(9))
+				if ((gamepad.getButtonState(10)) && (!ActuatorConfig.getInstance().limitSwitchWings().isHit()))
 					
-					//deploy wings
+					//lift wings
 				{
 					ActuatorConfig.getInstance().getDoubleMotorWings().setSpeed(.80);
 				}

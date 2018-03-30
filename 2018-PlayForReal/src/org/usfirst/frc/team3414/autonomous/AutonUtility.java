@@ -27,8 +27,8 @@ public class AutonUtility
 		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2.5, .35);//3, .85
 		//SensorConfig.getInstance().getTimer().waitTimeInMillis(1500);
 		SensorConfig.getInstance().getTimer().waitTimeInMillis(500);//2500 for scale
-		ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(.40);
-		ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.40);
+		ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(.35);//40
+		ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.35);//40
 		SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
 		ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(0);
 		ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(0);
