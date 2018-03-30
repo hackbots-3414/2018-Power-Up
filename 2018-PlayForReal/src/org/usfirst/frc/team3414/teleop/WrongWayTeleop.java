@@ -53,6 +53,9 @@ public class WrongWayTeleop implements ITeleop
 		driveThread.start();
 
 		isRunning = true;
+		ActuatorConfig.getInstance().getLeftTalonFront().configOpenloopRamp(ActuatorConfig.getInstance().RampTimeTeleop,ActuatorConfig.getInstance().RampTimeoutMs);
+		ActuatorConfig.getInstance().getRightTalonFront().configOpenloopRamp(ActuatorConfig.getInstance().RampTimeTeleop,ActuatorConfig.getInstance().RampTimeoutMs);
+		
 	}
 
 	public void stop()
