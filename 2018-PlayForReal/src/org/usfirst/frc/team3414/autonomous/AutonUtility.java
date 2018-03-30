@@ -11,7 +11,7 @@ public class AutonUtility
 	{
 		ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
 		ActuatorConfig.getInstance().getDrivetrain().lowerAnglerTo(30);
-		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(23, .35);//24, .85
+		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(22, .35);//23, .85
 		SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
 		if(turnRight == true) {
 			ActuatorConfig.getInstance().getDrivetrain().turnRight(.45, 43);//.38, 75
