@@ -20,17 +20,18 @@ public class AutonCenterSwitch extends AutonBase{
 		if("LLL".equals(this.gameData) || "LRL".equals(this.gameData)) 
 		{
 			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
-			ActuatorConfig.getInstance().getDrivetrain().lowerAnglerTo(200);
-			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2, 0.5);
-			SensorConfig.getInstance().getTimer().waitTimeInMillis(300);
-			ActuatorConfig.getInstance().getDrivetrain().turnLeft(0.3, 90);
-			SensorConfig.getInstance().getTimer().waitTimeInMillis(300);
-			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(17, 0.5);//9.641ft
-			SensorConfig.getInstance().getTimer().waitTimeInMillis(300);
-			ActuatorConfig.getInstance().getDrivetrain().turnRight(0.3, 90);
-			SensorConfig.getInstance().getTimer().waitTimeInMillis(300);
-			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(17, 0.5);//9.748
-			ActuatorConfig.getInstance().getDrivetrain().liftToScale();
+
+			ActuatorConfig.getInstance().getDrivetrain().lowerAnglerTo(30);
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(1, 0.4);
+			//SensorConfig.getInstance().getTimer().waitTimeInMillis(300);
+			ActuatorConfig.getInstance().getDrivetrain().turnLeft(0.3, 25);
+			//SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(6, 0.4);//17, 9.641ft
+			//SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
+			ActuatorConfig.getInstance().getDrivetrain().turnRight(0.3, 5);
+			//SensorConfig.getInstance().getTimer().waitTimeInMillis(300);
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(1, 0.5);//17, 9.748
+			ActuatorConfig.getInstance().getDrivetrain().liftToSwitch();
 			ActuatorConfig.getInstance().getDrivetrain().lowerAnglerSwitch();
 			ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(0.4);
 			ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(0.4);
@@ -56,12 +57,20 @@ public class AutonCenterSwitch extends AutonBase{
 		else if("RLR".equals(this.gameData) || "RRR".equals(this.gameData)) 
 		{
 			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
-			ActuatorConfig.getInstance().getDrivetrain().lowerAnglerTo(200);
-			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(17, 90);
+			ActuatorConfig.getInstance().getDrivetrain().lowerAnglerTo(30);
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(1, 0.4);
+			//SensorConfig.getInstance().getTimer().waitTimeInMillis(300);
+			ActuatorConfig.getInstance().getDrivetrain().turnRight(0.3, 12);
+			//SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2.5, 0.4);//17, 9.641ft
+			//SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
+			ActuatorConfig.getInstance().getDrivetrain().turnLeft(0.3, 20);
+			//SensorConfig.getInstance().getTimer().waitTimeInMillis(300);
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(4, 0.5);//17, 9.748
 			ActuatorConfig.getInstance().getDrivetrain().liftToSwitch();
 			ActuatorConfig.getInstance().getDrivetrain().lowerAnglerSwitch();
-			ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(-0.4);
-			ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(-0.4);
+			ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(0.4);
+			ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(0.4);
 			
 //			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(16, 90);
 //			ActuatorConfig.getInstance().getLift().setSpeed(0.3);
@@ -74,10 +83,6 @@ public class AutonCenterSwitch extends AutonBase{
 //			SensorConfig.getInstance().getTimer().waitTimeInMillis(1500);
 //			ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(0);
 //			ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(0);
-			
-			
-			
-			
 			
 			
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
@@ -104,4 +109,3 @@ public class AutonCenterSwitch extends AutonBase{
 	}
 
 }
-
