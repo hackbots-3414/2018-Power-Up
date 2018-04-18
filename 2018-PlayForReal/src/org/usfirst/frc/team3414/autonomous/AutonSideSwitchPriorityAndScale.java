@@ -13,6 +13,7 @@ public class AutonSideSwitchPriorityAndScale extends AutonBase
 	protected void left() 
 	{
 		if("LRL".equals(this.gameData)) //Switch only
+
 		{	
 			//deliver to switch
 			AutonUtility.deliverSideSwitch(true);
