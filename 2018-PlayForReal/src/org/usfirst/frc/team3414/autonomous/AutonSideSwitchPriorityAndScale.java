@@ -3,10 +3,10 @@ package org.usfirst.frc.team3414.autonomous;
 import org.usfirst.frc.team3414.actuators.ActuatorConfig;
 import org.usfirst.frc.team3414.sensor.SensorConfig;
 
-public class AutonSideSwitchAndScale extends AutonBase
+public class AutonSideSwitchPriorityAndScale extends AutonBase
 {
 
-	public AutonSideSwitchAndScale() {
+	public AutonSideSwitchPriorityAndScale() {
 		super();
 	}
 
@@ -75,6 +75,7 @@ public class AutonSideSwitchAndScale extends AutonBase
 			
 			//drive forwards
 			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
+			ActuatorConfig.getInstance().getDrivetrain().lowerAnglerTo(60);
 			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(18, .35);
 			
 		}
@@ -154,6 +155,7 @@ public class AutonSideSwitchAndScale extends AutonBase
 			
 			//drive forwards
 			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
+			ActuatorConfig.getInstance().getDrivetrain().lowerAnglerTo(60);
 			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(18, .35);
 			
 			System.out.println("Position right: Parking past switch");

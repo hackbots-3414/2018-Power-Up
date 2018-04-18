@@ -11,7 +11,7 @@ public class AutonUtility
 	{
 		ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
 		ActuatorConfig.getInstance().getDrivetrain().lowerAnglerTo(30);
-		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(23, .35);//24, .85
+		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(21, .35);//22, .85
 		SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
 		if(turnRight == true) {
 			ActuatorConfig.getInstance().getDrivetrain().turnRight(.45, 43);//.38, 75
@@ -27,8 +27,8 @@ public class AutonUtility
 		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2.5, .35);//3, .85
 		//SensorConfig.getInstance().getTimer().waitTimeInMillis(1500);
 		SensorConfig.getInstance().getTimer().waitTimeInMillis(500);//2500 for scale
-		ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(.40);
-		ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.40);
+		ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(.35);//40
+		ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.35);//40
 		SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
 		ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(0);
 		ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(0);
@@ -55,12 +55,14 @@ public class AutonUtility
 		SensorConfig.getInstance().getTimer().waitTimeInMillis(50);
 		ActuatorConfig.getInstance().getDrivetrain().lowerAnglerScale();
 		SensorConfig.getInstance().getTimer().waitTimeInMillis(200);
+		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(1, 0.4);
 		ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(.40);
 		ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.40);
 		SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
 		ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(0);
 		ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(0);
 		ActuatorConfig.getInstance().getDrivetrain().lowerLiftTo(100);
+		ActuatorConfig.getInstance().getDrivetrain().goBackwardsGyro(1, 0.5);
 	}
 
 }

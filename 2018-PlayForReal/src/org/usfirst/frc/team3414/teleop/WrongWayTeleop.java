@@ -53,6 +53,9 @@ public class WrongWayTeleop implements ITeleop
 		driveThread.start();
 
 		isRunning = true;
+		ActuatorConfig.getInstance().getLeftTalonFront().configOpenloopRamp(ActuatorConfig.getInstance().RampTimeTeleop,ActuatorConfig.getInstance().RampTimeoutMs);
+		ActuatorConfig.getInstance().getRightTalonFront().configOpenloopRamp(ActuatorConfig.getInstance().RampTimeTeleop,ActuatorConfig.getInstance().RampTimeoutMs);
+		
 	}
 
 	public void stop()
@@ -289,14 +292,13 @@ public class WrongWayTeleop implements ITeleop
 					ActuatorConfig.getInstance().getServoWingTwo().setAngle(130);
 				}
 				
-				if (gamepad.getButtonState(10)) 
-						//&& 
-				//		(!ActuatorConfig.getInstance().limitSwitchWings().isHit()) &&
-				//		gamepad.getButtonState(9))
+				if ((gamepad.getButtonState(10)) && (!ActuatorConfig.getInstance().limitSwitchWings().isHit()))
 					
-					//deploy wings
+					//lift wings
 				{
-					ActuatorConfig.getInstance().getDoubleMotorWings().setSpeed(.80);
+					ActuatorConfig.getInstance().getDoubleMotorWings().setSpeed(-.80);//.80 before livonia gearbox changes
+					
+					
 				}
 
 				else

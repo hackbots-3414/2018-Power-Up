@@ -89,7 +89,7 @@ public class Drivetrain implements IDriveTrain
 	public void liftToSwitch()
 	{
 		int encoderPos = ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition();
-		while (encoderPos < 10000 && RobotStatus.isAuto())
+		while (encoderPos < 9000 && RobotStatus.isAuto())
 		{
 			ActuatorConfig.getInstance().getLift().setSpeed(-.70);
 			encoderPos = ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition();
