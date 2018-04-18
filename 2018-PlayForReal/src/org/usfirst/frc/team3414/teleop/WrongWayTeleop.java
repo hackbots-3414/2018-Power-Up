@@ -294,7 +294,9 @@ public class WrongWayTeleop implements ITeleop
 					
 					//lift wings
 				{
-					ActuatorConfig.getInstance().getDoubleMotorWings().setSpeed(.80);
+					ActuatorConfig.getInstance().getDoubleMotorWings().setSpeed(-.80);//.80 before livonia gearbox changes
+					
+					
 				}
 
 				else
