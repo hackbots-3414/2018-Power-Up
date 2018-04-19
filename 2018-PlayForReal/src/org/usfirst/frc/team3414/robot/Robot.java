@@ -152,7 +152,7 @@ private WrongWayTeleop teleop;
 	
 	public void autonomousInit()
 	{	
-		
+		lights.setSpeed(.91);
 		System.out.println(ActuatorConfig.getInstance());
 		System.out.println("Auton Init");
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();

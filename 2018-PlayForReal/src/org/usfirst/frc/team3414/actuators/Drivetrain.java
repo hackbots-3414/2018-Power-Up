@@ -76,7 +76,7 @@ public class Drivetrain implements IDriveTrain
 	public void liftToScale()
 	{
 		int encoderPos = ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition();
-		while (encoderPos < 27000 && RobotStatus.isAuto())
+		while (encoderPos < 23000 && RobotStatus.isAuto())//27000
 		{
 			ActuatorConfig.getInstance().getLift().setSpeed(-.70);//40
 			encoderPos = ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition();
@@ -206,46 +206,90 @@ public class Drivetrain implements IDriveTrain
 
 		float currentYaw = navX.getYaw();
 		float endAngle = currentYaw + (float) angle;
-	//	System.out.println("Start Angle: " + currentYaw);
-	//	System.out.println("End Angle: " + endAngle);
+		SmartDashboard.getNumber("start angle: ", currentYaw);
+		SmartDashboard.getNumber("End Angle: ", endAngle);
+//		System.out.println("Start Angle: " + currentYaw);
+//		System.out.println("End Angle: " + endAngle);
 		ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed, -speed);
 
 
-		if (endAngle > 360)
-		{
+		if(endAngle > 360) {
 			endAngle = endAngle - 360;
 			System.out.println("Adjusted End Angle: " + endAngle);
 			// Turn right until passing 0
-			while ((currentYaw + angle) > 360)
-			{
+			while ((currentYaw + angle) > 360) {
 				currentYaw = navX.getYaw();
-				if (RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
-				{
-					break;
-				}
+				 if(RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
+				 {
+					 break;
+				 }
 			}
 			// Continue turning right until target is reached
-			while (currentYaw < endAngle)
-			{
+			while (currentYaw < endAngle) {
 				currentYaw = navX.getYaw();
-				if (RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
-				{
-					break;
-				}
+				 if(RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
+				 {
+					 break;
+				 }
 			}
-		} else
-		{
-			while (currentYaw < endAngle)
+			/*while(currentYaw < endAngle || (currentYaw + angle) > 360 )
 			{
 				currentYaw = navX.getYaw();
-				if (RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
-				{
-					break;
-				}
+				 if(RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
+				 {
+					 break;
+				 }
+			}*/
+		} else {
+			while(currentYaw < endAngle)
+			{
+				currentYaw = navX.getYaw();
+				 if(RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
+				 {
+					 break;
+				 }
 			}
 		}
 		ActuatorConfig.getInstance().getDrivetrain().stop();
 	}
+		
+	
+// 		comp turn function	
+//		if (endAngle > 360)
+//		{
+//			endAngle = endAngle - 360;
+//			System.out.println("Adjusted End Angle: " + endAngle);
+//			// Turn right until passing 0
+//			while ((currentYaw + angle) > 360)
+//			{
+//				currentYaw = navX.getYaw();
+//				if (RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
+//				{
+//					break;
+//				}
+//			}
+//			// Continue turning right until target is reached
+//			while (currentYaw < endAngle)
+//			{
+//				currentYaw = navX.getYaw();
+//				if (RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
+//				{
+//					break;
+//				}
+//			}
+//		} else
+//		{
+//			while (currentYaw < endAngle)
+//			{
+//				currentYaw = navX.getYaw();
+//				if (RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
+//				{
+//					break;
+//				}
+//			}
+//		}
+//		ActuatorConfig.getInstance().getDrivetrain().stop();
+//	}
 
 	public void turnLeft(double speed, double angle)
 	{
@@ -258,75 +302,131 @@ public class Drivetrain implements IDriveTrain
 
 		float currentYaw = navX.getYaw();
 		float endAngle = currentYaw - (float) angle;
-		System.out.println("Start Angle: " + currentYaw);
-		System.out.println("End Angle: " + endAngle);
+		SmartDashboard.getNumber("start angle: ", currentYaw);
+		SmartDashboard.getNumber("End Angle: ", endAngle);
+//		System.out.println("Start Angle: " + currentYaw);
+//		System.out.println("End Angle: " + endAngle);
 		ActuatorConfig.getInstance().getDrivetrain().setSpeed(-speed, speed);
-
-		
-		if (endAngle < 0)
-		{
+		if(endAngle < 0) {
 			endAngle = 360 + endAngle;
 			System.out.println("Adjusted End Angle: " + endAngle);
-			// Loop until we pass 0
-			while ((currentYaw + angle) <= 360)
-			{
+			//Loop until we pass 0
+			while((currentYaw + angle) <= 360) {
 				currentYaw = navX.getYaw();
-				//System.out.println("Current Angle: " + currentYaw);
-				if (RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
-				{
-					break;
-				}
-				try
-				{
-					TimeUnit.MILLISECONDS.sleep(10);
-				}
-				catch(Exception e)
-				{
-					
-				}
-				//SensorConfig.getInstance().getTimer().waitTimeInMillis(10);
+				System.out.println("Current Angle: " + currentYaw);
+				if(RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
+				 {
+					 break;
+				 }
 			}
 			// Now loop until we reach the target angle
-			while (currentYaw > endAngle)
-			{
+			while(currentYaw > endAngle) {
 				currentYaw = navX.getYaw();
-				//System.out.println("Current Angle: " + currentYaw);
-				if (RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
-				{
-					break;
-				}
-				try
-				{
-					TimeUnit.MILLISECONDS.sleep(10);
-				}
-				catch(Exception e)
-				{
-					
-				}
-				//SensorConfig.getInstance().getTimer().waitTimeInMillis(10);
+				System.out.println("Current Angle: " + currentYaw);
+				if(RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
+				 {
+					 break;
+				 }
 			}
-		} else
-		{
-			while (currentYaw > endAngle)
+			/*while((currentYaw + angle) <= 360 || (currentYaw - endAngle) > 0 )
+			{
+				if(currentYaw + 1.5 < 360 && !isSwitched)
+				{
+					continue;
+				}
+				else
+				{
+					isSwitched = true;
+				}
+				
+				currentYaw = navX.getYaw();
+				System.out.println("Current Angle: " + currentYaw);
+				
+				
+				if(RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
+				 {
+					 break;
+				 }
+			} */
+		} else {
+			while(currentYaw > endAngle)
 			{
 				currentYaw = navX.getYaw();
-				if (RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
-				{
-					break;
-				}
-				try
-				{
-					TimeUnit.MILLISECONDS.sleep(10);
-				}
-				catch(Exception e)
-				{
-					
-				}
-				//SensorConfig.getInstance().getTimer().waitTimeInMillis(10);
+				 if(RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
+				 {
+					 break;
+				 }
 			}
 		}
 		ActuatorConfig.getInstance().getDrivetrain().stop();
 	}
+		
+		
+//		comp code		
+//		if (endAngle < 0)
+//		{
+//			endAngle = 360 + endAngle;
+//			System.out.println("Adjusted End Angle: " + endAngle);
+//			// Loop until we pass 0
+//			while ((currentYaw + angle) <= 360)
+//			{
+//				currentYaw = navX.getYaw();
+//				//System.out.println("Current Angle: " + currentYaw);
+//				if (RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
+//				{
+//					break;
+//				}
+//				try
+//				{
+//					TimeUnit.MILLISECONDS.sleep(10);
+//				}
+//				catch(Exception e)
+//				{
+//					
+//				}
+//				//SensorConfig.getInstance().getTimer().waitTimeInMillis(10);
+//			}
+//			// Now loop until we reach the target angle
+//			while (currentYaw > endAngle)
+//			{
+//				currentYaw = navX.getYaw();
+//				//System.out.println("Current Angle: " + currentYaw);
+//				if (RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
+//				{
+//					break;
+//				}
+//				try
+//				{
+//					TimeUnit.MILLISECONDS.sleep(10);
+//				}
+//				catch(Exception e)
+//				{
+//					
+//				}
+//				//SensorConfig.getInstance().getTimer().waitTimeInMillis(10);
+//			}
+//		} else
+//		{
+//			while (currentYaw > endAngle)
+//			{
+//				currentYaw = navX.getYaw();
+//				if (RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
+//				{
+//					break;
+//				}
+//				try
+//				{
+//					TimeUnit.MILLISECONDS.sleep(10);
+//				}
+//				catch(Exception e)
+//				{
+//					
+//				}
+//				//SensorConfig.getInstance().getTimer().waitTimeInMillis(10);
+//			}
+//		}
+//		ActuatorConfig.getInstance().getDrivetrain().stop();
+//	}
 
 	private void move(double distance, double startSpeed, boolean isReversed)
 	{
@@ -551,16 +651,16 @@ public class Drivetrain implements IDriveTrain
 				}
 				currentYaw = navx.getRawYaw();
 				SmartDashboard.putNumber("Current Yaw ", currentYaw);
-				if (currentYaw > (startYaw + 0.5))
+				if (currentYaw > (startYaw + 0.2))
 				{
 					// Veering left, so slow down right
 					// System.out.println("Veering left");
-					ActuatorConfig.getInstance().getDrivetrain().setSpeed((speed + .15), speed);
-				} else if (currentYaw < (startYaw + 0.5))
+					ActuatorConfig.getInstance().getDrivetrain().setSpeed((speed + .08), speed);
+				} else if (currentYaw < (startYaw + 0.2))
 				{
 					// Veering right, so slow down left
 					// System.out.println("Veering right");
-					ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed, (speed + .15));
+					ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed, (speed + .08));
 				}
 			} else
 			{
@@ -572,20 +672,22 @@ public class Drivetrain implements IDriveTrain
 				}
 				currentYaw = navx.getRawYaw();
 				SmartDashboard.putNumber("Current Yaw ", currentYaw);
-				if (currentYaw > (startYaw + 1))
+				if (currentYaw > (startYaw + 0.15))
 				{
 					// Veering left, so slow down right
 					// System.out.println("Veering left");
 
-					ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed, (speed + .01));// 0.05,
+					ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed, (speed + .08));//0.01
+					// 0.05,
 																								// +.16
 
-				} else if (currentYaw < (startYaw + 1))
+				} else if (currentYaw < (startYaw + 0.15))
 				{
 					// Veering right, so slow down left
 					// System.out.println("Veering right");
 
-					ActuatorConfig.getInstance().getDrivetrain().setSpeed((speed + .01), speed);// 0.05,
+					ActuatorConfig.getInstance().getDrivetrain().setSpeed((speed + .077), speed);//01
+					// 0.05,
 																								// +.16
 				}
 			}
