@@ -589,6 +589,8 @@ public class Drivetrain implements IDriveTrain
 
 		boolean isRightComplete = false;
 		boolean isLeftComplete = false;
+		boolean veeringRight = false;
+		double adjustedSpeed = speed;
 		double distanceRight;
 		double distanceLeft;
 		double rightEncoderValue = ActuatorConfig.getInstance().getRightEncoder().getSensorCollection()
@@ -676,8 +678,14 @@ public class Drivetrain implements IDriveTrain
 				{
 					// Veering left, so slow down right
 					// System.out.println("Veering left");
-
-					ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed, (speed + .08));//0.01
+					if(veeringRight)
+					{
+						adjustedSpeed = speed;
+						veeringRight = false;
+					}
+					adjustedSpeed = adjustedSpeed + .0001;
+					ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed, adjustedSpeed);
+//					ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed, (speed + .08));//0.01
 					// 0.05,
 																								// +.16
 
@@ -685,8 +693,14 @@ public class Drivetrain implements IDriveTrain
 				{
 					// Veering right, so slow down left
 					// System.out.println("Veering right");
-
-					ActuatorConfig.getInstance().getDrivetrain().setSpeed((speed + .077), speed);//01
+					if(!veeringRight)
+					{
+						adjustedSpeed = speed;
+						veeringRight = true;
+					}
+					adjustedSpeed = adjustedSpeed + .0001;
+					ActuatorConfig.getInstance().getDrivetrain().setSpeed(adjustedSpeed, speed);
+//					ActuatorConfig.getInstance().getDrivetrain().setSpeed((speed + .077), speed);//01
 					// 0.05,
 																								// +.16
 				}
