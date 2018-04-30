@@ -674,33 +674,33 @@ public class Drivetrain implements IDriveTrain
 				}
 				currentYaw = navx.getRawYaw();
 				SmartDashboard.putNumber("Current Yaw ", currentYaw);
-				if (currentYaw > (startYaw + 0.15))
+				if (currentYaw > (startYaw + .2))
 				{
 					// Veering left, so slow down right
 					// System.out.println("Veering left");
-					if(veeringRight)
-					{
-						adjustedSpeed = speed;
-						veeringRight = false;
-					}
-					adjustedSpeed = adjustedSpeed + .0001;
-					ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed, adjustedSpeed);
-//					ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed, (speed + .08));//0.01
+//					if(veeringRight)
+//					{
+//						adjustedSpeed = speed;
+//						veeringRight = false;
+//					}
+//					adjustedSpeed = adjustedSpeed + .0001;
+//					ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed, adjustedSpeed);
+					ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed, (speed + .08));//0.01
 					// 0.05,
 																								// +.16
 
-				} else if (currentYaw < (startYaw + 0.15))
+				} else if (currentYaw < (startYaw + .50))//1.9
 				{
 					// Veering right, so slow down left
 					// System.out.println("Veering right");
-					if(!veeringRight)
-					{
-						adjustedSpeed = speed;
-						veeringRight = true;
-					}
-					adjustedSpeed = adjustedSpeed + .0001;
-					ActuatorConfig.getInstance().getDrivetrain().setSpeed(adjustedSpeed, speed);
-//					ActuatorConfig.getInstance().getDrivetrain().setSpeed((speed + .077), speed);//01
+//					if(!veeringRight)
+//					{
+//						adjustedSpeed = speed;
+//						veeringRight = true;
+//					}
+//					adjustedSpeed = adjustedSpeed + .0001;
+//					ActuatorConfig.getInstance().getDrivetrain().setSpeed(adjustedSpeed, speed);
+					ActuatorConfig.getInstance().getDrivetrain().setSpeed((speed + .072), speed);//01
 					// 0.05,
 																								// +.16
 				}

@@ -65,6 +65,7 @@ private WrongWayTeleop teleop;
 	public void robotInit() 
 	{
 		//TODO fix the lights!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		
 		lights.setSpeed(.91);	//purple lights
 		
 		RobotStatus.setIsRunning(true);

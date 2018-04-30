@@ -11,14 +11,14 @@ public class AutonUtility
 	{
 		ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
 		ActuatorConfig.getInstance().getDrivetrain().lowerAnglerTo(30);
-		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(21, .35);//22, .85
+		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(21, .25);//22, .85
 		SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
 		if(turnRight == true) {
-			ActuatorConfig.getInstance().getDrivetrain().turnRight(.45, 43);//.38, 75
+			ActuatorConfig.getInstance().getDrivetrain().turnRight(.25, 85);//.38, 75
 		}
 		else 
 		{
-			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.50, 45);
+			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.25, 85);
 		}
 		
 		SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
@@ -40,33 +40,35 @@ public class AutonUtility
 	{
 		ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
 		ActuatorConfig.getInstance().getDrivetrain().lowerAnglerTo(70);//60
-		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(38, .20);//40, 45, 53
+		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(44, .25);//40, 45, 53//48
 //		ActuatorConfig.getInstance().getDrivetrain().goBackwardsGyro(.5, .1);
 		SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
-//		if(turnRight == true)
-//		{
-//			ActuatorConfig.getInstance().getDrivetrain().turnRight(.2, 40);//.35, 88
-//		}
-//		else 
-//		{
-//			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.2, 40);
-//		}
-//		SensorConfig.getInstance().getTimer().waitTimeInMillis(50);
-//		ActuatorConfig.getInstance().getDrivetrain().liftToScale();
-//		SensorConfig.getInstance().getTimer().waitTimeInMillis(200);
-//		//ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(1, 0.2);
-//		SensorConfig.getInstance().getTimer().waitTimeInMillis(50);
-//		ActuatorConfig.getInstance().getDrivetrain().lowerAnglerScale();
-//		SensorConfig.getInstance().getTimer().waitTimeInMillis(200);
-//		ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(.40);
-//		ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.40);
-//		SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
-//		ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(0);
-//		ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(0);
-//		SensorConfig.getInstance().getTimer().waitTimeInMillis(200);
-//		ActuatorConfig.getInstance().getDrivetrain().goBackwardsGyro(1, 0.5);
-//		SensorConfig.getInstance().getTimer().waitTimeInMillis(200);
-//		ActuatorConfig.getInstance().getDrivetrain().lowerLiftTo(800);
+		if(turnRight == true)
+		{
+			ActuatorConfig.getInstance().getDrivetrain().turnRight(.25, 40);//.35, 88
+		}
+		else 
+		{
+			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.2, 30);
+		}
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(50);
+		ActuatorConfig.getInstance().getDrivetrain().goBackwardsGyro(1, .3);
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(50);
+		ActuatorConfig.getInstance().getDrivetrain().liftToScale();
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(200);
+		//ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(1, 0.2);
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(50);
+		ActuatorConfig.getInstance().getDrivetrain().lowerAnglerScale();
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(200);
+		ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(.40);
+		ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.40);
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
+		ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(0);
+		ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(0);
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(200);
+		ActuatorConfig.getInstance().getDrivetrain().goBackwardsGyro(1, 0.25);
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(200);
+		ActuatorConfig.getInstance().getDrivetrain().lowerLiftTo(800);
 
 	}
 
