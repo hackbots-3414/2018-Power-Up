@@ -11,7 +11,10 @@ public class NavX
 	private boolean isEnabled = true;
 	
 	private double pastYaw = 0;
-
+	
+	private double trueYaw = 0;
+	
+	private double lastRawYaw = 0;
 	//private Thread newThread = new Thread(this);
 	
 	public NavX(AHRS ahrs)
@@ -44,7 +47,7 @@ public class NavX
 	
 	public float getYaw()
 	{
-		pastYaw = ahrs.getYaw(); 	
+		pastYaw = ahrs.getYaw();
 		
 		if(pastYaw < 0)
 		{			
@@ -59,6 +62,49 @@ public class NavX
 			return 0;
 		}
 	}
+	
+	public double getTrueYaw()
+	{
+		double currentRawYaw = getRawYaw(); 
+		 
+//		if (currentRawYaw < 0){
+//			trueYaw = (180 + (180 - Math.abs(currentRawYaw)));
+//		}
+		
+		if (currentRawYaw >= 0 && lastRawYaw >= 0) {
+		    trueYaw += currentRawYaw - lastRawYaw;
+		}
+		else if (currentRawYaw >= 0 && lastRawYaw <= 0) {
+			if((Math.abs(currentRawYaw) < 90) && (Math.abs(lastRawYaw)< 90))
+				trueYaw += (Math.abs(currentRawYaw) + Math.abs(lastRawYaw));
+			else if ((Math.abs(currentRawYaw) > 90) && (Math.abs(lastRawYaw) > 90))
+				trueYaw += -((180- Math.abs(currentRawYaw)) + (180 -Math.abs(lastRawYaw))) ;
+			else
+			{
+				System.out.println("Error sampling: currentRawYaw=" + currentRawYaw + "lastRawYaw=" + lastRawYaw); 
+				System.out.println("NavX sampling gap is bigger than 90 degree, hard to guess which rotation direction");
+				System.out.println("Please consider init TrueYaw, or init getTrueYaw loop (last = current)");
+			}
+		}
+		else if (currentRawYaw <= 0 && lastRawYaw >= 0) {
+			if((Math.abs(currentRawYaw) < 90) && (Math.abs(lastRawYaw)< 90))
+				trueYaw += -(Math.abs(currentRawYaw) + Math.abs(lastRawYaw));
+			else if((Math.abs(currentRawYaw) > 90) && (Math.abs(lastRawYaw) > 90))
+				trueYaw += ((180- Math.abs(currentRawYaw)) + (180 -Math.abs(lastRawYaw))) ;
+			else {
+				System.out.println("Error sampling: currentRawYaw=" + currentRawYaw + "lastRawYaw=" + lastRawYaw); 
+				System.out.println("NavX sampling gap is bigger than 90 degree, hard to guess which rotation direction");
+				System.out.println("Please consider init TrueYaw, or init getTrueYaw loop (last = current)");
+			}
+		}
+		else if (currentRawYaw < 0 && lastRawYaw < 0) {
+		    trueYaw += - (Math.abs(currentRawYaw) - Math.abs(lastRawYaw));
+		}
+
+		lastRawYaw = currentRawYaw;
+		return trueYaw; 
+	}
+	
 	
 	public double getPitch()
 	{
@@ -98,6 +144,13 @@ public class NavX
 	public void reset()
 	{
 		ahrs.reset();
+		lastRawYaw = getRawYaw();
+		trueYaw = 0;
+	}
+	
+	public void resetLastRawYaw()
+	{
+		lastRawYaw = getRawYaw();
 	}
 	
 	public double getVelocityX()
