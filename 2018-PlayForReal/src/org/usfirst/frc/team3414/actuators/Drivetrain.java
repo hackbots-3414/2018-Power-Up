@@ -85,6 +85,25 @@ public class Drivetrain implements IDriveTrain
 //		ActuatorConfig.getInstance().getLiftTalonTwo().set(ControlMode.MotionMagic, 27000);
 		ActuatorConfig.getInstance().getLift().setSpeed(0);
 	}
+	public void liftToScaleAutonPhillip()
+	{
+		int encoderPos = ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition();
+		double encoderStart = encoderPos;
+		double distance = 18500-encoderStart;
+		double currentSpeed = 0.5;
+		double currentPosition = 0;
+		while (encoderPos < 18500 /*&& RobotStatus.isAuto()*/)
+		{
+			currentSpeed = liftSpeedPlan.getSpeed(distance, 0.7, encoderPos - encoderStart);
+			//ActuatorConfig.getInstance().getLift().setSpeed(-.70);//40
+			ActuatorConfig.getInstance().getLift().setSpeed(-.70);//40
+
+			
+			encoderPos = ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition();
+			SmartDashboard.putNumber("Elevator Encoder", encoderPos);
+		}
+//		ActuatorConfig.getInstance().getLiftTalonTwo().set(ControlMode.MotionMagic, 27000);
+	}
 	
 	public void liftToSwitch()
 	{
