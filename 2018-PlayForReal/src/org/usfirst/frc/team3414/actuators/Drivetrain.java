@@ -123,7 +123,12 @@ public class Drivetrain implements IDriveTrain
 	}
 	
 	public void liftToScaleTeleop()
-	{
+	{			ActuatorConfig.getInstance().getLift().setSpeed(-.70);//4
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
+			ActuatorConfig.getInstance().getLift().setSpeed(0);
+	}
+		/*
+	}
 		int encoderPos = ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition();
 		while (encoderPos < 27000 && RobotStatus.isTeleop())
 		{
@@ -133,7 +138,7 @@ public class Drivetrain implements IDriveTrain
 		}
 //		ActuatorConfig.getInstance().getLiftTalonTwo().set(ControlMode.MotionMagic, 27000);
 		ActuatorConfig.getInstance().getLift().setSpeed(0);
-	}
+	}*/
 	
 	public void liftToSwitchTeleop()
 	{
