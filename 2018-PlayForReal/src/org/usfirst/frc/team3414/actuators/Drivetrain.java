@@ -5,6 +5,8 @@ import java.util.concurrent.TimeUnit;
 
 import org.usfirst.frc.team3414.actuators.ActuatorConfig;
 import org.usfirst.frc.team3414.actuators.DoubleMotor;
+//import org.usfirst.frc.team3414.actuators.TripleMotor;
+import org.usfirst.frc.team3414.actuators.SpeedPlan;
 import org.usfirst.frc.team3414.autonomous.AutonStatus;
 import org.usfirst.frc.team3414.sensor.HBJoystick;
 import org.usfirst.frc.team3414.sensor.NavX;
@@ -18,27 +20,45 @@ import org.usfirst.frc.team3414.robot.RobotStatus;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class Drivetrain implements IDriveTrain
-{
-
+public class Drivetrain implements IDriveTrain {
+	
 	private DoubleMotor rightMotor;
 	private DoubleMotor leftMotor;
+	
+	
 
+//???  3 motors, or triple motors	
+//	private TripleMotor rightMotor;
+//	private TripleMotor leftMotor;
+	
 	double currentHeading;
-
+	
 	private HBJoystick rightJoystick;
 	private HBJoystick leftJoystick;
-
+	
 	private double startYaw;
 	private double endYaw;
-
+	
 	private boolean isSwitched = false;
+	
+	public boolean turnRadiusCancel = false;
+	
+	public SpeedPlan turnRadiusSpeedPlan = new SpeedPlan();
+	public SpeedPlan moveStraightSpeedPlan = new SpeedPlan();
+	public SpeedPlan liftSpeedPlan = new SpeedPlan();
 
 	public Drivetrain(DoubleMotor rightMotor, DoubleMotor leftMotor)
 	{
 		this.rightMotor = rightMotor;
 		this.leftMotor = leftMotor;
 	}
+
+//  3 motors, or triple motors	
+//	public Drivetrain(TripleMotor rightMotor, TripleMotor leftMotor)
+//	{
+//		this.rightMotor = rightMotor;
+//		this.leftMotor = leftMotor;
+//	}
 
 	public void setSpeed(double speed)
 	{
