@@ -31,7 +31,7 @@ public abstract class AutonBase implements Runnable
 	public void doAuto(Position position)
 	{
 		this.position = position;
-		
+		navX.reset();
 		autonThread = new Thread(this);
 		autonThread.start();
 	}

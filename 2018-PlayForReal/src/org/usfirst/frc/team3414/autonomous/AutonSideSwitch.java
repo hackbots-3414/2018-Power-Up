@@ -47,7 +47,7 @@ public class AutonSideSwitch extends AutonBase
 			//go forward
 			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
 			ActuatorConfig.getInstance().getDrivetrain().lowerAnglerTo(60);
-			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(18, .35);
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(18, 0.0, .35);
 			
 			System.out.println("Position Left: Park past switch");
 		}
@@ -107,7 +107,7 @@ public class AutonSideSwitch extends AutonBase
 			//go forward turn left
 			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
 			ActuatorConfig.getInstance().getDrivetrain().lowerAnglerTo(60);
-			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(18, .35);
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(18, 0.0, .35);
 //			ActuatorConfig.getInstance().getDrivetrain().turnLeft(.35, 90);
 //			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(3, .35);
 			
