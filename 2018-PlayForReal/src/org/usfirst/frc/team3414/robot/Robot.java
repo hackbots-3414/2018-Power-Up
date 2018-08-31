@@ -29,6 +29,8 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.DriverStation;
 
 import org.usfirst.frc.team3414.teleop.WrongWayTeleop;
+import org.usfirst.frc.team3414.teleop.PacbotTeleop; //???
+
 import org.usfirst.frc.team3414.autonomous.AutonBase;
 import org.usfirst.frc.team3414.autonomous.AutonCenterSwitch;
 import org.usfirst.frc.team3414.autonomous.AutonDoNothing;
@@ -52,7 +54,8 @@ public class Robot extends TimedRobot
 {
 	
 
-private WrongWayTeleop teleop;
+//private WrongWayTeleop teleop;
+private PacbotTeleop teleop; 
 	
 	Spark lights = new Spark(2);
 	Command autonomousCommand;
@@ -68,28 +71,30 @@ private WrongWayTeleop teleop;
 		lights.setSpeed(.91);	//purple lights
 		
 		RobotStatus.setIsRunning(true);
+		System.out.println("RobotStatus.setIsRunning(true)");
 		
 //		CameraServer.getInstance().addAxisCamera("10.34.14.3");
 		CameraServer.getInstance().startAutomaticCapture();
 		
 		ActuatorConfig.getInstance().init();
 		SensorConfig.getInstance().init();
+		System.out.println("ActuatorConfig.getInstance().init");
 		
 //		pdb = SensorConfig.getInstance().getPDB();
 		
-		teleop = new WrongWayTeleop();
+		teleop = new PacbotTeleop(); //???
+//		teleop = new WrongWayTeleop();
 		
 //		logThread.start();
 		
 		chooseAuto();	
 		
 		
-		
 	}
 
 	public void disabledInit()
 	{
-		ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().setQuadraturePosition(0, 10);
+//		ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().setQuadraturePosition(0, 10);
 	//	ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().setQuadraturePosition(0, 10);
 		
 		System.out.println("Disabled");
@@ -97,13 +102,14 @@ private WrongWayTeleop teleop;
 		ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().setQuadraturePosition(0, 10);
 		ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().setQuadraturePosition(0, 10);
 		
-		ActuatorConfig.getInstance().getRightTalonFront().setSelectedSensorPosition(0, 0, 10);
-		ActuatorConfig.getInstance().getLeftTalonFront().setSelectedSensorPosition(0, 0, 10);
+//		ActuatorConfig.getInstance().getRightTalonFront().setSelectedSensorPosition(0, 0, 10);
+//		ActuatorConfig.getInstance().getLeftTalonFront().setSelectedSensorPosition(0, 0, 10);
 		
 		
 		
-		teleop.stop();
-	}
+		teleop.stop();	
+}
+
 //
 	public void teleopInit()
 //	public void teleopPeriodic()
@@ -112,10 +118,10 @@ private WrongWayTeleop teleop;
 		RobotStatus.setIsAuto(false);
 		RobotStatus.setIsTeleop(true);
 		
-		ActuatorConfig.getInstance().getLeftTalonFront().setNeutralMode(NeutralMode.Coast);
-		ActuatorConfig.getInstance().getRightTalonFront().setNeutralMode(NeutralMode.Coast);
-		ActuatorConfig.getInstance().getLeftTalonBack().setNeutralMode(NeutralMode.Coast);
-		ActuatorConfig.getInstance().getRightTalonBack().setNeutralMode(NeutralMode.Coast);
+//???		ActuatorConfig.getInstance().getLeftTalonFront().setNeutralMode(NeutralMode.Coast);
+//		ActuatorConfig.getInstance().getRightTalonFront().setNeutralMode(NeutralMode.Coast);
+//		ActuatorConfig.getInstance().getLeftTalonBack().setNeutralMode(NeutralMode.Coast);
+//		ActuatorConfig.getInstance().getRightTalonBack().setNeutralMode(NeutralMode.Coast);
 		
 		System.out.println("Telop Running!");
 		teleop.init();		
@@ -164,7 +170,16 @@ private WrongWayTeleop teleop;
 		RobotStatus.setIsAuto(true);
 		RobotStatus.setIsTeleop(false);
 		
-		ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().setQuadraturePosition(0, 10);
+		if(!ActuatorConfig.getInstance().getOnlyDriveTrain())
+		{	 
+			// please make sure that intake angler arms are in most up position
+			ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().setQuadraturePosition(0, 10);
+			// please make sure that lift is at bottom position
+			ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().setQuadraturePosition(0, 10);
+		}
+
+		ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().setQuadraturePosition(0, 10);
+		ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().setQuadraturePosition(0, 10);
 
 		ActuatorConfig.getInstance().getLeftTalonFront().setNeutralMode(NeutralMode.Brake);
 		ActuatorConfig.getInstance().getRightTalonFront().setNeutralMode(NeutralMode.Brake);
@@ -173,7 +188,9 @@ private WrongWayTeleop teleop;
 		
 		AutonStatus.getInstance().setStatus(Status.RUNNING);
 		
-	  
+		SensorConfig.getInstance().getNavX().reset();
+		SensorConfig.getInstance().getNavX().resetLastRawYaw();
+		
 //		  gameData = LLL or LRL or RRR or RLR For testing just comment the other gameData.
 		System.out.println(autonChooser.getSelected());
 //		
