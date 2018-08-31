@@ -80,6 +80,10 @@ public class Drivetrain implements IDriveTrain {
 	
 	public void setInitialServoPosition()
 	{
+		//The wings were removed from Alpha
+		if(ActuatorConfig.getInstance().getWingDisabled())
+			return;
+
 		ActuatorConfig.getInstance().getServoWingOne().disengage();
 		ActuatorConfig.getInstance().getServoWingTwo().setAngle(130);
 	}
@@ -93,6 +97,19 @@ public class Drivetrain implements IDriveTrain {
 	{
 		return leftMotor;
 	}
+
+/*	
+//  3 motors, or triple motors	
+	public TripleMotor getRightMotor()
+	{
+		return rightMotor;
+	}
+	
+	public TripleMotor getLeftMotor()
+	{
+		return leftMotor;
+	}
+*/
 	public void liftToScale()
 	{
 		int encoderPos = ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().getQuadraturePosition();
@@ -218,6 +235,7 @@ public class Drivetrain implements IDriveTrain {
 	public void lowerAnglerTo(double distance)
 	{
 		int encoderPos = ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition();
+		System.out.println("encoderPos: " + encoderPos + "  distance: " + distance);
 		while (encoderPos > -distance)
 		{
 			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(-.40);
@@ -230,13 +248,99 @@ public class Drivetrain implements IDriveTrain {
 	public void raiseAnglerTo(double distance)
 	{
 		int encoderPos = ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition();
-		while (encoderPos < -distance)
+		int startPos = encoderPos;
+		//while (encoderPos < -distance)
+		while (encoderPos < startPos-distance)
 		{
 			ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(.40);
 			encoderPos = ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().getQuadraturePosition();
 			SmartDashboard.putNumber("Angler Encoder", encoderPos);
 		}
 		ActuatorConfig.getInstance().getMotorIntakeAngler().setSpeed(0);
+	}
+
+	public void turnRightRadius(double speed, double angle, double radius, double width)
+	{
+		turnRadius( speed,  angle,  radius,  width);
+	}
+	
+	public void turnLeftRadius(double speed, double angle, double radius, double width)
+	{
+		turnRadius( speed,  -angle,  radius,  width);
+	}
+	
+	public void turnRadius(double speed, double angle, double radius, double width)
+	{
+		rightJoystick = new HBJoystick(0);
+		leftJoystick = new HBJoystick(1);
+
+		isSwitched = false;
+		
+		NavX navX = SensorConfig.getInstance().getNavX();
+		navX.resetLastRawYaw();
+		double InnerSpeed = speed*((radius-width/2)/(radius+width/2));
+		double currentYaw = navX.getTrueYaw();
+		double endAngle = currentYaw + angle;
+		System.out.println("+------------------------------+");
+		System.out.println("RightRadius: speed =" + speed + "; angle=" + angle);
+		System.out.println("Start Angle: " + currentYaw);
+		System.out.println("End Angle: " + endAngle);
+		System.out.println("InnerSpeed: " + InnerSpeed);
+		if(angle > 0) // up right
+			ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed, InnerSpeed);
+		else // up left
+			ActuatorConfig.getInstance().getDrivetrain().setSpeed(-InnerSpeed, -speed);
+		
+		// down right
+		//  ActuatorConfig.getInstance().getDrivetrain().setSpeed(InnerSpeed, speed);
+		// down left
+		//	ActuatorConfig.getInstance().getDrivetrain().setSpeed(-speed, -InnerSpeed);
+
+		//???		ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed/2, -speed/2);
+
+double lastYaw = currentYaw;
+double startYaw = currentYaw;
+double currentSpeed = 0;
+double turnedAngle = 0;
+			if(Math.abs(angle) <= 1)
+			{
+				System.out.println("Hard to rotate such a small angle: " + angle);
+				return;
+			}
+			while ((angle > 0 && currentYaw < endAngle)|| 
+			(angle < 0 && currentYaw > endAngle))
+			{
+				currentYaw = navX.getTrueYaw();
+				turnedAngle = Math.abs(currentYaw - startYaw);
+				currentSpeed = turnRadiusSpeedPlan.getSpeed(Math.abs(angle), speed, turnedAngle);
+				InnerSpeed = currentSpeed*((radius-width/2)/(radius+width/2));
+				if(angle > 0)
+					ActuatorConfig.getInstance().getDrivetrain().setSpeed(currentSpeed, InnerSpeed);
+				else 
+					ActuatorConfig.getInstance().getDrivetrain().setSpeed(-currentSpeed, -InnerSpeed);
+
+				//if (Math.abs(currentYaw - lastYaw) > 10) //NavX has a bug: Yaw values suddenly change signs
+				//	currentYaw = -currentYaw;
+				//if(lastYaw < currentYaw - 0.5 || lastYaw > currentYaw + 0.5)
+				//	   System.out.println("current Angle: " + currentYaw);
+				if (RobotStatus.isAuto() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
+				{
+					break;
+				}
+				if (RobotStatus.isTeleop() && turnRadiusCancel)
+				{
+					break;
+				}
+				lastYaw = currentYaw;
+
+			}
+//		}
+		System.out.println("After turning: " + currentYaw);
+		ActuatorConfig.getInstance().getDrivetrain().stop();
+		currentYaw = navX.getTrueYaw();
+		System.out.println("After stopped angle: " + currentYaw);
+		System.out.println("--------------------");
+
 	}
 
 	public void turnRight(double speed, double angle)
@@ -371,6 +475,7 @@ public class Drivetrain implements IDriveTrain {
 		}
 		ActuatorConfig.getInstance().getDrivetrain().stop();
 	}
+
 
 	private void move(double distance, double startSpeed, boolean isReversed)
 	{
