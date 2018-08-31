@@ -632,7 +632,7 @@ double turnedAngle = 0;
 	// }
 	// }
 
-	public void moveGyro(double distance, double speed, boolean isReversed)
+	public void moveGyro(double distance, double angle, double speed,  boolean isReversed)
 	{
 		NavX navx = SensorConfig.getInstance().getNavX();
 
@@ -645,6 +645,14 @@ double turnedAngle = 0;
 													// encoder x4
 		double leftEncoderValue = ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection()
 				.getQuadraturePosition() / (-2048.0);
+		double rightEncoderStartValue = rightEncoderValue;
+		double leftEncoderStartValue = leftEncoderValue;
+		
+//		double deaccIdealDistance
+//		double 
+		
+		System.out.println("Left Encoder Start Value: " + leftEncoderValue);
+		System.out.println("Right Encoder Start Value: " + rightEncoderValue);
 
 		if (isReversed)
 		{
@@ -659,8 +667,11 @@ double turnedAngle = 0;
 
 		double currentYaw;
 		double startYaw = navx.getRawYaw();
-		// SmartDashboard.putNumber("Start Yaw: ", startYaw);
+		double targetYaw = startYaw + angle;
+		 SmartDashboard.putNumber("Start Yaw: ", startYaw);
 		ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed);
+		System.out.println("Start Yaw: " + startYaw);
+		System.out.println("Target Yaw: " + targetYaw);
 		// SmartDashboard.putNumber("Right Distance To ", distanceRight);
 		// SmartDashboard.putNumber("Left Distance To ", distanceLeft);
 		// SmartDashboard.putNumber("Start Left Enoder Value ",
@@ -668,6 +679,12 @@ double turnedAngle = 0;
 		// SmartDashboard.putNumber("Start Right Encoder Value",
 		// rightEncoderValue);
 
+		//??? following condition let left and right stop to move at same time,
+		//??? any of them complete, then the other one also stops moving.
+		//??? we need both completes, i.e., in front of switch, let robot touch switch by whole front frame.
+		double movedDistance = 0;
+		double currentSpeed = 0;
+		//while ((!isRightComplete || !isLeftComplete) && RobotStatus.isAuto() && RobotStatus.isRunning())
 		while (!isRightComplete && !isLeftComplete && RobotStatus.isAuto() && RobotStatus.isRunning())
 		{
 
@@ -676,9 +693,15 @@ double turnedAngle = 0;
 			leftEncoderValue = ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection()
 					.getQuadraturePosition() / (-2048.0);
 
-			SmartDashboard.putNumber("Left Enoder Value ", leftEncoderValue);
-			SmartDashboard.putNumber("Right Encoder Value", rightEncoderValue);
+//			SmartDashboard.putNumber("Left Encoder Value ", leftEncoderValue);
+//			SmartDashboard.putNumber("Right Encoder Value", rightEncoderValue);
 
+			movedDistance = Math.abs(rightEncoderValue - rightEncoderStartValue);
+			currentSpeed = turnRadiusSpeedPlan.getSpeed(Math.abs(distance), speed, movedDistance);
+			if (isReversed)
+			{
+				currentSpeed = currentSpeed * -1;
+			}
 			// This Kill Switch will only work once Teleop begins and Joysticks
 			// start working
 			// This is a safety in case loop cannot complete for some reason
@@ -692,54 +715,101 @@ double turnedAngle = 0;
 
 			if (isReversed)
 			{
+				
 				if (rightEncoderValue <= distanceRight)
+				{
+					isRightComplete = true;
+					// ActuatorConfig.getInstance().getDrivetrain().getLeftMotor().stop();
+					
+				}
+				if (leftEncoderValue <= distanceLeft)
 				{
 					isLeftComplete = true;
 					// ActuatorConfig.getInstance().getDrivetrain().getLeftMotor().stop();
-					System.out.println("Left Finished First");
 				}
 				currentYaw = navx.getRawYaw();
-				SmartDashboard.putNumber("Current Yaw ", currentYaw);
-				if (currentYaw > (startYaw + 0.5))
+//				SmartDashboard.putNumber("Current Yaw ", currentYaw);
+				if (currentYaw > (targetYaw + 1))
 				{
 					// Veering left, so slow down right
 					// System.out.println("Veering left");
-					ActuatorConfig.getInstance().getDrivetrain().setSpeed((speed + .15), speed);
-				} else if (currentYaw < (startYaw + 0.5))
+//					ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed, (speed+ .15));
+					//ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed, (speed + Math.abs(currentYaw - targetYaw)/30));
+					//ActuatorConfig.getInstance().getDrivetrain().setSpeed(currentSpeed, (currentSpeed + Math.abs(currentYaw - targetYaw)/30));
+					ActuatorConfig.getInstance().getDrivetrain().setSpeed(currentSpeed, (currentSpeed + Math.abs(currentSpeed)/10));
+				}
+			 //???else if (currentYaw < (startYaw + 0.5))
+				else if (currentYaw < (targetYaw - 1))
 				{
 					// Veering right, so slow down left
 					// System.out.println("Veering right");
-					ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed, (speed + .15));
+//					ActuatorConfig.getInstance().getDrivetrain().setSpeed((speed+ .15), speed);
+					//ActuatorConfig.getInstance().getDrivetrain().setSpeed((currentSpeed + Math.abs(currentYaw - targetYaw)/30), currentSpeed);
+					ActuatorConfig.getInstance().getDrivetrain().setSpeed((currentSpeed + Math.abs(currentSpeed)/10), currentSpeed);
 				}
+				else 
+					ActuatorConfig.getInstance().getDrivetrain().setSpeed(currentSpeed);
 			} else
 			{
 				if (rightEncoderValue >= distanceRight)
 				{
-					isLeftComplete = true;
+					isRightComplete = true;
 					// ActuatorConfig.getInstance().getDrivetrain().getLeftMotor().stop();
 					//System.out.println("Left Finished First");
 				}
+				if (leftEncoderValue >= distanceLeft)
+				{
+					isLeftComplete = true;
+					
+				}
 				currentYaw = navx.getRawYaw();
-				SmartDashboard.putNumber("Current Yaw ", currentYaw);
-				if (currentYaw > (startYaw + 1))
+//				SmartDashboard.putNumber("Current Yaw ", currentYaw);
+				if (currentYaw > (targetYaw + 1))
 				{
 					// Veering left, so slow down right
 					// System.out.println("Veering left");
 
-					ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed, (speed + .01));// 0.05,
+//					ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed, (speed + .12));// 0.05,
 																								// +.16
+					//ActuatorConfig.getInstance().getDrivetrain().setSpeed(currentSpeed, (currentSpeed + Math.abs(currentYaw - targetYaw)/30));
+					ActuatorConfig.getInstance().getDrivetrain().setSpeed(currentSpeed, (currentSpeed + Math.abs(currentSpeed)/10));
 
-				} else if (currentYaw < (startYaw + 1))
+				//???} else if (currentYaw < (startYaw + 1))
+			    } else if (currentYaw < (targetYaw - 1))
 				{
 					// Veering right, so slow down left
 					// System.out.println("Veering right");
 
-					ActuatorConfig.getInstance().getDrivetrain().setSpeed((speed + .01), speed);// 0.05,
+//					ActuatorConfig.getInstance().getDrivetrain().setSpeed((speed + .12), speed);// 0.05,
 																								// +.16
+					//ActuatorConfig.getInstance().getDrivetrain().setSpeed((currentSpeed + Math.abs(currentYaw - targetYaw)/30), currentSpeed);
+					ActuatorConfig.getInstance().getDrivetrain().setSpeed((currentSpeed + Math.abs(currentSpeed)/10), currentSpeed);
 				}
+			    else
+			    	ActuatorConfig.getInstance().getDrivetrain().setSpeed(currentSpeed, currentSpeed);
 			}
 		}
+		rightEncoderValue = ActuatorConfig.getInstance().getRightEncoder().getSensorCollection()
+				.getQuadraturePosition() / (2048.0);
+		leftEncoderValue = ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection()
+				.getQuadraturePosition() / (-2048.0);
+		currentYaw = navx.getRawYaw();
+		
+		System.out.println("End Yaw: " + currentYaw);
+		System.out.println("Left Encoder End Value: " + leftEncoderValue);
+		System.out.println("Right Encoder End Value: " + rightEncoderValue);
+		
 		ActuatorConfig.getInstance().getDrivetrain().stop();
+		
+		rightEncoderValue = ActuatorConfig.getInstance().getRightEncoder().getSensorCollection()
+				.getQuadraturePosition() / (2048.0);
+		leftEncoderValue = ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection()
+				.getQuadraturePosition() / (-2048.0);
+		
+	
+		System.out.println("Left Encoder Moved Value: " + (leftEncoderValue - leftEncoderStartValue));
+		System.out.println("Right Encoder Moved Value: " + (rightEncoderValue- rightEncoderStartValue));
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(200); //???
 	}
 
 	public void movePid(double distance, double speed)
@@ -781,15 +851,20 @@ double turnedAngle = 0;
 		ActuatorConfig.getInstance().getLeftTalonFront().set(ControlMode.PercentOutput, 0);
 
 	}
-
-	public void goForwardGyro(double distance, double speed)
+	
+	public void goForwardGyro(double distance, double angle, double speed )
 	{
-		moveGyro(distance, speed, false);
+		System.out.println("Forward: d=" + distance + "; angle=" + angle + "speed=" + speed);
+		moveGyro(distance, angle, speed, false);
+		System.out.println("--------------------");
+	
 	}
-
-	public void goBackwardsGyro(double distance, double speed)
-	{
-		moveGyro(distance, speed, true);
+	
+	public void goBackwardsGyro(double distance, double angle, double speed)
+	{ 
+		System.out.println("BackwardsGyro: d=" + distance + "; angle=" + angle + "speed=" + speed);
+		moveGyro(distance, angle, speed, true);
+		System.out.println("--------------------");
 	}
 
 	public void motionMagic(double distance)
