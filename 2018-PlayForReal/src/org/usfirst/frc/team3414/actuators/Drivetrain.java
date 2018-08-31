@@ -486,12 +486,17 @@ double turnedAngle = 0;
 
 		double rightEncoderValue = Math
 				.abs(ActuatorConfig.getInstance().getRightEncoder().getSensorCollection().getQuadraturePosition()
-						* (0.000122));
+						* (0.000122)); //??? = 1/8192, should be 2028???
 		double leftEncoderValue = Math
 				.abs(ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection().getQuadraturePosition()
 						* (-0.000122));
 
 		double speed = 0;
+		//??? here endYaw has another meaning, target yaw.
+		// since move is heading straight, target yaw, startYaw are final endYaw are same.
+		// ??? endYaw need to be initialized, otherwise, this value will be kept to next call of this function
+		endYaw = SensorConfig.getInstance().getNavX().getRawYaw();
+		startYaw = SensorConfig.getInstance().getNavX().getRawYaw();
 
 		while (true)
 		{
@@ -504,16 +509,16 @@ double turnedAngle = 0;
 
 			// System.out.println("Forwarding");
 
-			if (RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED))
+			if (RobotStatus.isTeleop() && (AutonStatus.getInstance().getStatus() == Status.CANCELED)) //???
 			{
 				break;
 			}
 
-			currentHeading = SensorConfig.getInstance().getNavX().getRawYaw();
+			currentHeading = SensorConfig.getInstance().getNavX().getRawYaw();//??? assigned value, but not used later
 
 			if (isReversed)
 			{
-				speed = Math.log(((leftEncoderValue + rightEncoderValue) / 2) + (distance));
+				speed = Math.log(((leftEncoderValue + rightEncoderValue) / 2) + (distance));//???
 			} else
 			{
 				speed = Math.log(-((leftEncoderValue + rightEncoderValue) / 2) + (distance));// distance
@@ -521,12 +526,12 @@ double turnedAngle = 0;
 																								// 1
 			}
 
-			if (speed < 0.10)
+			if (speed < 0.10)//??? sign doesn't matter?
 			{
 				ActuatorConfig.getInstance().getDrivetrain().stop();
 				System.err.println("Stopping Drivetrain");
 				break;
-			} else if (speed > 0.25)
+			} else if (speed > 0.25)  //??? maximum speed is 0.25?
 			{
 				speed = 0.25;
 			}
@@ -540,7 +545,7 @@ double turnedAngle = 0;
 			double leftCorrect = 0;
 			double rightCorrect = 0;
 
-			if (endYaw > (startYaw))
+			if (endYaw > (startYaw)) //??? endYaw is not initialized
 			{
 
 				// drivetrain.setSpeed((leftJoystick.getYAxis() / 2),
@@ -568,7 +573,7 @@ double turnedAngle = 0;
 
 	/**
 	 * Go forward number of rotations (1 Rot ~ 4pi ~ 1ft)
-	 * 
+	 *
 	 * @param distance
 	 */
 	public void goForward(double distance, double speed)
@@ -576,7 +581,7 @@ double turnedAngle = 0;
 		move(distance, speed, false);
 	}
 
-	public void goBackward(int distance, double speed)
+	public void goBackward(double distance, double speed)
 	{
 		move(distance, speed, true);
 	}
