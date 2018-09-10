@@ -1,18 +1,20 @@
 # 2018-Power-Up
-2018 Power Up FRC robot code. (post-MARC competition)
+2018 Power Up FRC robot code. (post-MARC competition)4
 
 Commit Messages: these messages detail the main changes that were made to the existing code pulled from the 2018-Power-Up master branch (last commit April 18, 2018). 
-Pretty much all of this was made possible by the groundwork laid by other coders (mainly Kayleigh and Hannah this year) and the help from our mentors.
-Of course, the first thing you should keep in mind when reading this is that even with these changes and fixes, the code is far from perfect; 
-there are things left to do and lessons that were learned from the competition. 
+Pretty much all of this was made possible by the groundwork laid by other coders (mainly Kayleigh and Hannah this year) and the help from our mentors. Of course, the first thing you should keep in mind when reading this is that even with these changes and fixes, the code is far from perfect; there are things left to do and lessons that were learned from the competition. 
 Read through this list and then the code to get a complete sense of what was changed or added, and what still needs to be done.
  
 THINGS LEFT TO DO: 
--Vision: it would make getting multiple cubes onto the switch/scale possible, as well as attaining the far side switch/scale (all in auton) 
+-Vision: it would make getting multiple cubes onto the switch/scale possible, as well as attaining the far side switch/scale (all in auton)
+
 -Auton capabilities used in AutonGoForward need to be moved to their respective classes
+
 -Add detection/reporting/logging features to identify and detail hardware malfunctions for mechanical to fix (for example, the elevator frame deformed and jammed the lift)
+
 -The robot should be able to move faster in auton when getting to the switch/scale (robot movement should be more efficient:
 delays in between each action should be removed and accuracy maintained) 
+
 -The robot would sometimes stay still during auton. More testing needs to be done to find out the cause of this bug and the solution for it.  
 
 List of commits:
@@ -113,4 +115,11 @@ goForwardGyro/goBackwardsGyro now use argument angle to potentially correct prev
 Turning angles and distance are adjusted to fit new movement functions.
 AutonUtility + AutonSideSwitchAndScalePriority were updated before the MARC competition playoffs since our alliance members' robots were not prepared to take the scale in auton. 
 
+ActuatorConfig.java 2 and DriveTrain.java 7
+Replaces tripleMotor with doubleMotor
+
+Instances of tripleMotor are replaced with doubleMotor.
+tripleMotor-related functions need to be tested and accordingly fixed when a triple-motor chassis is available.
+
+ 
 
