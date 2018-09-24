@@ -4,21 +4,37 @@ import org.usfirst.frc.team3414.sensor.SensorConfig;
 import org.usfirst.frc.team3414.actuators.ActuatorConfig;
 
 public class AutonCenterSwitch extends AutonBase{
-//Set the robot right in front of the right side of the switch
+	// Sets robot near center position, left side of bumper should touch the right side line of the exchange area 
+	//wrong - Set the robot right in front of the right side of the switch
 	public AutonCenterSwitch() {
 		super();
 	}
 
 	protected void left() 
 	{
+/* regular season version
 		ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
 		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(18, 0.0, 0.5);
+*/
+		System.out.println("Really confused! Supposed to set robot in center position.");
+		System.out.println("Validate combination of autonChooser and positionChooser.");
+		System.out.println("For example, AutonCenterSwitch must pair with Center position, instead of Left or Right.");
+		
+		System.out.println("Position conflict!");
+		System.out.println("SideSwitchNear - need start from left or right, not center.");
+		System.out.println("This is human error.But I (robot) must do something anyway.");
+		System.out.println("I (must) use vision (camera) to see where I am.");
+		// center,left, or right
+		// accordingly do suitable cross Auto Line of deliver near switch  
+		
 	}
 
 	protected void center() 
 	{
 		if("LLL".equals(this.gameData) || "LRL".equals(this.gameData)) 
 		{
+			AutonUtility.autonCenterSwitchDelivery(false);
+/* regular season version
 			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
 
 			ActuatorConfig.getInstance().getDrivetrain().lowerAnglerTo(30);
@@ -55,10 +71,13 @@ public class AutonCenterSwitch extends AutonBase{
 //			ActuatorConfig.getInstance().getDrivetrain().turnLeft(0.8, 90);
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
 //			ActuatorConfig.getInstance().getDrivetrain().turnRight(0.8, 90);
+ */
 		}
 		
 		else if("RLR".equals(this.gameData) || "RRR".equals(this.gameData)) 
 		{
+			AutonUtility.autonCenterSwitchDelivery(true);
+/* regular season version
 			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
 			ActuatorConfig.getInstance().getDrivetrain().lowerAnglerTo(30);
 			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(1, 0.0, 0.4);
@@ -93,22 +112,41 @@ public class AutonCenterSwitch extends AutonBase{
 //			ActuatorConfig.getInstance().getDrivetrain().turnRight(0.8, 90);
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(2);
 //			ActuatorConfig.getInstance().getDrivetrain().turnLeft(0.8, 90);
+
+ */
 		}
 		
 		else //This does the right auton so be careful to not run into another robot. 
 		{ 
+			AutonUtility.autonInvalidGameData(this.gameData);
+
+/* regular season version
 			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
 			ActuatorConfig.getInstance().getDrivetrain().lowerAnglerTo(200);
 			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(10, 0.0, 0.5);
 			ActuatorConfig.getInstance().getDrivetrain().liftToSwitch();
 			ActuatorConfig.getInstance().getDrivetrain().lowerAnglerSwitch();	
+*/
 		}
 	}
 
 	protected void right() 
 	{
+/* regular season version
 		ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
 		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(18, 0.0, 0.5);
+*/		
+//		AutonUtility.autonPostionConflict(Position.RIGHT, autonName);
+		System.out.println("Really confused! Supposed to set robot in center position.");
+		System.out.println("Validate combination of autonChooser and positionChooser.");
+		System.out.println("For example, AutonCenterSwitch must pair with Center position, instead of Left or Right.");
+		
+		System.out.println("Position conflict!");
+		System.out.println("SideSwitchNear - need start from left or right, not center.");
+		System.out.println("This is human error.But I (robot) must do something anyway.");
+		System.out.println("I (must) use vision (camera) to see where I am.");
+		// center,left, or right
+		// accordingly do suitable cross Auto Line of deliver near switch  
 
 	}
 
