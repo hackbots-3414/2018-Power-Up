@@ -5,7 +5,12 @@ import org.usfirst.frc.team3414.sensor.SensorConfig;
 
 public class AutonSideSwitchNearOrFar extends AutonBase
 {
-	
+	// Start from left or right, deliver cube to near switch if it's on our side,
+	// otherwise just go straight forward (cross Auto Line) and standby till the end of the auton period
+	// Caution: to avoid collisions with friendlies, make sure they will not simultaneously deliver to far scale or far switch.
+	// if we're only delivering one cube, it's not a problem if our alliance member goes to far (our side) switch. It delivers to the far switch from behind, 
+	// our robot would deliver the cube to switch from near side, left or right. 
+	// But when our robot tries to pick up a second cube, it will  to behind of switch  
 	public AutonSideSwitchNearOrFar() 
 	{
 		super();
