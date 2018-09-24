@@ -1,5 +1,5 @@
 # 2018-Power-Up
-2018 Power Up FRC robot code. (post-MARC competition)4
+2018 Power Up FRC robot code. (post-MARC competition)
 
 ## Commit Messages:
 
@@ -11,7 +11,7 @@ Read through this list and then the code to get a complete sense of what was cha
 
 -Vision: it would make getting multiple cubes onto the switch/scale possible, as well as attaining the far side switch/scale (all in auton)
 
--Auton capabilities used in AutonGoForward need to be moved to their respective classes
+-DONE: Auton capabilities used in AutonGoForward need to be moved to their respective classes
 
 -Add detection/reporting/logging features to identify and detail hardware malfunctions for mechanical to fix (for example, the elevator frame deformed and jammed the lift)
 
@@ -123,6 +123,37 @@ Replaces tripleMotor with doubleMotor
 
 Instances of tripleMotor are replaced with doubleMotor.
 tripleMotor-related functions need to be tested and accordingly fixed when a triple-motor chassis is available.
+
+09/23/2018 Post-MARC event-----------------------------------------------------------------------
+
+Robot.java 2 + a few auton class names
+Adds (Replaces old classes) AutonCrossAutoLine, AutonSideSwitchNear,  (New) AutonSideSwitchNearOrFar, and AutonScaleNearOrFar
+
+AutonUtility.java 2
+Adds a couple of functions to AutonUtility
+
+AutonCrossAutoLine
+Implements AutonCrossAutoLine
+
+If at left or right, robot moves forward to cross line. If in center, Robot uses turnRadius to cross auton line.
+
+AutonScaleNearOrFar
+Implements AutonScaleNearOrFar
+
+This class focuses on delivering the cube to the scale, no matter the distance.
+
+AutonBase.java 
+Adds caption
+
+For GUI and error logging purposes.
+
+AutonCenterSwitch.java 
+Updates AutonCenterSwitch
+
+Updates the old function with to be in line with the post-MARC updates
+
+Other auton classes
+Implements some new ones and updates the rest
 
  
 
