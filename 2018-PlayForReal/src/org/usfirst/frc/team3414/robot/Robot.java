@@ -36,10 +36,14 @@ import org.usfirst.frc.team3414.autonomous.AutonCenterSwitch;
 import org.usfirst.frc.team3414.autonomous.AutonDoNothing;
 import org.usfirst.frc.team3414.autonomous.AutonFancyCenter;
 import org.usfirst.frc.team3414.autonomous.AutonGoForward;
+import org.usfirst.frc.team3414.autonomous.AutonCrossAutoLine;
 import org.usfirst.frc.team3414.autonomous.Position;
 import org.usfirst.frc.team3414.autonomous.AutonSideSwitch;
+import org.usfirst.frc.team3414.autonomous.AutonSideSwitchNear;
 import org.usfirst.frc.team3414.autonomous.AutonSideSwitchPriorityAndScale;
 import org.usfirst.frc.team3414.autonomous.AutonSideSwitchAndScalePriority;
+import org.usfirst.frc.team3414.autonomous.AutonSideSwitchNearOrFar;
+import org.usfirst.frc.team3414.autonomous.AutonScaleNearOrFar;
 
 import edu.wpi.first.wpilibj.Spark;
 
@@ -136,13 +140,19 @@ private PacbotTeleop teleop;
 		autonChooser = new SendableChooser<AutonBase>();
 		positionChooser = new SendableChooser<Position>();
 		
+		// To do: need to validate combination of autonChooser and positionChooser.
+		// For example, AutonCenterSwitch must pair with Center position, instead of Left or Right.
 		autonChooser.addObject("Do Nothing", new AutonDoNothing());
-		autonChooser.addDefault("Go Forward", new AutonGoForward());
-		autonChooser.addObject("Side Switch", new AutonSideSwitch());
-		autonChooser.addObject("Side Switch or Scale (SWITCH PRIORITY)", new AutonSideSwitchPriorityAndScale());
-		autonChooser.addObject("Side Switch or Scale (SCALE PRIORITY)", new AutonSideSwitchAndScalePriority());
+//		autonChooser.addDefault("Go Forward", new AutonGoForward());
+		autonChooser.addDefault("Cross Auto Line", new AutonCrossAutoLine());//Cross the Auto Line (a.k.a Auto-Run)
+//		autonChooser.addObject("Side Switch", new AutonSideSwitch());
+		autonChooser.addObject("Side Switch Near", new AutonSideSwitchNear());
+		autonChooser.addObject("Side Switch or Scale Near (SWITCH PRIORITY)", new AutonSideSwitchPriorityAndScale());
+		autonChooser.addObject("Side Switch or Scale Near (SCALE PRIORITY)", new AutonSideSwitchAndScalePriority());
 		autonChooser.addObject("Center Switch", new AutonCenterSwitch());
-		autonChooser.addObject("Fancy Center", new AutonFancyCenter());
+		//autonChooser.addObject("Fancy Center", new AutonFancyCenter());
+		autonChooser.addObject("Side Switch Near or Far", new AutonSideSwitchNearOrFar()); // make sure switch
+		autonChooser.addObject("Scale Near or Far", new AutonScaleNearOrFar());
 		
 		SmartDashboard.putData("Autons", autonChooser);
 		
