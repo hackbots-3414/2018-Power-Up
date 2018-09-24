@@ -7,7 +7,7 @@ import org.usfirst.frc.team3414.autonomous.AutonUtility;
 // Crosses the Auto Line (a.k.a Auto-Run). 
 // Normally, robot move forward over (10 ft - robot length) from ALLIANCE WALL,
 // but in 2018 Power Up game, if the robot starts from the center, it needs to move in a curve 
-// to avoid colliding with cube pile in front.
+// to avoid colliding with the cube pile in front.
 // So use AutonCrossAutoLine to replace AutonGoForward
 public class AutonCrossAutoLine extends AutonBase
 {

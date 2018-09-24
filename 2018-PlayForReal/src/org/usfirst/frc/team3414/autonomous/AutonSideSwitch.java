@@ -54,7 +54,8 @@ public class AutonSideSwitch extends AutonBase
 		else
 		{
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(10);
-			System.out.println("Fail safe: Hannah, you done messed up. Fix your code!");
+//			System.out.println("Fail safe: Hannah, you done messed up. Fix your code!");
+			AutonUtility.autonInvalidGameData(this.gameData);
 		}
 		
 		
@@ -76,7 +77,9 @@ public class AutonSideSwitch extends AutonBase
 
 	protected void center() //Perhaps make a failsafe (but comment it out)
 	{	
-			System.out.println("Nothing here to see here o_o -Hannah");
+//			System.out.println("Nothing here to see here o_o -Hannah");
+		System.out.println("Only 4 situations: RRR, RLR, LRL, and LLL. ");
+		System.out.println(this.gameData + " is not a valid game data value. ");
 	}
 
 	protected void right() 
@@ -116,7 +119,8 @@ public class AutonSideSwitch extends AutonBase
 		else
 		{
 //			ActuatorConfig.getInstance().getDrivetrain().movePid(4);
-			System.out.println("Fail safe: Hannah, you done messed up. Fix your code!");
+//			System.out.println("Fail safe: Hannah, you done messed up. Fix your code!");
+			AutonUtility.autonInvalidGameData(this.gameData);
 		}
 			
 	}

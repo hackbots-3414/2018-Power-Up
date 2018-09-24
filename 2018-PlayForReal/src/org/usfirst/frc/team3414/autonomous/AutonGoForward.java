@@ -218,7 +218,7 @@ public class AutonGoForward extends AutonBase
 		}
 		else //This does the right auton so be careful not to run into another robot.
 		{
-			
+			AutonUtility.autonInvalidGameData(this.gameData);
 			
 			//testing
 //			ActuatorConfig.getInstance().getDrivetrain().motionMagic(3);
