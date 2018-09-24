@@ -16,6 +16,7 @@ public abstract class AutonBase implements Runnable
 	protected Timer timer = new Timer();
 	
 	protected String gameData;
+	protected String caption; // name on GUI
 
 	public AutonBase()
 	{
@@ -42,6 +43,8 @@ public abstract class AutonBase implements Runnable
 	
 	protected abstract void right();
 	
+//	protected abstract void setCaption();
+
 	public void setGameData(String gameDataInput) 
 	{
 		this.gameData = gameDataInput;
@@ -51,6 +54,11 @@ public abstract class AutonBase implements Runnable
 	public String getGameData() 
 	{
 		return this.gameData;
+	}
+	
+	public String getCaption() 
+	{
+		return this.caption;
 	}
 	
 	public void run()
