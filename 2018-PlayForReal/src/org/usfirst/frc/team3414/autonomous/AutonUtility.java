@@ -3,6 +3,8 @@ package org.usfirst.frc.team3414.autonomous;
 import org.usfirst.frc.team3414.actuators.ActuatorConfig;
 import org.usfirst.frc.team3414.actuators.Drivetrain;
 import org.usfirst.frc.team3414.sensor.SensorConfig;
+import org.usfirst.frc.team3414.sensor.NavX;
+
 
 public class AutonUtility 
 { 
@@ -130,4 +132,275 @@ public class AutonUtility
 		ActuatorConfig.getInstance().getDrivetrain().goBackwardsGyro(1, 0.0, 0.5);
 	}
 
+	public static void autonStartActions()
+	{
+		NavX navX = SensorConfig.getInstance().getNavX();
+		navX.reset();
+		
+		// pause a little bit, let robot wireless communication becomes stable
+		// robot didn't moving after auton started. It happened in 2018 MARC off-season event
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+		
+		// to prevent cube dropping during robot moving, lower intake arms angle
+		if(!ActuatorConfig.getInstance().getOnlyDriveTrain())
+        {
+			ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
+			ActuatorConfig.getInstance().getDrivetrain().lowerAnglerTo(35);
+        }
+	}
+	
+	public static void autonCrossAutoLineStraight()
+	{
+		// regardless start position is left or right,
+		// robot just needs to move straight forward and cross the auto line
+		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(24, 0.0, 0.35); //??0.4
+	}
+	
+	public static void autonCrossAutoLineCurve(boolean rightSide)
+	{
+		// when robot start from Center position, it can't go forward to cross Auto Line. 
+		// If fact, a pile of cubes rides on the center line.
+		// make a curve and approach left/right side switch
+		if(!rightSide) // people always say left, then right
+		{
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2, 0.0, 0.30); //??0.4
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+			ActuatorConfig.getInstance().getDrivetrain().turnLeftRadius(0.2, 40, 0, 24 );//.38, 75
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(11, 0.0, 0.25);//17, 9.641ft
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+			ActuatorConfig.getInstance().getDrivetrain().turnRightRadius(0.2, 40, 0, 24 );
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+			if(!ActuatorConfig.getInstance().getOnlyDriveTrain())
+			{
+				ActuatorConfig.getInstance().getDrivetrain().liftToSwitch();
+			}
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(8, 0.0, 0.30);//17, 9.748
+		}
+		else
+		{
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2, 0.0, 0.30); //??0.4
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+			ActuatorConfig.getInstance().getDrivetrain().turnRightRadius(0.2, 40, 0, 24 );//.38, 75
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+//          distance 12 was wrong at MARC event, caused not-release-cube-to-switch problem -- caused last goForward couldn't finish -- blocked by fence.
+//			supposed to be same as or shorter than 'Left Side's 11
+//			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(12, 0.0, 0.35);//17, 9.641ft
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(11, 0.0, 0.35);//17, 9.641ft
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+			//SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
+			ActuatorConfig.getInstance().getDrivetrain().turnLeftRadius(0.2, 40, 0, 24 );
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+			//SensorConfig.getInstance().getTimer().waitTimeInMillis(300);
+			if(!ActuatorConfig.getInstance().getOnlyDriveTrain())
+	        {
+				ActuatorConfig.getInstance().getDrivetrain().liftToSwitch();
+	        }
+//			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(1, 0.0, 0.5);//17, 9.748
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(8, 0.0, 0.30);//17, 9.748
+		}
+	}
+
+	public static void autonCenterSwitchDelivery(boolean rightSide)
+	{
+		// when robot start from Center position, it can't go forward to cross Auto Line. 
+		// If fact, a pile of cubes rides on the center line.
+		// make a curve and approach left/right side switch
+		if(!rightSide) // people always say left, then right
+		{
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2, 0.0, 0.30); //??0.4
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+			ActuatorConfig.getInstance().getDrivetrain().turnLeftRadius(0.2, 40, 0, 24 );//.38, 75
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(11, 0.0, 0.25);//17, 9.641ft
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+			ActuatorConfig.getInstance().getDrivetrain().turnRightRadius(0.2, 40, 0, 24 );
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+			if(!ActuatorConfig.getInstance().getOnlyDriveTrain())
+			{
+				ActuatorConfig.getInstance().getDrivetrain().liftToSwitch();
+			}
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(8, 0.0, 0.30);//17, 9.748
+			autonShootCubeToSwitch();
+			ActuatorConfig.getInstance().getDrivetrain().goBackwardsGyro(1, 0.0, 0.35);
+		}
+		else
+		{
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2, 0.0, 0.30); //??0.4
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+			ActuatorConfig.getInstance().getDrivetrain().turnRightRadius(0.2, 40, 0, 24 );//.38, 75
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+//          distance 12 was wrong at MARC event, caused not-release-cube-to-switch problem -- caused last goForward couldn't finish -- blocked by fence.
+//			supposed to be same as or shorter than 'Left Side's 11
+//			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(12, 0.0, 0.35);//17, 9.641ft
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(11, 0.0, 0.35);//17, 9.641ft
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+			//SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
+			ActuatorConfig.getInstance().getDrivetrain().turnLeftRadius(0.2, 40, 0, 24 );
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+			//SensorConfig.getInstance().getTimer().waitTimeInMillis(300);
+			if(!ActuatorConfig.getInstance().getOnlyDriveTrain())
+	        {
+				ActuatorConfig.getInstance().getDrivetrain().liftToSwitch();
+	        }
+//			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(1, 0.0, 0.5);//17, 9.748
+			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(8, 0.0, 0.30);//17, 9.748
+			autonShootCubeToSwitch();
+			ActuatorConfig.getInstance().getDrivetrain().goBackwardsGyro(1, 0.0, 0.35);
+		}
+	}
+
+	public static void autonShootCubeToSwitch()
+	{
+		if(ActuatorConfig.getInstance().getOnlyDriveTrain())
+		{
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
+			return;
+		}
+		ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(.40);
+		ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.40);
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
+		ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(0);
+		ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(0);
+	}
+
+	public static void autonSwitchNearSideDelivery(boolean turnRight)
+	{
+		autonCrossAutoLineStraight();
+		
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+		if(turnRight == true) // left side
+			ActuatorConfig.getInstance().getDrivetrain().turnRightRadius(0.2, 60, 0, 24 );
+		else
+			ActuatorConfig.getInstance().getDrivetrain().turnLeftRadius(0.2, 60, 0, 24 );
+			
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+		if(!ActuatorConfig.getInstance().getOnlyDriveTrain())
+			ActuatorConfig.getInstance().getDrivetrain().liftToSwitch();
+			
+		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(3, 0.0, 0.27);//17, 9.748
+		if(!ActuatorConfig.getInstance().getOnlyDriveTrain())
+			autonShootCubeToSwitch();
+				
+		ActuatorConfig.getInstance().getDrivetrain().goBackwardsGyro(2, 0.0, .40);
+		if(!ActuatorConfig.getInstance().getOnlyDriveTrain())
+			ActuatorConfig.getInstance().getDrivetrain().lowerLiftTo(200);
+	}
+
+	public static void autonSwitchFarSideDelivery(boolean turnRight)
+	{
+		// go straight forward, prepare turn 90 degree 
+		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(43, 0.0, 0.27);//To do: ??? need to make sure
+
+		//turn to path between scale and switch
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+		if(turnRight == true) // left side
+			ActuatorConfig.getInstance().getDrivetrain().turnRightRadius(0.2, 60, 0, 24 );
+		else
+			ActuatorConfig.getInstance().getDrivetrain().turnLeftRadius(0.2, 60, 0, 24 );
+			
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+		// go horizontally between switch and scale, avoid collide cubes beside fence of switch, platform also need to take attention
+		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(43, 0.0, 0.27);//??? need to make sure
+
+		//turn to face switch
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+		if(turnRight == true) // left side
+			ActuatorConfig.getInstance().getDrivetrain().turnRightRadius(0.2, 60, 0, 24 );
+		else
+			ActuatorConfig.getInstance().getDrivetrain().turnLeftRadius(0.2, 60, 0, 24 );
+			
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+		if(!ActuatorConfig.getInstance().getOnlyDriveTrain())
+			ActuatorConfig.getInstance().getDrivetrain().liftToSwitch();
+			
+		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(3, 0.0, 0.27);//17, 9.748
+		if(!ActuatorConfig.getInstance().getOnlyDriveTrain())
+			autonShootCubeToSwitch();
+				
+		ActuatorConfig.getInstance().getDrivetrain().goBackwardsGyro(2, 0.0, .40);
+		if(!ActuatorConfig.getInstance().getOnlyDriveTrain())
+			ActuatorConfig.getInstance().getDrivetrain().lowerLiftTo(200);
+	}
+
+	public static void autonScaleNearSideDelivery(boolean turnRight)
+	{
+//      ??? already lowered 35 degree at the beginning, 		
+//		ActuatorConfig.getInstance().getDrivetrain().lowerAnglerTo(60);
+//      ??? need to lower another 25 (60-35) degree?		
+		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(43,.0,.45);//45, 53
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+		if(turnRight == true)
+			ActuatorConfig.getInstance().getDrivetrain().turnRightRadius(0.25, 30, 0.0, 24);//.35, 88
+		else 
+			ActuatorConfig.getInstance().getDrivetrain().turnLeftRadius(0.25, 30, 0.0, 24);
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(50);
+		ActuatorConfig.getInstance().getDrivetrain().liftToScaleAutonPhillip();
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(50);
+		ActuatorConfig.getInstance().getDrivetrain().lowerAnglerScale();
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(200);
+		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(1, 0.0, 0.4);
+		
+		autonShootCubeToScale();
+
+		ActuatorConfig.getInstance().getDrivetrain().lowerLiftTo(100);
+		ActuatorConfig.getInstance().getDrivetrain().goBackwardsGyro(1, 0.0, 0.5);
+	}
+	
+	public static void autonShootCubeToScale()
+	{
+		if(ActuatorConfig.getInstance().getOnlyDriveTrain())
+		{
+			SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
+			return;
+		}
+		ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(.40);
+		ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.40);
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+		ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(0);
+		ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(0);
+	}
+
+	public static void autonScaleFarSideDelivery(boolean turnRight)
+	{
+//      ??? already lowered 35 degree at the beginning, 		
+//		ActuatorConfig.getInstance().getDrivetrain().lowerAnglerTo(60);
+//      ??? need to lower another 25 (60-35) degree?		
+		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(43/2,.0,.45);//??? need make sure
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+		if(turnRight == true)
+			ActuatorConfig.getInstance().getDrivetrain().turnRightRadius(0.25, 60, 0.0, 24);//.35, 88
+		else 
+			ActuatorConfig.getInstance().getDrivetrain().turnLeftRadius(0.25, 60, 0.0, 24);
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(40/2,.0,.45);//??? need make sure
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
+		if(turnRight == true)
+			ActuatorConfig.getInstance().getDrivetrain().turnLeftRadius(0.25, 60, 0.0, 24);//.35, 88
+		else 
+			ActuatorConfig.getInstance().getDrivetrain().turnRightRadius(0.25, 60, 0.0, 24);
+		
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(50);
+		ActuatorConfig.getInstance().getDrivetrain().liftToScaleAutonPhillip();
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(50);
+		ActuatorConfig.getInstance().getDrivetrain().lowerAnglerScale();
+		SensorConfig.getInstance().getTimer().waitTimeInMillis(200);
+		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(1, 0.0, 0.4);
+		
+		autonShootCubeToScale();
+
+		ActuatorConfig.getInstance().getDrivetrain().lowerLiftTo(100);
+		ActuatorConfig.getInstance().getDrivetrain().goBackwardsGyro(1, 0.0, 0.5);
+	}
+	
+	public static void autonInvalidGameData(String gameData) 
+	{
+		System.out.println("Only 4 situations: RRR, RLR, LRL, and LLL. ");
+		System.out.println(gameData + " is not a valid game data value. ");
+	}
+
+	public static void autonPostionConflict(Position position, String autonName)
+	{
+		System.out.println("Position: " + position + " is not suitable to " + autonName);
+	}
 }
