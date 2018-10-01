@@ -155,5 +155,24 @@ Updates the old function with to be in line with the post-MARC updates
 Other auton classes
 Implements some new ones and updates the rest
 
+09/30/18 Pre-Girls Comp --------------------------------------
+Drivetrain.java 7
+Fixed moveGyro
+
+This update changes the speed plan used in moveGyro so the robot won't stay still unintentionally during auton.
+
+MoveCorrection.java 
+Adds MoveCorrection class to actuators
+
+Tracks instances where the robot moved/rotated more of less than the target value. It then makes up for the difference by appropriately adjusting the next target value. 
  
+ Drivetrain.java 8
+ Applies MoveCorrection
+ 
+ moveGyroCorrection (new) is based on moveGyro. turnRadiusCorrection is also a new function, this time based on turnRadius. 
+ 
+ AutonUtility.java 3
+ Tests MoveCorrection
+ 
+ Tests the autonCenterSwitchDelivery function, while removing the delay between steps and applying MoveCorrection between each step.
 
