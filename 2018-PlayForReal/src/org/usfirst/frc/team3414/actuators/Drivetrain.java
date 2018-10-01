@@ -702,7 +702,9 @@ double turnedAngle = 0;
 //			SmartDashboard.putNumber("Right Encoder Value", rightEncoderValue);
 
 			movedDistance = Math.abs(rightEncoderValue - rightEncoderStartValue);
-			currentSpeed = turnRadiusSpeedPlan.getSpeed(Math.abs(distance), speed, movedDistance);
+			// used wrong speed plan during MARC event; low speed caused the robot to be stuck during auton
+//			currentSpeed = turnRadiusSpeedPlan.getSpeed(Math.abs(distance), speed, movedDistance);
+			currentSpeed = this.moveStraightSpeedPlan.getSpeed(Math.abs(distance), speed, movedDistance);
 			if (isReversed)
 			{
 				currentSpeed = currentSpeed * -1;
