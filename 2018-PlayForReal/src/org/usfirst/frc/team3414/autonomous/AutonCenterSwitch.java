@@ -31,6 +31,7 @@ public class AutonCenterSwitch extends AutonBase{
 
 	protected void center() 
 	{
+		AutonUtility.autonStartActions();
 		if("LLL".equals(this.gameData) || "LRL".equals(this.gameData)) 
 		{
 			AutonUtility.autonCenterSwitchDelivery(false);

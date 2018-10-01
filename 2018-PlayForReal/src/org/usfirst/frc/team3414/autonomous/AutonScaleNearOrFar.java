@@ -39,6 +39,7 @@ public class AutonScaleNearOrFar extends AutonBase
 	
 	protected void center()
 	{
+		AutonUtility.autonStartActions();
 //		System.out.println("I'm a little confused");
 		System.out.println("Only 4 situations: RRR, RLR, LRL, and LLL. ");
 		System.out.println(this.gameData + " is not a valid game data value. ");

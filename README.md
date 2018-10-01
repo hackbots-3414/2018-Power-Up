@@ -175,4 +175,11 @@ Tracks instances where the robot moved/rotated more of less than the target valu
  Tests MoveCorrection
  
  Tests the autonCenterSwitchDelivery function, while removing the delay between steps and applying MoveCorrection between each step.
+ 
+ 10/01/18
+ 
+ AutonCenterSwitch.java and AutonScaleNearOrFar.java
+ Adds AutonUtility.autonStartActions() routine to both autons listed
+ 
+ Noticed that these classes were missing the auton start routine in certain places, and now it's added to them.
 
