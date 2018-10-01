@@ -137,6 +137,7 @@ public class AutonUtility
 		NavX navX = SensorConfig.getInstance().getNavX();
 		navX.reset();
 		
+		ActuatorConfig.getInstance().getDrivetrain().moveCorrection.reset();
 		// pause a little bit, let robot wireless communication becomes stable
 		// robot didn't moving after auton started. It happened in 2018 MARC off-season event
 		SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
@@ -206,8 +207,25 @@ public class AutonUtility
 		// when robot start from Center position, it can't go forward to cross Auto Line. 
 		// If fact, a pile of cubes rides on the center line.
 		// make a curve and approach left/right side switch
+		boolean doCorrection = true;
 		if(!rightSide) // people always say left, then right
 		{
+			if(doCorrection)
+			{
+				ActuatorConfig.getInstance().getDrivetrain().goForwardGyroCorrection(2, 0.0, 0.30, true, false); //??0.4
+				ActuatorConfig.getInstance().getDrivetrain().turnLeftRadiusCorrection(0.2, 40, 0, 24, true, false );//.38, 75
+				ActuatorConfig.getInstance().getDrivetrain().goForwardGyroCorrection(11, 0.0, 0.25, true, false);//17, 9.641ft
+				ActuatorConfig.getInstance().getDrivetrain().turnRightRadiusCorrection(0.2, 40, 0, 24, true, false);
+				if(!ActuatorConfig.getInstance().getOnlyDriveTrain())
+				{
+					ActuatorConfig.getInstance().getDrivetrain().liftToSwitch();
+				}
+				ActuatorConfig.getInstance().getDrivetrain().goForwardGyroCorrection(8, 0.0, 0.30, true, true);//17, 9.748
+				autonShootCubeToSwitch();
+			}
+			else
+			{
+			
 			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2, 0.0, 0.30); //??0.4
 			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
 			ActuatorConfig.getInstance().getDrivetrain().turnLeftRadius(0.2, 40, 0, 24 );//.38, 75
@@ -222,7 +240,10 @@ public class AutonUtility
 			}
 			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(8, 0.0, 0.30);//17, 9.748
 			autonShootCubeToSwitch();
+			}
+			
 			ActuatorConfig.getInstance().getDrivetrain().goBackwardsGyro(1, 0.0, 0.35);
+			
 		}
 		else
 		{
