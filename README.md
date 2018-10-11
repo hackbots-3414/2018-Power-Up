@@ -183,3 +183,14 @@ Tracks instances where the robot moved/rotated more of less than the target valu
  
  Noticed that these classes were missing the auton start routine in certain places, and now it's added to them.
 
+10/11/18
+
+AutonUtility.java 
+Fixes bugs
+
+Fixes some bugs with auton movement. After testing on a real chassis, some functions were corrected. 
+
+AutonSwitchandScalePriority.java
+Fixes bugs
+
+Also fixes some bugs with auton movement. After testing on a real chassis, some functions were corrected.

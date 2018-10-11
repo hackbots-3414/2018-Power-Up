@@ -62,7 +62,7 @@ public class AutonSideSwitchAndScalePriority extends AutonBase
 
 		if("RLR".equals(this.gameData)) //switch
 		{
-			AutonUtility.autonScaleNearSideDelivery(false);
+			AutonUtility.autonSwitchNearSideDelivery(false);
 //			AutonUtility.deliverSideSwitch(false);
 		}
 		else if ("RRR".equals(this.gameData)) //scale
