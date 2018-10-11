@@ -213,9 +213,9 @@ public class AutonUtility
 			if(doCorrection)
 			{
 				ActuatorConfig.getInstance().getDrivetrain().goForwardGyroCorrection(2, 0.0, 0.30, true, false); //??0.4
-				ActuatorConfig.getInstance().getDrivetrain().turnLeftRadiusCorrection(0.2, 40, 0, 24, true, false );//.38, 75
+				ActuatorConfig.getInstance().getDrivetrain().turnLeftRadiusCorrection(0.3, 40, 0, 24, true, false );//.38, 75
 				ActuatorConfig.getInstance().getDrivetrain().goForwardGyroCorrection(11, 0.0, 0.25, true, false);//17, 9.641ft
-				ActuatorConfig.getInstance().getDrivetrain().turnRightRadiusCorrection(0.2, 40, 0, 24, true, false);
+				ActuatorConfig.getInstance().getDrivetrain().turnRightRadiusCorrection(0.3, 40, 0, 24, true, false);
 				if(!ActuatorConfig.getInstance().getOnlyDriveTrain())
 				{
 					ActuatorConfig.getInstance().getDrivetrain().liftToSwitch();
@@ -228,11 +228,11 @@ public class AutonUtility
 			
 			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2, 0.0, 0.30); //??0.4
 			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
-			ActuatorConfig.getInstance().getDrivetrain().turnLeftRadius(0.2, 40, 0, 24 );//.38, 75
+			ActuatorConfig.getInstance().getDrivetrain().turnLeftRadius(0.3, 40, 0, 24 );//.38, 75
 			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
 			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(11, 0.0, 0.25);//17, 9.641ft
 			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
-			ActuatorConfig.getInstance().getDrivetrain().turnRightRadius(0.2, 40, 0, 24 );
+			ActuatorConfig.getInstance().getDrivetrain().turnRightRadius(0.3, 40, 0, 24 );
 			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
 			if(!ActuatorConfig.getInstance().getOnlyDriveTrain())
 			{
@@ -249,7 +249,7 @@ public class AutonUtility
 		{
 			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(2, 0.0, 0.30); //??0.4
 			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
-			ActuatorConfig.getInstance().getDrivetrain().turnRightRadius(0.2, 40, 0, 24 );//.38, 75
+			ActuatorConfig.getInstance().getDrivetrain().turnRightRadius(0.3, 40, 0, 24 );//.38, 75
 			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
 //          distance 12 was wrong at MARC event, caused not-release-cube-to-switch problem -- caused last goForward couldn't finish -- blocked by fence.
 //			supposed to be same as or shorter than 'Left Side's 11
@@ -257,7 +257,7 @@ public class AutonUtility
 			ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(11, 0.0, 0.35);//17, 9.641ft
 			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
 			//SensorConfig.getInstance().getTimer().waitTimeInMillis(1000);
-			ActuatorConfig.getInstance().getDrivetrain().turnLeftRadius(0.2, 40, 0, 24 );
+			ActuatorConfig.getInstance().getDrivetrain().turnLeftRadius(0.3, 40, 0, 24 );
 			SensorConfig.getInstance().getTimer().waitTimeInMillis(500);
 			//SensorConfig.getInstance().getTimer().waitTimeInMillis(300);
 			if(!ActuatorConfig.getInstance().getOnlyDriveTrain())
