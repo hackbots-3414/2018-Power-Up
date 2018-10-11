@@ -194,3 +194,8 @@ AutonSwitchandScalePriority.java
 Fixes bugs
 
 Also fixes some bugs with auton movement. After testing on a real chassis, some functions were corrected.
+
+ActuatorConfig.java 3
+Alters SpeedPlan parameters
+
+Some speed parameters were changed so that the test chassis wouldn't get stuck in the carpet during testing.

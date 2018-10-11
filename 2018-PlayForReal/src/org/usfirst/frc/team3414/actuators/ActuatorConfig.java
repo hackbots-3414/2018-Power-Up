@@ -483,7 +483,7 @@ public class ActuatorConfig
 		
 //		drivetrain.moveStraightSpeedPlan.init(0.25, 0.4, 0.15, 30, 20);
 		drivetrain.moveStraightSpeedPlan.init(0.27, 0.4, 0.15, 30, 17);
-		drivetrain.turnRadiusSpeedPlan.init(0.1, 0.3, 0.1, 40, 10);
+		drivetrain.turnRadiusSpeedPlan.init(0.2, 0.3, 0.15, 40, 10);
 		drivetrain.liftSpeedPlan.init(0.3, 0.7, 0.1, 40, 20);
         // triple motors
 		//drivetrain = new Drivetrain(tripleMotorRight, tripleMotorLeft);
