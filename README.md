@@ -205,3 +205,8 @@ SensorConfig.java and NavXThread.java
 Adds NavXThread class
 
 The NavXThread class collects NavX readings in a separate thread.
+
+Drivetrain.java 9, and TurnDirection.java
+Defines turning in multiple directions
+
+Adds FORWARD_LEFT, FORWARD_RIGHT, BACKWARD_LEFT, and BACKWARD_RIGHT to turn along an arc in specified directions.
