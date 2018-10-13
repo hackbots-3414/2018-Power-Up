@@ -199,3 +199,9 @@ ActuatorConfig.java 3
 Alters SpeedPlan parameters
 
 Some speed parameters were changed so that the test chassis wouldn't get stuck in the carpet during testing.
+
+10/13/18
+SensorConfig.java and NavXThread.java
+Adds NavXThread class
+
+The NavXThread class collects NavX readings in a separate thread.
