@@ -87,8 +87,8 @@ public class ActuatorConfig
 
 	// robot or chassis is one of 
 	// ROBOT_POWERUP_ALPHA, ROBOT_POWERUP_BETA, CHASSIS_DOUBLE_MOTORS, CHASSIS_TRIPLE_MOTORS
-//	public static final RobotChassis whichRobotOrChassis = RobotChassis.CHASSIS_DOUBLE_MOTORS;
-	public static final RobotChassis whichRobotOrChassis = RobotChassis.ROBOT_POWERUP_ALPHA;
+	public static final RobotChassis whichRobotOrChassis = RobotChassis.CHASSIS_DOUBLE_MOTORS;
+//	public static final RobotChassis whichRobotOrChassis = RobotChassis.ROBOT_POWERUP_ALPHA;
 	// disable two wings
 	private boolean wingDisabled = true;
 	
@@ -102,7 +102,11 @@ public class ActuatorConfig
 	// navX docking horizontally (and heading to front ) or 
 	// vertically (and heading to upward)
 	private boolean navxHorizontal = true;
-	private double wheelDiameterInches = 4; 
+	private double wheelDiameter = 4; 
+	private double wheelDistance = 19.25; // distance between left side wheels and right side wheels
+	private double bumperLength = 36;
+	private double bumperWidth = 28;
+
 	
 	public static ActuatorConfig getInstance()
 	{
@@ -126,7 +130,11 @@ public class ActuatorConfig
 				isTripleMotor = false;
 				onlyDriveTrain = false;//should be false in competitions
 				navxHorizontal = false;
-				wheelDiameterInches = 6;
+				wheelDiameter = 6;
+				// To do: make sure following measures, unit is inch
+				wheelDistance = 24;
+				bumperLength = 43;
+				bumperWidth = 32;
 				break;
 				
 			case ROBOT_POWERUP_BETA:
@@ -134,7 +142,11 @@ public class ActuatorConfig
 				isTripleMotor = false;
 				onlyDriveTrain = false;
 				navxHorizontal = false;
-				wheelDiameterInches = 6;
+				wheelDiameter = 6;
+				// To do: make sure following measures, unit is inch
+				wheelDistance = 24;
+				bumperLength = 43;
+				bumperWidth = 32;
 				break;
 		
 			case CHASSIS_DOUBLE_MOTORS:
@@ -142,7 +154,10 @@ public class ActuatorConfig
 				isTripleMotor = false;
 				onlyDriveTrain = true;
 				navxHorizontal = true;
-				wheelDiameterInches = 4;
+				wheelDiameter = 4;
+				wheelDistance = 19.25;
+				bumperLength = 36;
+				bumperWidth = 28;
 				break;
 				
 			case CHASSIS_TRIPLE_MOTORS:
@@ -150,7 +165,11 @@ public class ActuatorConfig
 				isTripleMotor = true;
 				onlyDriveTrain = true;
 				navxHorizontal = true;
-				wheelDiameterInches = 4;
+				wheelDiameter = 4;
+				// To do: make sure following measures, unit is inch
+				wheelDistance = 19.25;
+				bumperLength = 36;
+				bumperWidth = 28;
 				break;
 			default:
 				System.out.println("Please set type of robot or chassis.");
@@ -485,6 +504,7 @@ public class ActuatorConfig
 		drivetrain.moveStraightSpeedPlan.init(0.27, 0.4, 0.15, 30, 17);
 		drivetrain.turnRadiusSpeedPlan.init(0.2, 0.3, 0.15, 40, 10);
 		drivetrain.liftSpeedPlan.init(0.3, 0.7, 0.1, 40, 20);
+
         // triple motors
 		//drivetrain = new Drivetrain(tripleMotorRight, tripleMotorLeft);
 	}
@@ -611,6 +631,26 @@ public class ActuatorConfig
 	public boolean getOnlyDriveTrain()
 	{
 		return onlyDriveTrain;
+	}
+
+	public double getWheelDiameter()
+	{
+		return wheelDiameter;
+	}
+	
+	public double getWheelDistance()
+	{
+		return wheelDistance;
+	}
+	
+	public double getBumperLength()
+	{
+		return bumperLength;
+	}
+	
+	public double getBumperWidth()
+	{
+		return bumperWidth;
 	}
 
 }

@@ -450,21 +450,25 @@ double turnedAngle = 0;
 	
 	public void turnRightRadiusCorrection(double speed, double angle, double radius, double width, boolean doCorrection, boolean toStop)
 	{
+		System.out.println("turn Forward Right");
 		turnRadiusCorrection( speed,  TurnDirection.FORWARD_RIGHT, angle,  radius,  width, doCorrection, toStop);
 	}
 	
 	public void turnLeftRadiusCorrection(double speed, double angle, double radius, double width, boolean doCorrection, boolean toStop)
 	{
+		System.out.println("turn Forward Left");
 		turnRadiusCorrection( speed,  TurnDirection.FORWARD_LEFT,  -angle,  radius,  width, doCorrection, toStop);
 	}
 
 	public void turnBackRightRadiusCorrection(double speed, double angle, double radius, double width, boolean doCorrection, boolean toStop)
 	{
+		System.out.println("turn Backward Right");
 		turnRadiusCorrection( speed,  TurnDirection.BACKWARD_RIGHT, -angle,  radius,  width, doCorrection, toStop);
 	}
 	
 	public void turnBackLeftRadiusCorrection(double speed, double angle, double radius, double width, boolean doCorrection, boolean toStop)
 	{
+		System.out.println("turn Backward Left");
 		turnRadiusCorrection( speed,  TurnDirection.BACKWARD_LEFT,  angle,  radius,  width, doCorrection, toStop);
 	}
 
@@ -483,21 +487,83 @@ double turnedAngle = 0;
 		
 		MoveCorrection moveCorrection = ActuatorConfig.getInstance().getDrivetrain().moveCorrection;
 
-		double InnerSpeed = speed*((radius-width/2)/(radius+width/2));
+		double wheelDistance = ActuatorConfig.getInstance().getWheelDistance();
+		double wheelDiameter = ActuatorConfig.getInstance().getWheelDiameter();
+		// normally radius equals 0.0, so innerOuterRatio will be -1 (one side forward, the other side backward)
+		double innerOuterRatio = (radius - wheelDistance / 2) / (radius + wheelDistance / 2);
+
+//		double InnerSpeed = speed*((radius-width/2)/(radius+width/2));
+		// here radius is turning radius, from turning pivot to robot center point
+//		double InnerSpeed = speed*((radius-wheelDistance/2)/(radius+wheelDistance/2));
+		double InnerSpeed = speed*innerOuterRatio;
 //		double currentYaw = navX.getTrueYaw();
 		double currentYaw = navXThread.readZAngle();
 		
 		double endAngle = currentYaw + angle;
+		
+		boolean isRightComplete = false;
+		boolean isLeftComplete = false;
+		// must assign temporary values here, avoid compile error "may not have been initialized".
+		double targetPositionRight = Math.PI * Math.toRadians(angle) * (wheelDistance / 2);
+		double targetPositionLeft = Math.PI * Math.toRadians(angle) * (wheelDistance / 2);
+		double rightEncoderValue = ActuatorConfig.getInstance().getRightEncoder().getSensorCollection()
+				.getQuadraturePosition() / (2048.0);// 8192 is the ppr of the
+													// encoder x4
+		double leftEncoderValue = ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection()
+				.getQuadraturePosition() / (-2048.0);
+		double rightEncoderStartValue = rightEncoderValue;
+		double leftEncoderStartValue = leftEncoderValue;
+//outer, inner wheels, To do, need to make sure unit
+		double outerArcLength = Math.PI * Math.toRadians(Math.abs(angle)) * (radius + wheelDistance / 2);
+		double innerArcLength = Math.PI * Math.toRadians(Math.abs(angle)) * (radius - wheelDistance / 2);
+		
+		
 		System.out.println("+------------------------------+");
-		System.out.println("turnRadius: speed =" + speed + "; angle=" + angle);
-		System.out.println("Start Angle: " + currentYaw);
-		System.out.println("End Angle: " + endAngle);
-		System.out.println("InnerSpeed: " + InnerSpeed);
+		System.out.println(String.format("turnRadius: speed = %s  angle=%s", speed, angle));
+		System.out.println("Start Angle: " + String.format("%.3f",currentYaw));
+		System.out.println("End Angle: " + String.format("%.3f",endAngle));
+		System.out.println("Left Encoder Start Value: " + String.format("%.3f",leftEncoderValue));
+		System.out.println("Right Encoder Start Value: " + String.format("%.3f",rightEncoderValue));
+		System.out.println("Inner to Outer wheel ratio: " + String.format("%.3f",innerOuterRatio));
+		System.out.println("Outer Planed Encoder to move: " + String.format("%.3f",outerArcLength));
+		System.out.println("Inner Planed Encoder to move: " + String.format("%.3f",innerArcLength));
+		System.out.println("Outer Speed (setting speed): " + String.format("%.3f",speed));
+		System.out.println("InnerSpeed: " + String.format("%.3f",InnerSpeed));
+		System.out.println("Two sides wheels distance: " + String.format("%.3f",wheelDistance));
+		System.out.println("Turning (arc) radius: " + radius);
+
+		switch(turnDirection)
+		{
+			case FORWARD_LEFT:
+				targetPositionLeft = leftEncoderValue + innerArcLength;
+				targetPositionRight = rightEncoderValue + outerArcLength;
+				break;
+			case FORWARD_RIGHT:
+				targetPositionLeft = leftEncoderValue + outerArcLength;
+				targetPositionRight = rightEncoderValue + innerArcLength;
+				break;
+			case BACKWARD_LEFT:
+				targetPositionLeft = leftEncoderValue - innerArcLength;
+				targetPositionRight = rightEncoderValue - outerArcLength;
+				break;
+			case BACKWARD_RIGHT:
+				targetPositionLeft = leftEncoderValue - innerArcLength;
+				targetPositionRight = rightEncoderValue - outerArcLength;
+				break;
+			default:
+				//error
+				break;
+		}
+		
+		System.out.println("Target Position Left: " + String.format("%.3f",targetPositionLeft));
+		System.out.println("Target Position Right: " + String.format("%.3f",targetPositionRight));
+
 		if(doCorrection)
 		{
 			endAngle += moveCorrection.getDeltaYaw();
-			System.out.println("Adjusted End Angle: " + endAngle);
+			System.out.println("Adjusted End Angle: " + String.format("%.3f",endAngle));
 			// ingore delta distance
+			// ignore delta left and right distance caused by delta angle (yaw)
 		}
 //		if(angle > 0) // up right
 //			ActuatorConfig.getInstance().getDrivetrain().setSpeed(speed, InnerSpeed);
@@ -515,9 +581,12 @@ double lastYaw = currentYaw;
 double startYaw = currentYaw;
 double currentSpeed = 0;
 double turnedAngle = 0;
+double leftEncoderPlanedValue=0, rightEncoderPlanedValue=0;
+double leftEncoderMovedValue, rightEncoderMovedValue;
+double movingDirection;
 			if(Math.abs(angle) <= 1)
 			{
-				System.out.println("Hard to rotate such a small angle: " + angle);
+				System.out.println("Hard to rotate such a small angle: " + String.format("%.3f",angle));
 				return;
 			}
 			while ((angle > 0 && currentYaw < endAngle)|| 
@@ -527,26 +596,59 @@ double turnedAngle = 0;
 				currentYaw = navXThread.readZAngle();
 				turnedAngle = Math.abs(currentYaw - startYaw);
 				currentSpeed = turnRadiusSpeedPlan.getSpeed(Math.abs(angle), speed, turnedAngle);
-				// this ideal ratio of inner wheel speed to outer wheel speed. Here, speed is actually motor power.
+				// this ideal ratio of inner wheel speed and outer wheel speed. Here, speed is actually motor power.
 				// it's necessary to check wheels encoders to see they really moved in same ratio.
-				InnerSpeed = currentSpeed*((radius-width/2)/(radius+width/2));
-//				if(angle > 0) // up right
-//					ActuatorConfig.getInstance().getDrivetrain().setSpeed(currentSpeed, InnerSpeed);
-//				else 
-//					ActuatorConfig.getInstance().getDrivetrain().setSpeed(-currentSpeed, -InnerSpeed);
+//				InnerSpeed = currentSpeed*((radius-width/2)/(radius+width/2));
+				InnerSpeed = currentSpeed*((radius-wheelDistance/2)/(radius+wheelDistance/2));
+				
+				// check turning curve is on track (arc) or not
+//				leftEncoderPlanedValue = Math.PI * Math.toRadians(Math.abs(turnedAngle)) * (radius + wheelDistance / 2);
+//				rightEncoderPlanedValue = Math.PI * Math.toRadians(Math.abs(turnedAngle)) * (radius - wheelDistance / 2);
+
+				rightEncoderValue = ActuatorConfig.getInstance().getRightEncoder().getSensorCollection()
+						.getQuadraturePosition() / (2048.0);
+				leftEncoderValue = ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection()
+						.getQuadraturePosition() / (-2048.0);
+
+				double realInnerOuterRatio = innerOuterRatio; 
+				double innerSpeedAdjust = 0;
+				
+				leftEncoderMovedValue = Math.abs(leftEncoderValue - leftEncoderStartValue);
+				rightEncoderMovedValue = Math.abs(rightEncoderValue - rightEncoderStartValue);
+
 				switch(turnDirection)
 				{
 					case FORWARD_LEFT:
-						ActuatorConfig.getInstance().getDrivetrain().setSpeed(InnerSpeed, currentSpeed);
+						if(Math.abs(rightEncoderMovedValue) > 0.3)
+							realInnerOuterRatio = leftEncoderMovedValue / rightEncoderMovedValue;
+						else
+							realInnerOuterRatio = innerOuterRatio;
+						innerSpeedAdjust = -1 * (realInnerOuterRatio - innerOuterRatio);
+						ActuatorConfig.getInstance().getDrivetrain().setSpeed(InnerSpeed*(1+Math.signum(innerSpeedAdjust)/10), currentSpeed);
 						break;
 					case FORWARD_RIGHT:
-						ActuatorConfig.getInstance().getDrivetrain().setSpeed(currentSpeed, InnerSpeed);
+						if(Math.abs(leftEncoderMovedValue) > 0.3)
+							realInnerOuterRatio = rightEncoderMovedValue / leftEncoderMovedValue;
+						else
+							realInnerOuterRatio = innerOuterRatio;
+						innerSpeedAdjust = -1 * (realInnerOuterRatio - innerOuterRatio);
+						ActuatorConfig.getInstance().getDrivetrain().setSpeed(currentSpeed, InnerSpeed*(1+Math.signum(innerSpeedAdjust)/10));
 						break;
 					case BACKWARD_LEFT:
-						ActuatorConfig.getInstance().getDrivetrain().setSpeed(-InnerSpeed, -currentSpeed);
+						if(Math.abs(rightEncoderMovedValue) > 0.3)
+							realInnerOuterRatio = leftEncoderMovedValue / rightEncoderMovedValue;
+						else
+							realInnerOuterRatio = innerOuterRatio;
+						innerSpeedAdjust = -1 * (realInnerOuterRatio - innerOuterRatio);
+						ActuatorConfig.getInstance().getDrivetrain().setSpeed(-InnerSpeed*(1-Math.signum(innerSpeedAdjust)/10), -currentSpeed);
 						break;
 					case BACKWARD_RIGHT:
-						ActuatorConfig.getInstance().getDrivetrain().setSpeed(-currentSpeed, -InnerSpeed);
+						if(Math.abs(leftEncoderMovedValue) > 0.3)
+							realInnerOuterRatio = rightEncoderMovedValue / leftEncoderMovedValue;
+						else
+							realInnerOuterRatio = innerOuterRatio;
+						innerSpeedAdjust = -1 * (realInnerOuterRatio - innerOuterRatio);
+						ActuatorConfig.getInstance().getDrivetrain().setSpeed(-currentSpeed, -InnerSpeed*(1-Math.signum(innerSpeedAdjust)/10));
 						break;
 					default:
 						//error
@@ -579,22 +681,39 @@ double turnedAngle = 0;
 
 			}
 //		}
-		System.out.println("After turning: " + currentYaw);
+		rightEncoderValue = ActuatorConfig.getInstance().getRightEncoder().getSensorCollection()
+				.getQuadraturePosition() / (2048.0);
+		leftEncoderValue = ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection()
+				.getQuadraturePosition() / (-2048.0);
+		System.out.println("After turning: " + String.format("%.3f",currentYaw));
+		System.out.println("Left Encoder Planed Value: " + String.format("%.3f",leftEncoderPlanedValue));
+		System.out.println("Right Encoder Planed Value: " + String.format("%.3f",rightEncoderPlanedValue));
+		System.out.println("Left Encoder End Value: " + String.format("%.3f",leftEncoderValue));
+		System.out.println("Right Encoder End Value: " + String.format("%.3f",rightEncoderValue));
+		System.out.println("Left Encoder Moved Value: " + String.format("%.3f",leftEncoderValue - leftEncoderStartValue));
+		System.out.println("Right Encoder Moved Value: " + String.format("%.3f",rightEncoderValue- rightEncoderStartValue));
 		if(toStop)
 		{
 			ActuatorConfig.getInstance().getDrivetrain().stop();
 //			currentYaw = navX.getTrueYaw();
 			currentYaw = navXThread.readZAngle();
-			System.out.println("After stopped angle: " + currentYaw);
+			rightEncoderValue = ActuatorConfig.getInstance().getRightEncoder().getSensorCollection()
+					.getQuadraturePosition() / (2048.0);
+			leftEncoderValue = ActuatorConfig.getInstance().getLeftEncoder().getSensorCollection()
+					.getQuadraturePosition() / (-2048.0);
+			System.out.println("After stopped angle: " + String.format("%.3f",currentYaw));
+			System.out.println("Left Encoder Moved Value after stop: " + String.format("%.3f",leftEncoderValue - leftEncoderStartValue));
+			System.out.println("Right Encoder Moved Value after stop: " + String.format("%.3f",rightEncoderValue- rightEncoderStartValue));
+
 		}
 		
-		if(doCorrection)
-		{
+		//if(doCorrection)
+		//{
 			double overAngle = currentYaw - endAngle;
-			System.out.println("Over turned: " + overAngle);
+			System.out.println("Over turned: " + String.format("%.3f",overAngle));
 			moveCorrection.setDeltaYaw(-overAngle);
 			// ingore over distance
-		}
+		//}
 		System.out.println("--------------------");
 
 	}
@@ -1103,8 +1222,8 @@ double turnedAngle = 0;
 		
 		MoveCorrection moveCorrection = ActuatorConfig.getInstance().getDrivetrain().moveCorrection;
 		
-		System.out.println("Left Encoder Start Value: " + leftEncoderValue);
-		System.out.println("Right Encoder Start Value: " + rightEncoderValue);
+		System.out.println("Left Encoder Start Value: " + String.format("%.3f",leftEncoderValue));
+		System.out.println("Right Encoder Start Value: " + String.format("%.3f",rightEncoderValue));
 
 		if (isReversed)
 		{
@@ -1122,22 +1241,22 @@ double turnedAngle = 0;
 		double startYaw = navxThread.readZAngle();
 		double targetYaw = startYaw + angle;
 		
-		System.out.println("Target Position Left: " + targetPositionLeft);
-		System.out.println("Target Position Right: " + targetPositionRight);
-		System.out.println("Start Yaw: " + startYaw);
-		System.out.println("Target Yaw: " + targetYaw);
+		System.out.println("Target Position Left: " + String.format("%.3f",targetPositionLeft));
+		System.out.println("Target Position Right: " + String.format("%.3f",targetPositionRight));
+		System.out.println("Start Yaw: " + String.format("%.3f",startYaw));
+		System.out.println("Target Yaw: " + String.format("%.3f",targetYaw));
 		
 		if(doCorrection)
 		{
-			System.out.println("To adjust position on both sides: " + moveCorrection.getDeltaDistance());
-			System.out.println("To adjust yaw: " + moveCorrection.getDeltaYaw() + " degrees.");
+			System.out.println("To adjust position on both sides: " + String.format("%.3f",moveCorrection.getDeltaDistance()));
+			System.out.println("To adjust yaw: " + String.format("%.3f",moveCorrection.getDeltaYaw()) + " degrees.");
 			targetPositionLeft += moveCorrection.getDeltaDistance();
 			targetPositionRight += moveCorrection.getDeltaDistance();
 			targetYaw += moveCorrection.getDeltaDistance();
 
-			System.out.println("Adjusted Target Position Left: " + targetPositionLeft);
-			System.out.println("Adjusted Target Position Right: " + targetPositionRight);
-			System.out.println("Adjusted Target Yaw: " + targetYaw);
+			System.out.println("Adjusted Target Position Left: " + String.format("%.3f",targetPositionLeft));
+			System.out.println("Adjusted Target Position Right: " + String.format("%.3f",targetPositionRight));
+			System.out.println("Adjusted Target Yaw: " + String.format("%.3f",targetYaw));
 		}	
 		
 		 SmartDashboard.putNumber("Start Yaw: ", startYaw);
@@ -1258,7 +1377,8 @@ double turnedAngle = 0;
 					ActuatorConfig.getInstance().getDrivetrain().setSpeed((currentSpeed + Math.abs(currentSpeed)/10), currentSpeed);
 				}
 			    else
-			    	ActuatorConfig.getInstance().getDrivetrain().setSpeed(currentSpeed, currentSpeed);
+//			    	ActuatorConfig.getInstance().getDrivetrain().setSpeed(currentSpeed, currentSpeed);
+			    	ActuatorConfig.getInstance().getDrivetrain().setSpeed(currentSpeed);
 			}
 			
 			// a little break
@@ -1279,9 +1399,9 @@ double turnedAngle = 0;
 //		currentYaw = navx.getRawYaw();
 		currentYaw = navxThread.readZAngle();
 		
-		System.out.println("End Yaw: " + currentYaw);
-		System.out.println("Left Encoder End Value: " + leftEncoderValue);
-		System.out.println("Right Encoder End Value: " + rightEncoderValue);
+		System.out.println("End Yaw: " + String.format("%.3f",currentYaw));
+		System.out.println("Left Encoder End Value: " + String.format("%.3f",leftEncoderValue));
+		System.out.println("Right Encoder End Value: " + String.format("%.3f",rightEncoderValue));
 
 		if(toStop)
 		{
@@ -1294,9 +1414,9 @@ double turnedAngle = 0;
 //			currentYaw = navx.getRawYaw();
 			currentYaw = navxThread.readZAngle();
 
-			System.out.println("Left Encoder Moved Value after stop: " + (leftEncoderValue - leftEncoderStartValue));
-			System.out.println("Right Encoder Moved Value after stop: " + (rightEncoderValue- rightEncoderStartValue));
-			System.out.println("End Yaw after stop: " + currentYaw);
+			System.out.println("Left Encoder Moved Value after stop: " + String.format("%.3f",leftEncoderValue - leftEncoderStartValue));
+			System.out.println("Right Encoder Moved Value after stop: " + String.format("%.3f",rightEncoderValue- rightEncoderStartValue));
+			System.out.println("End Yaw after stop: " + String.format("%.3f",currentYaw));
 		}
 		
 		double overDistance = ((leftEncoderValue - targetPositionLeft) + (rightEncoderValue - targetPositionRight))/2;
@@ -1304,8 +1424,8 @@ double turnedAngle = 0;
 		moveCorrection.setDeltaDistance(-overDistance);
 		moveCorrection.setDeltaYaw(-overYaw);
 
-		System.out.println("Over distance: " + overDistance);
-		System.out.println("Over yaw: " + overYaw);
+		System.out.println("Over distance: " + String.format("%.3f",overDistance));
+		System.out.println("Over yaw: " + String.format("%.3f",overYaw));
 
 //		SensorConfig.getInstance().getTimer().waitTimeInMillis(200); //???
 	}

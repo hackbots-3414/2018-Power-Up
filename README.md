@@ -210,3 +210,11 @@ Drivetrain.java 9, and TurnDirection.java
 Defines turning in multiple directions
 
 Adds FORWARD_LEFT, FORWARD_RIGHT, BACKWARD_LEFT, and BACKWARD_RIGHT to turn along an arc in specified directions.
+
+10/14/18
+ActuatorConfig.java 4 and Drivetrain.java 10
+Adds robot size values and tracks turnRadius distance traveled on an arc, respectively
+
+ 
+
+
