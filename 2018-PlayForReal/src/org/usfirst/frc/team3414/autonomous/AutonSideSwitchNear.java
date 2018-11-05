@@ -39,6 +39,8 @@ public class AutonSideSwitchNear extends AutonBase
 
 	protected void center() //Perhaps make a fail safe (but comment it out)
 	{	
+		AutonUtility.autonStartActions();
+		
 		System.out.println("Position conflict!");
 		System.out.println("SideSwitchNear - need start from left or right, not center.");
 		System.out.println("This is human error.But I (robot) must do something anyway.");

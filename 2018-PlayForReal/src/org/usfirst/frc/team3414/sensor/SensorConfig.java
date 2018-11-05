@@ -10,7 +10,7 @@ public class SensorConfig {
 	private static SensorConfig instance;
 	
 	private NavX navX;
-	private NavXThread navXThread;
+//	private NavXThread navXThread;
 	
 	private ClockTimer timer;
 	
@@ -20,9 +20,11 @@ public class SensorConfig {
 	
 	public void init()
 	{
+		byte update_rate_hz = 100;
 		navX = new NavX(new AHRS(SPI.Port.kMXP));
+//		navX = new NavX(new AHRS(SPI.Port.kMXP), update_rate_hz);
 		// To do: eventually, only use either NavX or NavXThread
-		navXThread = new NavXThread(new AHRS(SPI.Port.kMXP));
+//		navXThread = new NavXThread(new AHRS(SPI.Port.kMXP));
 		
 		timer = ClockTimer.getInstance();
 		
@@ -44,10 +46,10 @@ public class SensorConfig {
 		return navX;
 	}
 	
-	public NavXThread getNavXThread()
-	{
-		return navXThread;
-	}
+//	public NavXThread getNavXThread()
+//	{
+//		return navXThread;
+//	}
 	
 	public ClockTimer getTimer()
 	{

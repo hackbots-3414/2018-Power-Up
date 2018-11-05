@@ -50,6 +50,8 @@ public class AutonSideSwitchAndScalePriority extends AutonBase
 	
 	protected void center()
 	{
+		AutonUtility.autonStartActions();
+
 //		System.out.println("I'm a little confused");
 		
 		System.out.println("Position conflict. ");

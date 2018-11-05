@@ -87,8 +87,8 @@ public class ActuatorConfig
 
 	// robot or chassis is one of 
 	// ROBOT_POWERUP_ALPHA, ROBOT_POWERUP_BETA, CHASSIS_DOUBLE_MOTORS, CHASSIS_TRIPLE_MOTORS
-	public static final RobotChassis whichRobotOrChassis = RobotChassis.CHASSIS_DOUBLE_MOTORS;
-//	public static final RobotChassis whichRobotOrChassis = RobotChassis.ROBOT_POWERUP_ALPHA;
+//	public static final RobotChassis whichRobotOrChassis = RobotChassis.CHASSIS_DOUBLE_MOTORS;
+	public static final RobotChassis whichRobotOrChassis = RobotChassis.ROBOT_POWERUP_ALPHA;
 	// disable two wings
 	private boolean wingDisabled = true;
 	
@@ -130,11 +130,11 @@ public class ActuatorConfig
 				isTripleMotor = false;
 				onlyDriveTrain = false;//should be false in competitions
 				navxHorizontal = false;
-				wheelDiameter = 6;
+				wheelDiameter = 6.25;
 				// To do: make sure following measures, unit is inch
-				wheelDistance = 24;
-				bumperLength = 43;
-				bumperWidth = 32;
+				wheelDistance = 24.25;
+				bumperLength = 37.75;
+				bumperWidth = 33;
 				break;
 				
 			case ROBOT_POWERUP_BETA:
@@ -142,11 +142,11 @@ public class ActuatorConfig
 				isTripleMotor = false;
 				onlyDriveTrain = false;
 				navxHorizontal = false;
-				wheelDiameter = 6;
+				wheelDiameter = 6.26;
 				// To do: make sure following measures, unit is inch
-				wheelDistance = 24;
-				bumperLength = 43;
-				bumperWidth = 32;
+				wheelDistance = 24.25;
+				bumperLength = 37.75;
+				bumperWidth = 33;
 				break;
 		
 			case CHASSIS_DOUBLE_MOTORS:
@@ -503,7 +503,7 @@ public class ActuatorConfig
 //		drivetrain.moveStraightSpeedPlan.init(0.25, 0.4, 0.15, 30, 20);
 		drivetrain.moveStraightSpeedPlan.init(0.27, 0.4, 0.15, 30, 17);
 		drivetrain.turnRadiusSpeedPlan.init(0.2, 0.3, 0.15, 40, 10);
-		drivetrain.liftSpeedPlan.init(0.3, 0.7, 0.1, 40, 20);
+		drivetrain.liftSpeedPlan.init(0.6, 0.85, 0.2, 40, 40);
 
         // triple motors
 		//drivetrain = new Drivetrain(tripleMotorRight, tripleMotorLeft);

@@ -65,6 +65,7 @@ public class PacbotTeleop implements ITeleop
 		if (isRunning)
 		{
 			isRunning = false;
+			ActuatorConfig.getInstance().getDrivetrain().stopActuators();
 		}
 	}
 
@@ -113,8 +114,11 @@ public class PacbotTeleop implements ITeleop
 					 double RtargetVelocity_UnitsPer100ms = rightYJoystick *4096 * 500.0 / 600;
 					 double LtargetVelocity_UnitsPer100ms = rightYJoystick *4096 * 500.0 / 600;
 				//
-				 ActuatorConfig.getInstance().getRightTalonFront().set(ControlMode.Velocity, RtargetVelocity_UnitsPer100ms);
-				 ActuatorConfig.getInstance().getLeftTalonFront().set(ControlMode.Velocity, LtargetVelocity_UnitsPer100ms);
+//				 ActuatorConfig.getInstance().getRightTalonFront().set(ControlMode.Velocity, RtargetVelocity_UnitsPer100ms);
+//				 ActuatorConfig.getInstance().getLeftTalonFront().set(ControlMode.Velocity, LtargetVelocity_UnitsPer100ms);
+					 // reverse direction
+				 ActuatorConfig.getInstance().getRightTalonFront().set(ControlMode.Velocity, -RtargetVelocity_UnitsPer100ms);
+				 ActuatorConfig.getInstance().getLeftTalonFront().set(ControlMode.Velocity, -LtargetVelocity_UnitsPer100ms);
 				 ActuatorConfig.getInstance().getRightTalonFront().getSelectedSensorVelocity(ActuatorConfig.kPIDLoopIdx);
 				 ActuatorConfig.getInstance().getLeftTalonFront().getSelectedSensorVelocity(ActuatorConfig.kPIDLoopIdx);
 
@@ -158,7 +162,11 @@ public class PacbotTeleop implements ITeleop
 */				//			 drivetrain.setSpeed((leftJoystick.getYAxis()) + leftCorrect,(-rightJoystick.getYAxis()) + rightCorrect);
 					 
 				//??? drivetrain.setSpeed((leftJoystick.getYAxis()) ,(-rightJoystick.getYAxis()));
-				 drivetrain.setSpeed((leftJoystick.getYAxis()) ,(rightJoystick.getYAxis()));
+				double slowDownRatio = 0.7;
+//				 drivetrain.setSpeed((leftJoystick.getYAxis()) ,(rightJoystick.getYAxis())); original settings
+				 drivetrain.setSpeed((slowDownRatio * leftJoystick.getYAxis()) ,(slowDownRatio * rightJoystick.getYAxis())); //Emma's request
+				 SmartDashboard.putNumber("Left Speed", leftJoystick.getYAxis());
+				 SmartDashboard.putNumber("Right Speed", rightJoystick.getYAxis());
 
 				 endYaw = SensorConfig.getInstance().getNavX().getRawYaw();
 				
@@ -244,8 +252,8 @@ public class PacbotTeleop implements ITeleop
 				else if(gamepad.getButtonState(1))
 					//unjammer
 				{
-					ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(-.50);//-1, .90
-					ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.5);
+					ActuatorConfig.getInstance().getMotorIntakeOne().setSpeed(-.70);//-1, .90
+					ActuatorConfig.getInstance().getMotorIntakeTwo().setSpeed(.7);
 				}
 				
 				else
@@ -258,6 +266,16 @@ public class PacbotTeleop implements ITeleop
 						!(ActuatorConfig.getInstance().getLiftTalonTwo().getSensorCollection().isFwdLimitSwitchClosed()))
 				// top
 				{
+                	//Top Limit Switch Angler sensor
+					if (ActuatorConfig.getInstance().talonIntakeAngler().getSensorCollection().isFwdLimitSwitchClosed())
+					{
+						if(!ActuatorConfig.getInstance().getOnlyDriveTrain())
+						{
+							ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
+							ActuatorConfig.getInstance().getDrivetrain().lowerAnglerTo(35);
+						}
+					}
+					
 				//	ActuatorConfig.getInstance().getLift().setSpeed(-.25);
 					//SensorConfig.getInstance().getTimer().waitTimeInMillis(250);
 				//	ActuatorConfig.getInstance().getLift().setSpeed(-.5);

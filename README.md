@@ -215,6 +215,10 @@ Adds FORWARD_LEFT, FORWARD_RIGHT, BACKWARD_LEFT, and BACKWARD_RIGHT to turn alon
 ActuatorConfig.java 4 and Drivetrain.java 10
 Adds robot size values and tracks turnRadius distance traveled on an arc, respectively
 
+ 11/05/18
+ Auton and Teleop adjustments
  
+ Testing some new auton/teleop algorithms on the robot
+ The NavXThread class was disabled, and its functions were merged with the existing NavX class.
 
 

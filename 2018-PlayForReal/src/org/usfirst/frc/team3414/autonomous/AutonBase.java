@@ -5,6 +5,7 @@ import org.usfirst.frc.team3414.actuators.Drivetrain;
 import org.usfirst.frc.team3414.autonomous.Position;
 import org.usfirst.frc.team3414.sensor.SensorConfig;
 import org.usfirst.frc.team3414.sensor.NavX;
+//import org.usfirst.frc.team3414.sensor.NavXThread;
 import org.usfirst.frc.team3414.robot.RobotStatus;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -24,6 +25,7 @@ public abstract class AutonBase implements Runnable
 	}
 	
 	protected NavX navX = SensorConfig.getInstance().getNavX();
+//	protected NavXThread navXThread = SensorConfig.getInstance().getNavXThread();
 	
 	private Thread autonThread;
 	
@@ -33,6 +35,7 @@ public abstract class AutonBase implements Runnable
 	{
 		this.position = position;
 		navX.reset();
+//		navXThread.reset();
 		autonThread = new Thread(this);
 		autonThread.start();
 	}

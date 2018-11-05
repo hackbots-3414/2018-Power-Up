@@ -3,7 +3,7 @@ package org.usfirst.frc.team3414.autonomous;
 import org.usfirst.frc.team3414.actuators.ActuatorConfig;
 import org.usfirst.frc.team3414.sensor.SensorConfig;
 
-
+// Deprecated. There is a new class AutonSideSwitchNear
 public class AutonSideSwitch extends AutonBase
 {
 
@@ -15,6 +15,7 @@ public class AutonSideSwitch extends AutonBase
 
 	protected void left() 
 	{
+		AutonUtility.autonStartActions();
 		if("LRL".equals(this.gameData)|| "LLL".equals(this.gameData)) //Left switch from left side
 		{
 			
@@ -77,6 +78,7 @@ public class AutonSideSwitch extends AutonBase
 
 	protected void center() //Perhaps make a failsafe (but comment it out)
 	{	
+		AutonUtility.autonStartActions();
 //			System.out.println("Nothing here to see here o_o -Hannah");
 		System.out.println("Only 4 situations: RRR, RLR, LRL, and LLL. ");
 		System.out.println(this.gameData + " is not a valid game data value. ");
@@ -84,6 +86,7 @@ public class AutonSideSwitch extends AutonBase
 
 	protected void right() 
 	{
+		AutonUtility.autonStartActions();
 		if("RLR".equals(this.gameData)|| "RRR".equals(this.gameData)) //Right switch from right position
 		{
 			

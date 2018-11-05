@@ -12,6 +12,8 @@ public class AutonCenterSwitch extends AutonBase{
 
 	protected void left() 
 	{
+		AutonUtility.autonStartActions();
+
 /* regular season version
 		ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
 		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(18, 0.0, 0.5);
@@ -133,6 +135,7 @@ public class AutonCenterSwitch extends AutonBase{
 
 	protected void right() 
 	{
+		AutonUtility.autonStartActions();
 /* regular season version
 		ActuatorConfig.getInstance().getDrivetrain().setInitialServoPosition();
 		ActuatorConfig.getInstance().getDrivetrain().goForwardGyro(18, 0.0, 0.5);

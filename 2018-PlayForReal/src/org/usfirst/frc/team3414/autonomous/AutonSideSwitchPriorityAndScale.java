@@ -99,6 +99,7 @@ public class AutonSideSwitchPriorityAndScale extends AutonBase
 
 	protected void center() //Perhaps make a failsafe here if this becomes a problem.
 	{
+		AutonUtility.autonStartActions();
 //		System.out.println("Nothing here to see here o_o -Hannah");	
 		//To do: validation is needed
 	}

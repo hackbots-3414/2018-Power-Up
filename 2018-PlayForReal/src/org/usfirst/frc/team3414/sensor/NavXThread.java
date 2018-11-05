@@ -23,7 +23,27 @@ public class NavXThread implements Runnable
 	private double currentYaw = 0;
 	private double currentPitch = 0;
 	private double currentRoll = 0;
-	
+
+	private double currentVelocityX = 0;
+	private double currentVelocityY = 0;
+	private double currentVelocityZ = 0;
+
+	private double lastZAngle = 0.0;
+	private double lastYaw = 0.0;
+	private double lastPitch = 0.0;
+	private double lastRoll = 0.0;
+	private double lastVelocityX = 0;
+	private double lastVelocityY = 0;
+	private double lastVelocityZ = 0;
+
+	private double movedX = 0;
+	private double movedY = 0;
+	private double movedZ = 0;
+//	private double lastTimeStamp;
+	private double lastTimeStampMillis;
+	private String outputLog = "Timeleap, movedX;";
+
+
 	public NavXThread(AHRS ahrs)
 	{
 		this.ahrs = ahrs;
@@ -151,9 +171,35 @@ public class NavXThread implements Runnable
 	public void reset()
 	{
 		ahrs.reset();
+		ahrs.resetDisplacement();
 		lastRawYaw = getRawYaw();
 		trueYaw = 0;
+		
+		lastZAngle = 0;
+		lastYaw = 0;
+		lastPitch = 0;
+		lastRoll = 0;
+		lastVelocityX = 0;
+		lastVelocityY = 0;
+		lastVelocityZ = 0;
+		movedX = 0;
+		movedY = 0;
+		movedZ = 0;
+//		lastTimeStamp = Timer.getFPGATimestamp();
+		lastTimeStampMillis = System.currentTimeMillis();
+
 	}
+	public boolean isMoving()
+    {
+        return ahrs.isMoving();
+    }
+
+    public boolean isRotating()
+    {
+        return ahrs.isRotating();
+    }
+
+
 	
 	public void resetLastRawYaw()
 	{
@@ -174,7 +220,7 @@ public class NavXThread implements Runnable
 	{
 		return ahrs.getVelocityZ();
 	}
-
+	
 	public double getZAngle()
 	{
 	/*
@@ -192,6 +238,22 @@ public class NavXThread implements Runnable
 		// use this function to replace getTrueYaw function
 		return ahrs.getAngle();
 	}
+
+	public double getDispacementX()
+	{
+		return ahrs.getDisplacementX();
+	}
+	
+	public double getDispacementY()
+	{
+		return ahrs.getDisplacementY();
+	}
+	
+	public double getDispacementZ()
+	{
+		return ahrs.getDisplacementZ();
+	}
+	
 	
 	public double readZAngle()
 	{
@@ -213,14 +275,56 @@ public class NavXThread implements Runnable
 		return currentRoll;
 	}
 	
+	public double readVelocityX()
+	{
+		return currentVelocityX;
+	}
+	
+	public double readVelocityY()
+	{
+		return currentVelocityY;
+	}
+	
+	public double readVelocityZ()
+	{
+		return currentVelocityZ;
+	}
+	
+	public double readMovedX()
+	{
+		return movedX;
+	}
+	
+	public double readMovedY()
+	{
+		return movedY;
+	}
+	
+	public double readMovedZ()
+	{
+		return movedZ;
+	}
+	
+	public String getOutputLog()
+	{
+		return outputLog;
+	}
+	
 	public void run() 
 	{
-		double lastZAngle = 0.0;
-		double lastYaw = 0.0;
-		double lastPitch = 0.0;
-		double lastRoll = 0.0;
+		double timePerLoop = 0.02; // second(s)
+//		double currentTimeStamp;
+		long currentTimeStampMillis;
+		double timeLeap;
 		
 		reset();
+		
+//		lastTimeStamp = Timer.getFPGATimestamp();
+		lastTimeStampMillis = System.currentTimeMillis();
+		
+		Boolean movingStarted = false;
+		long loopCount = 20;
+		long iLoop = 0;
 		
 		while(isEnabled)
 		{
@@ -232,7 +336,38 @@ public class NavXThread implements Runnable
 			currentYaw = getRawYaw();
 			currentPitch = getPitch();
 			currentRoll = getRoll();
+
+			currentVelocityX = getVelocityX();
+			currentVelocityY = getVelocityY();
+			currentVelocityZ = getVelocityZ();
+
+			// usually accumulate from second loop (sampling).
+			// Since at the beginning last* values all 0, for simple, we accumulate from first loop
+			// To do: make correction in the future
+			// Note: default velocity unit is meter per second
+			// 
+//			currentTimeStamp = Timer.getFPGATimestamp();
+			currentTimeStampMillis = System.currentTimeMillis();
+
+			timeLeap = (double)(currentTimeStampMillis - lastTimeStampMillis) / 1000;
+			movedX += currentVelocityX * timeLeap; 
+			movedY += currentVelocityY * timeLeap; 
+			movedZ += currentVelocityZ * timeLeap; 
 			
+			if(Math.abs(currentVelocityX) > 0.05)
+				movingStarted = true;
+			if(movingStarted && iLoop < loopCount)
+			{
+				outputLog += "i=" + iLoop + String.format(",%.3f,", timeLeap) + String.format("%.3f;", movedX);
+				System.out.println("i=" + iLoop + String.format(",%.3f,", timeLeap) + String.format("%.3f;", movedX));
+			}
+
+			iLoop++;
+			if(movingStarted && iLoop == loopCount)
+			{
+				movingStarted = false;
+				loopCount = 0;
+			}
 			
 			/*if((lastYaw != currentYaw) || (lastPitch != currentPitch) || (lastRoll != currentRoll))
 			{
@@ -272,9 +407,15 @@ public class NavXThread implements Runnable
 			lastYaw = currentYaw;
 			lastPitch = currentPitch;
 			lastRoll = currentRoll;
+			lastVelocityX = currentVelocityX;
+			lastVelocityY = currentVelocityY;
+			lastVelocityZ = currentVelocityZ;
+			
+//			lastTimeStamp = currentTimeStamp;
+			lastTimeStampMillis = currentTimeStampMillis;
 
 			// To do: need to make sure NavX sampling update rate
-			Timer.delay(0.02);
+			Timer.delay(timePerLoop);
 		}
 	}
 }

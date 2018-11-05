@@ -144,9 +144,21 @@ public class NavX
 	public void reset()
 	{
 		ahrs.reset();
+		ahrs.resetDisplacement();
 		lastRawYaw = getRawYaw();
 		trueYaw = 0;
 	}
+	public boolean isMoving()
+    {
+        return ahrs.isMoving();
+    }
+
+    public boolean isRotating()
+    {
+        return ahrs.isRotating();
+    }
+
+
 	
 	public void resetLastRawYaw()
 	{
@@ -167,6 +179,41 @@ public class NavX
 	{
 		return ahrs.getVelocityZ();
 	}
+
+	public double getZAngle()
+	{
+	/*
+    * Returns the total accumulated yaw angle (Z Axis, in degrees)
+    * reported by the sensor.
+    *<p>
+    * NOTE: The angle is continuous, meaning it's range is beyond 360 degrees.
+    * This ensures that algorithms that wouldn't want to see a discontinuity 
+    * in the gyro output as it sweeps past 0 on the second time around.
+    *<p>
+    * Note that the returned yaw value will be offset by a user-specified
+    * offset value; this user-specified offset value is set by 
+    * invoking the zeroYaw() method.
+    */
+		// use this function to replace getTrueYaw function
+		return ahrs.getAngle();
+	}
+
+	public double getDispacementX()
+	{
+		return ahrs.getDisplacementX();
+	}
+	
+	public double getDispacementY()
+	{
+		return ahrs.getDisplacementY();
+	}
+	
+	public double getDispacementZ()
+	{
+		return ahrs.getDisplacementZ();
+	}
+	
+	
 
 	/*public void run() 
 	{

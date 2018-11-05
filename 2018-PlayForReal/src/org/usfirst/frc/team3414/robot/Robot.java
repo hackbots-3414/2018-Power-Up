@@ -34,16 +34,17 @@ import org.usfirst.frc.team3414.teleop.PacbotTeleop; //???
 import org.usfirst.frc.team3414.autonomous.AutonBase;
 import org.usfirst.frc.team3414.autonomous.AutonCenterSwitch;
 import org.usfirst.frc.team3414.autonomous.AutonDoNothing;
-import org.usfirst.frc.team3414.autonomous.AutonFancyCenter;
-import org.usfirst.frc.team3414.autonomous.AutonGoForward;
+//import org.usfirst.frc.team3414.autonomous.AutonFancyCenter;
+//import org.usfirst.frc.team3414.autonomous.AutonGoForward;
 import org.usfirst.frc.team3414.autonomous.AutonCrossAutoLine;
 import org.usfirst.frc.team3414.autonomous.Position;
-import org.usfirst.frc.team3414.autonomous.AutonSideSwitch;
+//import org.usfirst.frc.team3414.autonomous.AutonSideSwitch;
 import org.usfirst.frc.team3414.autonomous.AutonSideSwitchNear;
 import org.usfirst.frc.team3414.autonomous.AutonSideSwitchPriorityAndScale;
 import org.usfirst.frc.team3414.autonomous.AutonSideSwitchAndScalePriority;
 import org.usfirst.frc.team3414.autonomous.AutonSideSwitchNearOrFar;
 import org.usfirst.frc.team3414.autonomous.AutonScaleNearOrFar;
+import org.usfirst.frc.team3414.autonomous.AutonTest;
 
 import edu.wpi.first.wpilibj.Spark;
 
@@ -122,6 +123,8 @@ private PacbotTeleop teleop;
 		RobotStatus.setIsAuto(false);
 		RobotStatus.setIsTeleop(true);
 		
+		ActuatorConfig.getInstance().getDrivetrain().stopActuators();
+		
 //???		ActuatorConfig.getInstance().getLeftTalonFront().setNeutralMode(NeutralMode.Coast);
 //		ActuatorConfig.getInstance().getRightTalonFront().setNeutralMode(NeutralMode.Coast);
 //		ActuatorConfig.getInstance().getLeftTalonBack().setNeutralMode(NeutralMode.Coast);
@@ -153,6 +156,7 @@ private PacbotTeleop teleop;
 		//autonChooser.addObject("Fancy Center", new AutonFancyCenter());
 		autonChooser.addObject("Side Switch Near or Far", new AutonSideSwitchNearOrFar()); // make sure switch
 		autonChooser.addObject("Scale Near or Far", new AutonScaleNearOrFar());
+		autonChooser.addObject("Auton Test", new AutonTest());
 		
 		SmartDashboard.putData("Autons", autonChooser);
 		
@@ -161,8 +165,9 @@ private PacbotTeleop teleop;
 		positionChooser.addObject("Right", Position.RIGHT);
 		
 		SmartDashboard.putData("Position", positionChooser);
-				
 		
+		SmartDashboard.putBoolean("Second cube", true);
+
 		SmartDashboard.putBoolean("Kill Switch", RobotStatus.isAuto());
 	}
 	
@@ -172,13 +177,14 @@ private PacbotTeleop teleop;
 		System.out.println(ActuatorConfig.getInstance());
 		System.out.println("Auton Init");
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();
-		
 		autonChooser.getSelected().setGameData(gameData);
 //		autonChooser.getSelected().run();
 		
 		RobotStatus.setIsRunning(true);
 		RobotStatus.setIsAuto(true);
 		RobotStatus.setIsTeleop(false);
+
+		ActuatorConfig.getInstance().getDrivetrain().stopActuators();
 		
 		if(!ActuatorConfig.getInstance().getOnlyDriveTrain())
 		{	 

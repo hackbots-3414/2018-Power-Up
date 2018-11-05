@@ -43,6 +43,8 @@ public class AutonSideSwitchNearOrFar extends AutonBase
 
 	protected void center() //Perhaps make a fail safe (but comment it out)
 	{	
+		AutonUtility.autonStartActions();
+
 		// To do: validation is needed
 
 		System.out.println("SideSwitchNearOrFar - need start from left or right, not center.");
