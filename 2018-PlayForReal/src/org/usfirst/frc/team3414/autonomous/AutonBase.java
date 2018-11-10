@@ -1,5 +1,9 @@
 package org.usfirst.frc.team3414.autonomous;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 import org.usfirst.frc.team3414.actuators.ActuatorConfig;
 import org.usfirst.frc.team3414.actuators.Drivetrain;
 import org.usfirst.frc.team3414.autonomous.Position;
@@ -66,8 +70,9 @@ public abstract class AutonBase implements Runnable
 	
 	public void run()
 	{
-
-		
+		SimpleDateFormat ft = new SimpleDateFormat("E yyyy-MM-dd 'at' hh:mm:ss a zzz");
+		Date dateNow = new Date(); 
+		System.out.println("Date & Time: " + ft.format(dateNow));
 		System.out.println("Running Auton Thread----------------------------------------");
 		System.out.println(position);
 		if(RobotStatus.isAuto())

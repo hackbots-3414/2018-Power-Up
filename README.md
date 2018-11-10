@@ -221,4 +221,9 @@ Adds robot size values and tracks turnRadius distance traveled on an arc, respec
  Testing some new auton/teleop algorithms on the robot
  The NavXThread class was disabled, and its functions were merged with the existing NavX class.
 
+11/10/18
+Samplings.java
+Adds Samplings.java
+
+Used to detect if the robot's stuck. 
 

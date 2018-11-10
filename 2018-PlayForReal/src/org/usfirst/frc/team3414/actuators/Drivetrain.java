@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3414.actuators;
 
 import java.awt.Robot;
+import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
 
 import org.usfirst.frc.team3414.actuators.ActuatorConfig;
@@ -44,6 +45,13 @@ public class Drivetrain implements IDriveTrain {
 	private double endYaw;
 	
 	private boolean isSwitched = false;
+	
+	private final int maxEncoderRecordsCount = 100;
+	private Samplings robotVelocityXSamplings = new Samplings();
+	private Samplings leftEncoderSamplings = new Samplings();
+	private Samplings rightEncoderSamplings = new Samplings();
+	
+	private Samplings liftEncoderSamplings = new Samplings();
 	
 	public boolean turnRadiusCancel = false;
 	
@@ -689,6 +697,10 @@ double movingDirection;
 				System.out.println("Hard to rotate such a small angle: " + String.format("%.3f",angle));
 				return;
 			}
+			
+			resetDriveTrainEncoderSamplings();
+			double estimateTime = estimateTimeUsed(0, angle, speed);
+			
 			while ((angle > 0 && currentYaw < endAngle)|| 
 			(angle < 0 && currentYaw > endAngle))
 			{
@@ -696,6 +708,19 @@ double movingDirection;
 //				currentYaw = navXThread.readZAngle();
 				currentYaw = navX.getZAngle();
 				turnedAngle = Math.abs(currentYaw - startYaw);
+
+				if(Math.abs(turnedAngle) > Math.abs(angle) / 3)
+				{
+					robotVelocityXSamplings.addSample(navX.getVelocityX());
+					leftEncoderSamplings.addSample(leftEncoderValue);
+					rightEncoderSamplings.addSample(rightEncoderValue);
+					if(robotBlockedByObstacle(estimateTime))
+					{
+						System.out.println("Robot is blocked by obstacle(s), quit turning.");
+						break;
+					}
+				}
+
 				currentSpeed = turnRadiusSpeedPlan.getSpeed(Math.abs(angle), speed, turnedAngle);
 				// this ideal ratio of inner wheel speed and outer wheel speed. Here, speed is actually motor power.
 				// it's necessary to check wheels encoders to see they really moved in same ratio.
@@ -830,8 +855,11 @@ double movingDirection;
 		
 		System.out.println("Over turned: " + String.format("%.3f",overAngle));
 
-			
+		System.out.println("Estimated Time: " + String.format("%.3f", estimateTime));
+		System.out.println("Time used: " + String.format("%.3f", (double)((currentTimeMillis - startTimeMillis)/1000)));
+	
 		System.out.println("--------------------");
+		
 
 	}
 
@@ -1181,6 +1209,9 @@ double movingDirection;
 		//??? we need both completes, i.e., in front of switch, let robot touch switch by whole front frame.
 		double movedDistance = 0;
 		double currentSpeed = 0;
+		resetDriveTrainEncoderSamplings();
+		double estimateTime = estimateTimeUsed(distance, 0, speed);
+
 		//while ((!isRightComplete || !isLeftComplete) && RobotStatus.isAuto() && RobotStatus.isRunning())
 		while (!isRightComplete && !isLeftComplete && RobotStatus.isAuto() && RobotStatus.isRunning())
 		{
@@ -1194,6 +1225,18 @@ double movingDirection;
 //			SmartDashboard.putNumber("Right Encoder Value", rightEncoderValue);
 
 			movedDistance = Math.abs(rightEncoderValue - rightEncoderStartValue);
+			if(Math.abs(movedDistance) > Math.abs(distance) / 3)
+			{
+				robotVelocityXSamplings.addSample(navx.getVelocityX());
+				leftEncoderSamplings.addSample(leftEncoderValue);
+				rightEncoderSamplings.addSample(rightEncoderValue);
+				if(robotBlockedByObstacle(estimateTime))
+				{
+					System.out.println("Robot is blocked by obstacle(s), quit moving.");
+					break;
+				}
+			}
+
 			// used wrong speed plan during MARC event; low speed caused the robot to be stuck during auton
 //			currentSpeed = turnRadiusSpeedPlan.getSpeed(Math.abs(distance), speed, movedDistance);
 			currentSpeed = this.moveStraightSpeedPlan.getSpeed(Math.abs(distance), speed, movedDistance);
@@ -1308,9 +1351,117 @@ double movingDirection;
 	
 		System.out.println("Left Encoder Moved Value: " + (leftEncoderValue - leftEncoderStartValue));
 		System.out.println("Right Encoder Moved Value: " + (rightEncoderValue- rightEncoderStartValue));
-		SensorConfig.getInstance().getTimer().waitTimeInMillis(200); //???
+		System.out.println("Estimated Time: " + String.format("%.3f", estimateTime));
+		System.out.println("Time used: " + String.format("%.3f", (double)((currentTimeMillis - startTimeMillis)/1000)));
+
+//		SensorConfig.getInstance().getTimer().waitTimeInMillis(200); //???
 	}
 
+	/**
+	 * checks if the robot is blocked by (a) obstacle(s).
+	 * case 1: suddenly completely stuck
+	 * case 2: left or right side firstly stuck, the other side continue to move or rotate as a result
+	 * case 3: overall robot stopped, but wheels on one or two sides still rotate, and cause robot keeping 
+	 * little oscillating. And navx.isMoving() and navx.isRotating() might keep true.
+	 * So we need observe actuator "last second's" consecutive movement steps, to judge it is stopped or not.
+	 * @param ???
+	*/
+	public boolean robotBlockedByObstacle(double estimateTime)
+	{
+		NavX navx = SensorConfig.getInstance().getNavX();
+		// this method doesn't work when robot has small oscillation
+		if(!(navx.isMoving() || navx.isRotating()))
+			return true;
+		
+		if(robotVelocityXSamplings.valuesOrDifferencesAreSmall(false))
+		{
+			System.out.println("No velocity.");
+			return true;
+		}
+		
+		if(leftEncoderSamplings.valuesOrDifferencesAreSmall(true) &&
+		   rightEncoderSamplings.valuesOrDifferencesAreSmall(true)
+		  )
+		{
+			System.out.println("Encoders not changing.");
+			return true;
+		}
+		// if timeout
+    	currentTimeMillis = System.currentTimeMillis();
+    	estimateTimeUsedMillis = (long)(estimateTime * 1000);
+    	if(currentTimeMillis > startTimeMillis + estimateTimeUsedMillis)
+    	{
+			System.out.println("Time out.");
+    		//	return true;
+    	}
+		
+		return false;
+	}
+
+	/**
+	 * Estimates time to be used based on distance and speed.
+	 * Currently, this is simplified version, ignores factors such as 
+	 * speed ramps, turning radius, robot/chassis differences, etc
+	 * @param ???
+	*/
+	public double estimateTimeUsed(double distance, double degree, double speed)
+	{
+		double timeSeconds = 1;
+		
+		// validation
+		if((Math.abs(speed) < 0.01) && (Math.abs(degree) < 0.01))
+		{
+			// invalid value
+			// To do: handle error
+			return timeSeconds;
+		}
+
+		if((Math.abs(distance) > 0.5)  && (Math.abs(degree) < 0.01))
+		{
+			// forward or backward
+			timeSeconds = 2 + distance / speed / 4;
+		}
+		else // turning
+		{
+			timeSeconds = 2 + degree / speed / 10;
+		}
+		
+		return timeSeconds;
+	}
+	
+	/**
+	 * checks if encoder reading of robot is not increasing or decreasing as expected.
+	 * @param ???
+	*/
+	public boolean motorStuck()
+	{
+//		if(!leftEncoderSamplings.valuesOrDifferencesAreSmall(true) ||
+//		   !rightEncoderSamplings.valuesOrDifferencesAreSmall(true)
+//		  )
+//			return false;
+		
+		return true;
+	}
+	
+	private long startTimeMillis;
+	private long currentTimeMillis;
+	private long estimateTimeUsedMillis;
+	public void resetDriveTrainEncoderSamplings()
+	{
+		startTimeMillis = System.currentTimeMillis();
+		// needs set to real value after reset
+		estimateTimeUsedMillis = startTimeMillis + 2;
+		
+		robotVelocityXSamplings.reset();
+		leftEncoderSamplings.reset();
+		rightEncoderSamplings.reset();;
+	}
+	
+	public void resetLiftEncoderSamplings()
+	{
+		liftEncoderSamplings.reset();
+	}
+	
 	/**
 	 * move 'straight' forward or backward with target corrections, a distance and/or angles.
 	 * @param distance Planed moving distance
@@ -1391,6 +1542,8 @@ double movingDirection;
 		//??? we need both completes, i.e., in front of switch, let robot touch switch by whole front frame.
 		double movedDistance = 0;
 		double currentSpeed = 0;
+		resetDriveTrainEncoderSamplings();
+		double estimateTime = estimateTimeUsed(distance, 0, speed);
 		//while ((!isRightComplete || !isLeftComplete) && RobotStatus.isAuto() && RobotStatus.isRunning())
 		while (!isRightComplete && !isLeftComplete && RobotStatus.isAuto() && RobotStatus.isRunning())
 		{
@@ -1406,6 +1559,19 @@ double movingDirection;
 //			SmartDashboard.putNumber("Right Encoder Value", rightEncoderValue);
 
 			movedDistance = Math.abs(rightEncoderValue - rightEncoderStartValue);
+			
+			if(Math.abs(movedDistance) > Math.abs(distance) / 3)
+			{
+				robotVelocityXSamplings.addSample(navx.getVelocityX());
+				leftEncoderSamplings.addSample(leftEncoderValue);
+				rightEncoderSamplings.addSample(rightEncoderValue);
+				if(robotBlockedByObstacle(estimateTime))
+				{
+					System.out.println("Robot is blocked by obstacle(s), quit moving.");
+					break;
+				}
+			}
+					
 			currentSpeed = turnRadiusSpeedPlan.getSpeed(Math.abs(distance), speed, movedDistance);
 			if (isReversed)
 			{
@@ -1560,6 +1726,9 @@ double movingDirection;
 //		System.out.println(navXThread.getOutputLog());
 
 //		SensorConfig.getInstance().getTimer().waitTimeInMillis(200); //???
+		System.out.println("Estimated Time: " + String.format("%.3f", estimateTime));
+		System.out.println("Time used: " + String.format("%.3f", (double)((currentTimeMillis - startTimeMillis)/1000)));
+		
 	}
 
 	public void movePid(double distance, double speed)
